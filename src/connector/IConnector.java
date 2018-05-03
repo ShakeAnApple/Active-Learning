@@ -19,5 +19,5 @@ public interface IConnector {
 
     void resetSystem(State state);
 
-    State getDefault(Symbol respSymbol);
+    State getDefault(RequestQueryItem req, Symbol respSymbol);
 }

@@ -61,7 +61,7 @@ public class Automaton {
         List<Transition> list = Utils.deserializeTransitions(path);
         for(Transition tr : list){
             if (!_transitions.containsKey(tr.getFrom())){
-                _transitions.put(tr.getFrom(), new ArrayList<>());
+                _transitions.put(tr.getFrom(), new ArrayList<>(){{add(tr);}});
             }
             _transitions.get(tr.getFrom()).add(tr);
 
@@ -112,7 +112,7 @@ public class Automaton {
     public void getNusmvRepresentation() throws Exception {
         
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("C:\\tmp\\m_gen.smv"), "utf-8"))) {
+                new FileOutputStream("C:\\Temp\\m_gen_c.smv"), "utf-8"))) {
 
             writer.append("MODULE main\n");
             writer.append("VAR\n");

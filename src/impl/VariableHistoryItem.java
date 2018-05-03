@@ -22,8 +22,4 @@ public class VariableHistoryItem {
     public double getPearsonCoefficient() {
         return _pearsonCoefficient;
     }
-
-    public boolean isGreaterOrEqualCoefficient(VariableHistoryItem otherItem){
-        return (_pearsonCoefficient - otherItem._pearsonCoefficient > 0.1);
-    }
 }

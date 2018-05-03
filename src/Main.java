@@ -2,8 +2,8 @@ import automaton.Automaton;
 import automaton.Symbol;
 import automaton.VariableInfo;
 import connector.IConnector;
-import connector.NxtStudioConnector;
-import graph.XmlGraphBuilder;
+import connector.matlab.MatlabConnector;
+import connector.nxt.NxtStudioConnector;
 import impl.LearningService;
 import values.BooleanValueHandler;
 import values.IntervalValueHandler;
@@ -15,17 +15,28 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        List<BooleanValueHandler> possibleBoolValues = List.of(new BooleanValueHandler(false), new BooleanValueHandler(true));
+        boolean isMatlabModel = true;
+
+        if (!isMatlabModel) {
+            processNxtModel();
+        }
+        else{
+           processMatlabModel();
+        }
+    }
+
+    private static void processNxtModel(){
+        List<BooleanValueHandler> possibleBoolValues = List.of(new BooleanValueHandler(true), new BooleanValueHandler(false));
 
         VariableInfo<BooleanValueHandler> inputDoor0Open = new VariableInfo("door0", 2, possibleBoolValues, BooleanValueHandler::new);
-        VariableInfo<BooleanValueHandler> inputDoor1Open = new VariableInfo("door1", 3,  possibleBoolValues, BooleanValueHandler::new);
-        VariableInfo<BooleanValueHandler> inputDoor2Open = new VariableInfo("door2", 4,  possibleBoolValues, BooleanValueHandler::new);
+        VariableInfo<BooleanValueHandler> inputDoor1Open = new VariableInfo("door1", 3, possibleBoolValues, BooleanValueHandler::new);
+        VariableInfo<BooleanValueHandler> inputDoor2Open = new VariableInfo("door2", 4, possibleBoolValues, BooleanValueHandler::new);
 
         VariableInfo<BooleanValueHandler> inputDoMotorUp = new VariableInfo("motorUp", 0, possibleBoolValues, BooleanValueHandler::new);
         VariableInfo<BooleanValueHandler> inputDoMotorDown = new VariableInfo("motorDown", 1, possibleBoolValues, BooleanValueHandler::new);
-        List<VariableInfo> inputVars = List.of(inputDoMotorDown,inputDoMotorUp,
+        List<VariableInfo> inputVars = List.of(inputDoMotorDown, inputDoMotorUp,
                 inputDoor0Open, inputDoor1Open, inputDoor2Open);
 
         Interval<Double>[] posIntervals = new Interval[]{
@@ -38,7 +49,7 @@ public class Main {
 
         List<IntervalValueHandler> possiblePosValues = new ArrayList<>();
 
-        for (Interval<Double> interval: posIntervals){
+        for (Interval<Double> interval : posIntervals) {
             possiblePosValues.add(
                     new IntervalValueHandler(posIntervals, Double::parseDouble, (Double o1, Double o2) -> {
                         if (01 > o2) return 1;
@@ -59,7 +70,7 @@ public class Main {
 //        VariableInfo<BooleanValueHandler> outputButtonFloor2 = new VariableInfo("buttonFloor2", 2, possibleBoolValues, BooleanValueHandler::new);
 
         VariableInfo<BooleanValueHandler> outputRequestFloor0 = new VariableInfo("requestFloor0", 0, possibleBoolValues, BooleanValueHandler::new);
-        VariableInfo<BooleanValueHandler> outputRequestFloor1 = new VariableInfo("requestFloor1",1, possibleBoolValues, BooleanValueHandler::new);
+        VariableInfo<BooleanValueHandler> outputRequestFloor1 = new VariableInfo("requestFloor1", 1, possibleBoolValues, BooleanValueHandler::new);
         VariableInfo<BooleanValueHandler> outputRequestFloor2 = new VariableInfo("requestFloor2", 2, possibleBoolValues, BooleanValueHandler::new);
 
         VariableInfo<BooleanValueHandler> outputElevatorAtFloor0 = new VariableInfo("elevatorAtFloor0", 3, possibleBoolValues, BooleanValueHandler::new);
@@ -91,7 +102,7 @@ public class Main {
         hypothesis.setInputVariables(inputVars);
         hypothesis.setOutputVariables(outputVars);
 
-        boolean needToLearn = false;
+        boolean needToLearn = true;
         if (needToLearn) {
             LearningService ls = new LearningService(inputAlphabet, outputAlphabet, hypothesis, connector);
             long start = System.currentTimeMillis();
@@ -99,15 +110,68 @@ public class Main {
                 ls.stepForward();
             }
             System.out.print("Total alg: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
-        } else{
+        } else {
             hypothesis.loadTransitions("C:\\tmp\\trans2");
 
-
-            hypothesis.getNusmvRepresentation();
-            XmlGraphBuilder.saveAsDgmlGraph(hypothesis, "C:\\tmp\\g.dgml");
+            try {
+                hypothesis.getNusmvRepresentation();
+            } catch (Exception e) {
+                System.out.print(e.getMessage());
+            }
         }
+    }
+
+    private static void processMatlabModel(){
+
+        List<BooleanValueHandler> possibleBoolValues = List.of(new BooleanValueHandler(true), new BooleanValueHandler(false));
+
+        VariableInfo<BooleanValueHandler> inputFwd = new VariableInfo("Fwd", 0, possibleBoolValues, BooleanValueHandler::new);
+        VariableInfo<BooleanValueHandler> inputRetr = new VariableInfo("Retr", 1, possibleBoolValues, BooleanValueHandler::new);
+        List<VariableInfo> inputVars = List.of(inputFwd,inputRetr);
+
+        VariableInfo<BooleanValueHandler> outputLeft = new VariableInfo("Left", 0, possibleBoolValues, BooleanValueHandler::new);
+        VariableInfo<BooleanValueHandler> outputRight = new VariableInfo("Right", 1, possibleBoolValues, BooleanValueHandler::new);
+        VariableInfo<BooleanValueHandler> outputFailure = new VariableInfo("Failure", 2, possibleBoolValues, BooleanValueHandler::new);
+        List<VariableInfo> outputVars = List.of(outputLeft,outputRight,outputFailure);
 
 
-//        hypothesis.getNusmvRepresentation();
+        AlphabetBuilder alphabetBuilder = new AlphabetBuilder();
+        List<Symbol> inputAlphabet = alphabetBuilder.build(inputVars);
+        List<Symbol> outputAlphabet = alphabetBuilder.build(outputVars);
+
+//        ModelInfo modelInfo = new ModelInfo("", "Cylinder_simple");
+
+
+        Automaton hypothesis = new Automaton(inputVars, outputVars);
+
+        String workingDirectory = "C:\\Projects\\FCP\\active_learning\\cylinder_simulink";
+        String sysName = "Cylinder_simple";
+
+        hypothesis.setInputVariables(inputVars);
+        hypothesis.setOutputVariables(outputVars);
+
+        boolean needToLearn = false;
+        if (needToLearn) {
+
+            MatlabConnector connector = new MatlabConnector(workingDirectory, sysName);
+
+            connector.connect();
+            connector.loadModelAsync(sysName);
+
+            LearningService ls = new LearningService(inputAlphabet, outputAlphabet, hypothesis, connector);
+            long start = System.currentTimeMillis();
+            while (!ls.isReady()) {
+                ls.stepForward();
+            }
+            System.out.print("Total alg: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
+        } else {
+            hypothesis.loadTransitions("C:\\Temp\\trans2");
+
+            try {
+                hypothesis.getNusmvRepresentation();
+            } catch (Exception e) {
+                System.out.print(e.getMessage());
+            }
+        }
     }
 }

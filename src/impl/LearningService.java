@@ -63,7 +63,11 @@ public class LearningService {
     }
 
     private void init(){
-        State startState = _connector.getDefault(_outputAlphabet.get(0).copyStructure());
+        State tempState = new State(new StateValue(_outputAlphabet.get(0)),false);
+        State startState = _connector.getDefault(
+                new RequestQueryItem(tempState, new SingleRequest[]{new SingleRequest(_inputAlphabet.get(0),1, true)}),
+                _outputAlphabet.get(0).copyStructure()
+        );
         _hypothesis.addState(startState);
 
         _connector.resetSystem(startState);
@@ -535,8 +539,8 @@ public class LearningService {
 
             List<Transition> tr = _hypothesis.getAllTransitions();
 
-            Utils.serializeTransitions(tr, "C:\\tmp\\trans2");
-            List<Transition> list = Utils.deserializeTransitions("C:\\tmp\\trans2");
+            Utils.serializeTransitions(tr, "C:\\Temp\\trans2");
+            List<Transition> list = Utils.deserializeTransitions("C:\\Temp\\trans2");
 
             return true;
         }
