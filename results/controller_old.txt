@@ -1,0 +1,47 @@
+MODULE main
+VAR
+  DoMotorUp : boolean;
+  DoMotorDown : boolean;
+  DoOpenDoor0 : boolean;
+  DoOpenDoor1 : boolean;
+  DoOpenDoor2 : boolean;
+  NoDirChange : boolean;
+  plant : PLANT(DoMotorUp, DoMotorDown, DoOpenDoor0, DoOpenDoor1, DoOpenDoor2);
+INIT
+  !DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2
+TRANS
+  TRUE
+  -- if on the floor and it's required - open the door
+  & (plant.CONT_CarAtFloor0 & plant.CONT_ButtonPressed0
+    -> DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2 & !DoMotorUp & !DoMotorDown)
+  & (plant.CONT_CarAtFloor1 & plant.CONT_ButtonPressed1
+    -> !DoOpenDoor0 & DoOpenDoor1 & !DoOpenDoor2 & !DoMotorUp & !DoMotorDown)
+  & (plant.CONT_CarAtFloor2 & plant.CONT_ButtonPressed2
+    -> !DoOpenDoor0 & !DoOpenDoor1 & DoOpenDoor2 & !DoMotorUp & !DoMotorDown)
+
+  -- if between floors - continue moving
+  & (!plant.CONT_CarAtFloor0 & !plant.CONT_CarAtFloor1 & !plant.CONT_CarAtFloor2
+    -> NoDirChange & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
+
+  -- if we on floor, it's not requested, and its door is closed, and another floor requested - move there
+  -- 1 floor prioritize 2 to 0
+  & (plant.CONT_CarAtFloor1 & plant.CONT_DoorClosed1 & !plant.CONT_ButtonPressed1 &  plant.CONT_ButtonPressed2
+    -> DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
+  & (plant.CONT_CarAtFloor1 & plant.CONT_DoorClosed1 & !plant.CONT_ButtonPressed1 & plant.CONT_ButtonPressed0 & !plant.CONT_ButtonPressed2
+    -> !DoMotorUp & DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
+  & (plant.CONT_CarAtFloor0 & plant.CONT_DoorClosed0 & !plant.CONT_ButtonPressed0 & (plant.CONT_ButtonPressed1 | plant.CONT_ButtonPressed2)
+    -> DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
+  & (plant.CONT_CarAtFloor2 & plant.CONT_DoorClosed2 & !plant.CONT_ButtonPressed2 & (plant.CONT_ButtonPressed1 | plant.CONT_ButtonPressed0)
+    -> !DoMotorUp & DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
+
+  -- close all doors
+  & (plant.CONT_CarAtFloor0 & !plant.CONT_DoorClosed0 & !plant.CONT_ButtonPressed0
+      | plant.CONT_CarAtFloor1 & !plant.CONT_DoorClosed1 & !plant.CONT_ButtonPressed1
+      | plant.CONT_CarAtFloor2 & !plant.CONT_DoorClosed2 & !plant.CONT_ButtonPressed2
+    -> !DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
+  -- nothing to do => do nothing
+  & ((plant.CONT_CarAtFloor0 | plant.CONT_CarAtFloor1 | plant.CONT_CarAtFloor2) & !plant.CONT_ButtonPressed0 & !plant.CONT_ButtonPressed1 & !plant.CONT_ButtonPressed2
+    -> !DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
+  -- check if we move in the same direction
+  & next(NoDirChange) = (next(DoMotorUp) = DoMotorUp & next(DoMotorDown) = DoMotorDown)
+
