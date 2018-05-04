@@ -67,16 +67,16 @@ public class NxtStudioConnector implements IConnector {
     }
 
     @Override
-    public ResponseQueryItem sendQuery(RequestQueryItem queryItem, Symbol respSymbol) {
+    public ResponseQueryItem sendQuery(RequestQueryItem queryItem) {
         try {
-            return processQuery(queryItem, respSymbol);
+            return processQuery(queryItem);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private ResponseQueryItem processQuery(RequestQueryItem queryItem, Symbol respSymbol) throws IOException {
+    private ResponseQueryItem processQuery(RequestQueryItem queryItem) throws IOException {
 
         String responseString = "";
 //        for (SingleRequest s : queryItem.getSequence()){
@@ -107,27 +107,37 @@ public class NxtStudioConnector implements IConnector {
 //                _serverIn.readLine();
         //}
 
-        Symbol responseSymb = parseResponse(responseString, respSymbol);
+        Symbol responseSymb = parseResponse(responseString);
         State st = new State(new StateValue(responseSymb),false);
         return new ResponseQueryItem(queryItem.getId(), queryItem.getState(), st, queryItem.getSequence());
     }
 
-    private Symbol parseResponse(String str, Symbol respSymbol){
-        String[] strVars = str.split(";");
-        Symbol newSymb = respSymbol.copyStructure();
-        for (int i = 0; i < strVars.length; i++){
-            newSymb.parseAndSetVariableValueByOrder(i, strVars[i]);
+    private Symbol parseResponse(String str){
+        try {
+            List<VariableValue> variableValues = _ctx.generateOutputVariablesValues();
+            variableValues.sort(Comparator.comparing(VariableValue::getOrder));
+
+            String[] strVars = str.split(";");
+            for (int i = 0; i < strVars.length; i++) {
+                variableValues.get(i).parseAndSetValue(strVars[i]);
+            }
+
+            Symbol newSymb = new Symbol(variableValues);
+            return newSymb;
         }
-        return newSymb;
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public List<ResponseQueryItem> sendQueries(List<RequestQueryItem> queryItems, Symbol respSymbol) {
+    public List<ResponseQueryItem> sendQueries(List<RequestQueryItem> queryItems) {
         try {
             List<ResponseQueryItem> responses = new ArrayList<>();
             for(RequestQueryItem queryItem : queryItems){
                 resetSystem(queryItem.getState());
-                responses.add(processQuery(queryItem, respSymbol));
+                responses.add(processQuery(queryItem));
             }
             return responses;
         } catch (IOException e) {
@@ -191,8 +201,8 @@ public class NxtStudioConnector implements IConnector {
 
 
     @Override
-    public State getDefault(RequestQueryItem req, Symbol respSymbol) {
-        return new State(new StateValue(parseResponse("0;0;0;0;0;1;1;1;1;30;", respSymbol)),true);
+    public State getDefault(RequestQueryItem req) {
+        return new State(new StateValue(parseResponse("0;0;0;0;0;1;1;1;1;30;")),true);
     }
 
     public void close(){

@@ -13,11 +13,11 @@ public interface IConnector {
 
     void close();
 
-    ResponseQueryItem sendQuery(RequestQueryItem queryItem, Symbol respSymb);
+    ResponseQueryItem sendQuery(RequestQueryItem queryItem);
 
-    List<ResponseQueryItem> sendQueries(List<RequestQueryItem> queryItems, Symbol respSymb);
+    List<ResponseQueryItem> sendQueries(List<RequestQueryItem> queryItems);
 
     void resetSystem(State state);
 
-    State getDefault(RequestQueryItem req, Symbol respSymbol);
+    State getDefault(RequestQueryItem req);
 }

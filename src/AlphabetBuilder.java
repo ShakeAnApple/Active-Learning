@@ -1,3 +1,4 @@
+import config.AbstractContext;
 import values.Symbol;
 import values.VariableInfo;
 import values.AbstractValueHandler;
@@ -19,12 +20,12 @@ public class AlphabetBuilder {
 
         int capacity = 1;
 
-        for (int i = 0; i < sortedVarInfos.size(); i++) {
-            capacity *= sortedVarInfos.get(i).getPossibleValues().size();
+        for (VariableInfo sortedVarInfo : sortedVarInfos) {
+            capacity *= sortedVarInfo.getPossibleValues().size();
         }
 
         for (int i = 0; i < capacity; i++) {
-            result.add(new Symbol(sortedVarInfos));
+            result.add(new Symbol(sortedVarInfos, false));
         }
 
         for (int varIdx = 0, repeatCnt = 1; varIdx < sortedVarInfos.size(); varIdx++) {

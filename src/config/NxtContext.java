@@ -12,8 +12,6 @@ public class NxtContext extends AbstractContext {
         super(inputVars, outputVars);
         _inPort = inPort;
         _outPort = outPort;
-
-        super.setContext(this);
     }
 
 

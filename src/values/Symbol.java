@@ -6,7 +6,8 @@ import java.util.*;
 public class Symbol implements Serializable{
     private Map<String, VariableValue> _valuesByName;
 
-    public Symbol(List<VariableInfo> automatonVars) {
+    // TODO fix constructors
+    public Symbol(List<VariableInfo> automatonVars, boolean a) {
         _valuesByName = new HashMap<>();
 
         for (VariableInfo v: automatonVars) {
@@ -18,21 +19,16 @@ public class Symbol implements Serializable{
         _valuesByName = new HashMap<>();
     }
 
-    public List<VariableValue> getVariablesValues(){
-        return new ArrayList<>(_valuesByName.values());
+    public Symbol(List<VariableValue> variableValues) {
+        _valuesByName = new HashMap<>();
+
+        for (VariableValue v: variableValues) {
+            _valuesByName.put(v.getName(), v);
+        }
     }
 
-    public void parseAndSetVariableValueByOrder(int order, String var){
-        try {
-            _valuesByName.values()
-                    .stream()
-                    .filter(v -> v.getOrder() == order)
-                    .findFirst()
-                    .get()
-                    .parseAndSetValue(var);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public List<VariableValue> getVariablesValues(){
+        return new ArrayList<>(_valuesByName.values());
     }
 
     public List<String> getVariablesValuesNames(){
@@ -47,21 +43,6 @@ public class Symbol implements Serializable{
         _valuesByName.get(varName).setValue(valueHandler);
     }
 
-    public void parseAndSetValueByName(String varName, Object value) throws Exception {
-        _valuesByName.get(varName).parseAndSetValue(value);
-    }
-
-    public Symbol copyStructure() {
-        Symbol result = new Symbol();
-
-        for (VariableValue val: _valuesByName.values()) {
-            result._valuesByName.put(val.getName(), val.createInstance(val.getName()));
-        }
-
-        return result;
-    }
-
-
     @Override
     public int hashCode() {
         return this.toString().hashCode();
@@ -75,6 +56,9 @@ public class Symbol implements Serializable{
     @Override
     public boolean equals(Object obj) {
         Symbol other = (Symbol)obj;
+        if (other == null){
+            return false;
+        }
 
         if(_valuesByName.size() != other._valuesByName.size()){
             return false;

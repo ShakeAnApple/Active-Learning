@@ -2,27 +2,34 @@
 //
 //import automaton.State;
 //import automaton.StateValue;
+//import config.AbstractContext;
 //import values.Symbol;
 //import com.mathworks.engine.EngineException;
 //import com.mathworks.engine.MatlabEngine;
 //import connector.IConnector;
 //import connector.RequestQueryItem;
 //import connector.ResponseQueryItem;
+//import values.VariableValue;
 //
 //import java.util.ArrayList;
 //import java.util.List;
+//import java.util.Map;
 //import java.util.concurrent.ExecutionException;
 //import java.util.concurrent.Future;
+//import java.util.stream.Collectors;
 //
 //public class MatlabConnector implements IConnector {
 //    private MatlabEngine _eng;
 //
-//    private String _workingDirectory;
-//    private String _sysName;
+//    private final String _workingDirectory;
+//    private final String _sysName;
 //
-//    public MatlabConnector(String workingDirectory, String sysName) {
+//    private final AbstractContext _ctx;
+//
+//    public MatlabConnector(String workingDirectory, String sysName, AbstractContext ctx) {
 //        _workingDirectory = workingDirectory;
 //        _sysName = sysName;
+//        _ctx = ctx;
 //    }
 //
 //    public Future<Void> loadModelAsync(String sysName){
@@ -94,12 +101,12 @@
 //    }
 //
 //    @Override
-//    public ResponseQueryItem sendQuery(RequestQueryItem request, Symbol respSymb) {
+//    public ResponseQueryItem sendQuery(RequestQueryItem request) {
 //        String script = buildScript(new ArrayList<>(){{add(request);}});
 //        try {
 //            _eng.eval(script);
 //            runSimulation(1);
-//            Symbol[] resp = getSimulationResult(1, respSymb);
+//            Symbol[] resp = getSimulationResult(1);
 //            return new ResponseQueryItem(request.getId(), request.getState(), new State(new StateValue(resp[0]), false), request.getSequence());
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
@@ -112,13 +119,13 @@
 //    }
 //
 //    @Override
-//    public List<ResponseQueryItem> sendQueries(List<RequestQueryItem> requests, Symbol respSymb) {
+//    public List<ResponseQueryItem> sendQueries(List<RequestQueryItem> requests) {
 //        List<ResponseQueryItem> responses = new ArrayList<>();
 //        String script = buildScript(requests);
 //        try {
 //            _eng.eval(script);
 //            runSimulation(requests.size());
-//            Symbol[] resp = getSimulationResult(requests.size(), respSymb);
+//            Symbol[] resp = getSimulationResult(requests.size());
 //            for(int i = 0; i < resp.length; i++) {
 //                responses.add(new ResponseQueryItem(
 //                        requests.get(i).getId(),
@@ -142,28 +149,28 @@
 //    }
 //
 //    @Override
-//    public State getDefault(RequestQueryItem req, Symbol respSymbol) {
-//        ResponseQueryItem resp = sendQuery(req, respSymbol);
+//    public State getDefault(RequestQueryItem req) {
+//        ResponseQueryItem resp = sendQuery(req);
 //        return resp.getEndState();
 //    }
 //
-//    public Symbol[] getSimulationResult(int simulationsCount, Symbol outputSymbol) throws Exception {
+//    public Symbol[] getSimulationResult(int simulationsCount) throws Exception {
 //        Symbol[] result = new Symbol[simulationsCount];
 //
 //        for (int i= 1; i <= simulationsCount; i++){
 //
-//            Symbol singleSimResult = outputSymbol.copyStructure();
+//            Map<String, VariableValue> valuesByNames = _ctx.generateOutputVariablesValues().stream().collect(Collectors.toMap(VariableValue::getName, v -> v));
 //
-//            for (int j = 1; j <= outputSymbol.getVariablesValues().size(); j++){
+//            for (int j = 1; j <= valuesByNames.values().size(); j++){
 //
 //                _eng.eval(String.format("signalName = out(%1$s).yout{%2$s}.Name", i, j));
 //                String varName = (String) _eng.getVariable("signalName");
 //                _eng.eval(String.format("data = out(%1$s).yout{%2$s}.Values.Data", i, j));
 //                Object val = _eng.getVariable("data");
 //
-//                singleSimResult.parseAndSetValueByName(varName, val);
+//                valuesByNames.get(varName).parseAndSetValue(val);
 //            }
-//            result[i-1] = singleSimResult;
+//            result[i-1] = new Symbol(new ArrayList<>(valuesByNames.values()));
 //        }
 //
 //        return result;

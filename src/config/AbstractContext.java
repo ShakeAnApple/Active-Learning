@@ -16,17 +16,7 @@ public class AbstractContext {
         _inputVariables = inputVariables;
     }
 
-    private static AbstractContext _ctx;
-
-    protected static void setContext(AbstractContext ctx){
-        _ctx = ctx;
-    }
-
-    public static AbstractContext getContext(){
-        return _ctx;
-    }
-
-    public List<VariableValue> getOutputVariablesValues(){
+    public List<VariableValue> generateOutputVariablesValues(){
         List<VariableValue> vars = new ArrayList<>();
 
         for (VariableInfo val: _outputVariables) {
@@ -40,7 +30,7 @@ public class AbstractContext {
         return _outputVariables;
     }
 
-    public List<VariableValue> getInputVariablesValues(){
+    public List<VariableValue> generateInputVariablesValues(){
         List<VariableValue> vars = new ArrayList<>();
 
         for (VariableInfo val: _inputVariables) {

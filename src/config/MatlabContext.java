@@ -13,8 +13,6 @@ public class MatlabContext extends AbstractContext{
 
         _workingDir = workingDir;
         _sysName = sysName;
-
-        super.setContext(this);
     }
 
     public String getSysName() {

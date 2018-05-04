@@ -71,8 +71,7 @@ public class LearningService {
     private void init(){
         State tempState = new State(new StateValue(_outputAlphabet.get(0)),false);
         State startState = _connector.getDefault(
-                new RequestQueryItem(tempState, new SingleRequest[]{new SingleRequest(_inputAlphabet.get(0),1, true)}),
-                _outputAlphabet.get(0).copyStructure()
+                new RequestQueryItem(tempState, new SingleRequest[]{new SingleRequest(_inputAlphabet.get(0),1, true)})
         );
         _hypothesis.addState(startState);
 
@@ -115,8 +114,7 @@ public class LearningService {
         System.out.print("Sending Queries: ");
         long startQueries = System.currentTimeMillis();
 
-        List<ResponseQueryItem> responseQueryItems = _connector.sendQueries(requestQueryItems,
-                _outputAlphabet.get(0).copyStructure());
+        List<ResponseQueryItem> responseQueryItems = _connector.sendQueries(requestQueryItems);
 
         long elapsedQueries = System.currentTimeMillis() - startQueries;
         System.out.print(elapsedQueries);
@@ -310,7 +308,7 @@ public class LearningService {
         List<ResponseQueryItem> responsesReady = new ArrayList<>();
         boolean allTransitionsDone = false;
         while(!allTransitionsDone) {
-            responsesToNextInterval = _connector.sendQueries(requestsToNextInterval, _outputAlphabet.get(0).copyStructure());
+            responsesToNextInterval = _connector.sendQueries(requestsToNextInterval);
 
             for(ResponseQueryItem r: responsesToNextInterval){
                 if (_hypothesis.getStartState() != null && r.getEndState().getStateValue().equals(_hypothesis.getStartState().getStateValue())){
@@ -419,8 +417,7 @@ public class LearningService {
 
             // set system to the start state
             // can I set any state?
-            List<ResponseQueryItem> responseQueryItems = _connector.sendQueries(requestQueryItems,
-                    _outputAlphabet.get(0).copyStructure());
+            List<ResponseQueryItem> responseQueryItems = _connector.sendQueries(requestQueryItems);
 
             for(ResponseQueryItem r: responseQueryItems){
                 if (_hypothesis.getStartState() != null && r.getEndState().getStateValue().equals(_hypothesis.getStartState().getStateValue())){
