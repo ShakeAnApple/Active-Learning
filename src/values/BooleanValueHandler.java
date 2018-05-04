@@ -1,30 +1,21 @@
 package values;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
-public class BooleanValueHandler implements ValueHandler<Boolean> {
+public class BooleanValueHandler extends AbstractValueHandler<Boolean> {
     private boolean _value;
 
-    public BooleanValueHandler(){
-
-    }
+    public BooleanValueHandler(){}
 
     public BooleanValueHandler(boolean value) {
         _value = value;
     }
 
-//    @Override
-//    public Boolean getSymbol() {
-//        return _value;
-//    }
-//
-//    @Override
-//    public void setValue(Boolean val) {
-//        _value = val;
-//    }
-
     @Override
-    public void parseAndSetValue(Object val) throws Exception {
+    protected void parseAndSetImpl(Object val) {
         if (val instanceof Boolean){
             _value = (Boolean)(val);
         } else if(val instanceof boolean[]) {
@@ -40,8 +31,23 @@ public class BooleanValueHandler implements ValueHandler<Boolean> {
     }
 
     @Override
-    public ValueHandler<Boolean> clone() {
+    public AbstractValueHandler<Boolean> clone() {
         return new BooleanValueHandler(_value);
+    }
+
+    @Override
+    protected VariableInfo<AbstractValueHandler<Boolean>> tryParseImpl(String val) {
+        // order type name a b c d;
+        String[] sMembers = val.split(" ");
+
+        int order = Integer.parseInt(sMembers[0]);
+        String name = sMembers[2];
+
+        List<AbstractValueHandler<Boolean>> possibleValues = new ArrayList<>();
+        for (int i = 3; i < sMembers.length; i++) {
+            possibleValues.add(new BooleanValueHandler(Boolean.parseBoolean(sMembers[i].replace(";",""))));
+        }
+        return new VariableInfo<AbstractValueHandler<Boolean>>(name, order, possibleValues, BooleanValueHandler::new);
     }
 
     @Override

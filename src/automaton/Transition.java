@@ -1,6 +1,8 @@
 package automaton;
 
 
+import values.Symbol;
+
 import java.io.Serializable;
 
 public class Transition implements Serializable{

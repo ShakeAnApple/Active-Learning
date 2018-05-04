@@ -1,7 +1,7 @@
 package connector;
 
 import automaton.State;
-import automaton.Symbol;
+import values.Symbol;
 
 import java.util.List;
 

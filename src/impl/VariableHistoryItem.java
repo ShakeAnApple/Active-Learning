@@ -1,6 +1,6 @@
 package impl;
 
-import automaton.VariableValue;
+import values.VariableValue;
 import values.IntervalValueHandler;
 
 public class VariableHistoryItem {

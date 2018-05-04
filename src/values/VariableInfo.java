@@ -1,20 +1,13 @@
-package automaton;
-
-import values.ValueHandler;
+package values;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-public class VariableInfo<VType extends ValueHandler> {
+public class VariableInfo<VType extends AbstractValueHandler> {
     private String _name;
     private List<VType> _possibleValues;
     private Supplier<VType> _supplier;
     private int _order;
-
-//    public VariableInfo(String name, List<VType> possibleValues) {
-//        _name = name;
-//        _possibleValues = possibleValues;
-//    }
 
     public VariableInfo(String name, int order, List<VType> possibleValues, Supplier<VType> supplier) {
         _name = name;

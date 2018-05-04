@@ -1,21 +1,26 @@
 package impl;
 
 import automaton.*;
+import config.AbstractContext;
 import connector.IConnector;
 import connector.RequestQueryItem;
 import connector.ResponseQueryItem;
 import utils.Utils;
+import values.AbstractValueHandler;
 import values.IntervalValueHandler;
-import values.ValueHandler;
+import values.Symbol;
+import values.VariableValue;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LearningService {
-    private List<Symbol> _inputAlphabet;
-    private List<Symbol> _outputAlphabet;
-    private IConnector _connector;
+    private final List<Symbol> _inputAlphabet;
+    private final List<Symbol> _outputAlphabet;
+
+    private final AbstractContext _ctx;
+    private final IConnector _connector;
 
     private Automaton _hypothesis;
     private HashSet<State> _possibleStates;
@@ -49,11 +54,12 @@ public class LearningService {
                 motorUp;motorDown;
                 door0;door1;door2
      */
-    public LearningService(List<Symbol> inputAlphabet, List<Symbol> outputAlphabet, Automaton hypothesis, IConnector connector) {
+    public LearningService(List<Symbol> inputAlphabet, List<Symbol> outputAlphabet, Automaton hypothesis, IConnector connector, AbstractContext ctx) {
         _inputAlphabet = inputAlphabet;
         _outputAlphabet = outputAlphabet;
         _hypothesis = hypothesis;
         _connector = connector;
+        _ctx = ctx;
 
         _connector.connect();
 
@@ -231,7 +237,7 @@ public class LearningService {
                 .collect(Collectors.toList());
 
         // TODO temp adhoc, replace with dnf minimizing
-        Map<String, ValueHandler> valuesByNames = new HashMap<>();
+        Map<String, AbstractValueHandler> valuesByNames = new HashMap<>();
         for(VariableValue vv: lastRequestSymbols.get(0).getVariablesValues()) {
             valuesByNames.put(vv.getName(), null);
         }
@@ -241,7 +247,7 @@ public class LearningService {
                     continue;
                 }
 
-                ValueHandler lastValue = valuesByNames.get(vv.getName());
+                AbstractValueHandler lastValue = valuesByNames.get(vv.getName());
                 if (lastValue == null || lastValue.equals(vv.getValue())){
                     valuesByNames.put(vv.getName(), vv.getValue());
                 } else {

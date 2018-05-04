@@ -1,5 +1,7 @@
 package automaton;
 
+import values.Symbol;
+
 import java.io.Serializable;
 
 public class StateValue implements Serializable {

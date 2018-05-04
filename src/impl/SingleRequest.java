@@ -1,6 +1,6 @@
 package impl;
 
-import automaton.Symbol;
+import values.Symbol;
 
 public class SingleRequest {
     private Symbol _symbol;

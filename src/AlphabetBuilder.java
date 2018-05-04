@@ -1,6 +1,6 @@
-import automaton.Symbol;
-import automaton.VariableInfo;
-import values.ValueHandler;
+import values.Symbol;
+import values.VariableInfo;
+import values.AbstractValueHandler;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,7 +38,7 @@ public class AlphabetBuilder {
                 for (int posValueIdx = 0; posValueIdx < possibleValues.size(); posValueIdx++) {
 
                     for (int counter = 0; counter<repeatCnt; counter++) {
-                        result.get(curSymbIdx).setVariableValueByName(curVar.getName(), (ValueHandler)possibleValues.get(posValueIdx));
+                        result.get(curSymbIdx).setVariableValueByName(curVar.getName(), (AbstractValueHandler)possibleValues.get(posValueIdx));
                         curSymbIdx ++;
                     }
                 }

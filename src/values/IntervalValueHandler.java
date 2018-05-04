@@ -1,39 +1,32 @@
 package values;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 /**
  * Created by Eskimos on 17.01.2018.
  */
-public class IntervalValueHandler implements ValueHandler<Interval<Double>> {
+public class IntervalValueHandler extends AbstractValueHandler<Interval> {
 
-    private Interval<Double>[] _intervals;
-    private Interval<Double> _currentInterval;
+    private Interval[] _intervals;
+    private Interval _currentInterval;
     private Double _concreteValue;
-
-    private transient ComparatorFunction<Double, Integer> _comparator;
-    private transient Function<String, Double> _parser;
 
     private Integer _currentIntervalNum;
 
-    public IntervalValueHandler(Interval<Double>[] intervals, Function<String, Double> parser,
-                                ComparatorFunction<Double, Integer> comparator,
-                                Double value){
+    public IntervalValueHandler(){}
+
+    public IntervalValueHandler(Interval[] intervals, Double value){
         _intervals = intervals;
         _concreteValue = value;
-        _parser = parser;
-        _comparator = comparator;
 
         setCurrentInterval();
     }
 
-    public IntervalValueHandler(Interval<Double>[] intervals, Function<String, Double> parser,
-                                ComparatorFunction<Double, Integer> comparator,
-                                Interval<Double> interval){
+    public IntervalValueHandler(Interval[] intervals, Interval interval){
         _intervals = intervals;
-        _parser = parser;
-        _comparator = comparator;
 
         setCurrentInterval(interval);
     }
@@ -45,7 +38,7 @@ public class IntervalValueHandler implements ValueHandler<Interval<Double>> {
         }
 
         for(int i = 0; i< _intervals.length; i++){
-            if (_intervals[i].contains(_concreteValue, _comparator)){
+            if (_intervals[i].contains(_concreteValue)){
                 _currentInterval = _intervals[i];
                 _currentIntervalNum = i;
                 break;
@@ -53,7 +46,7 @@ public class IntervalValueHandler implements ValueHandler<Interval<Double>> {
         }
     }
 
-    public void setCurrentInterval(Interval<Double> interval){
+    public void setCurrentInterval(Interval interval){
         _currentInterval = interval;
         _concreteValue = interval.getFrom();
 
@@ -64,15 +57,15 @@ public class IntervalValueHandler implements ValueHandler<Interval<Double>> {
         }
     }
 
-    public Interval<Double> getCurrentInterval() {
+    public Interval getCurrentInterval() {
         return _currentInterval;
     }
 
     @Override
-    public void parseAndSetValue(Object val) throws Exception {
+    protected void parseAndSetImpl(Object val) {
         if (val instanceof String){
             String v = (String)val;
-            _concreteValue = _parser.apply(v);
+            _concreteValue = Double.parseDouble(v);
 
             setCurrentInterval();
         }
@@ -84,8 +77,29 @@ public class IntervalValueHandler implements ValueHandler<Interval<Double>> {
     }
 
     @Override
-    public ValueHandler<Interval<Double>> clone() {
-        return new IntervalValueHandler(_intervals, _parser, _comparator, Double.valueOf(_concreteValue));
+    public AbstractValueHandler<Interval> clone() {
+        return new IntervalValueHandler(_intervals, Double.valueOf(_concreteValue));
+    }
+
+    @Override
+    protected VariableInfo<AbstractValueHandler<Interval>> tryParseImpl(String val) {
+        // order type name [a,b) [c,d);
+        String[] sMembers = val.split(" ");
+
+        int order = Integer.parseInt(sMembers[0]);
+        String name = sMembers[2];
+
+        Interval[] intervals = new Interval[sMembers.length - 3];
+        for (int i = 3; i < sMembers.length; i++) {
+            String[] intervalStrMembers = sMembers[i].replaceAll("\\[|\\)", "").split(",");
+            intervals[i - 3] = new Interval(Double.parseDouble(intervalStrMembers[0]), Double.parseDouble(intervalStrMembers[1]));
+        }
+        List<AbstractValueHandler<Interval>> possibleValues = new ArrayList<>();
+        for (Interval interval : intervals){
+            possibleValues.add(new IntervalValueHandler(intervals, interval));
+        }
+
+        return new VariableInfo<AbstractValueHandler<Interval>>(name, order, possibleValues, () -> new IntervalValueHandler(intervals, intervals[0]));
     }
 
     @Override

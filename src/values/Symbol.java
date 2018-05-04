@@ -1,6 +1,4 @@
-package automaton;
-
-import values.ValueHandler;
+package values;
 
 import java.io.Serializable;
 import java.util.*;
@@ -45,7 +43,7 @@ public class Symbol implements Serializable{
         return _valuesByName.get(varName);
     }
 
-    public void setVariableValueByName(String varName, ValueHandler valueHandler){
+    public void setVariableValueByName(String varName, AbstractValueHandler valueHandler){
         _valuesByName.get(varName).setValue(valueHandler);
     }
 

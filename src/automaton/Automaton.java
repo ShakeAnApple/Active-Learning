@@ -3,6 +3,8 @@ package automaton;
 import utils.Utils;
 import values.Interval;
 import values.IntervalValueHandler;
+import values.VariableInfo;
+import values.VariableValue;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -139,10 +141,10 @@ public class Automaton {
             List<VariableInfo> intervalVars = _outputVariableInfos.stream()
                     .filter(v -> v.getPossibleValues().get(0) instanceof IntervalValueHandler)
                     .collect(Collectors.toList());
-            HashMap<String, Interval<Double>[]> intervalsByName = new HashMap<>();
+            HashMap<String, Interval[]> intervalsByName = new HashMap<>();
             if (intervalVars.size() > 0) {
                 for(VariableInfo var: intervalVars) {
-                    Interval<Double>[] values = new Interval[var.getPossibleValues().size()];
+                    Interval[] values = new Interval[var.getPossibleValues().size()];
 
                     for(Object posValue : var.getPossibleValues()){
                         IntervalValueHandler curValue = (IntervalValueHandler)posValue;
@@ -252,7 +254,7 @@ public class Automaton {
                 for (String varName : intervalsByName.keySet()){
                     writer.append(String.format("CONT_%1$s := case\n", varName));
 
-                    Interval<Double>[] curIntervals = intervalsByName.get(varName);
+                    Interval[] curIntervals = intervalsByName.get(varName);
                     for (int i = 0; i < curIntervals.length; i++){
                         writer.append(String.format("%1$s = %2$s: %3$s..%4$s;\n", varName, i, Math.round(curIntervals[i].getFrom()), Math.round(curIntervals[i].getTo())));
                     }

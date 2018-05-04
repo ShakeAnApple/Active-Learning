@@ -1,20 +1,14 @@
-package automaton;
-
-import values.ValueHandler;
+package values;
 
 import java.io.Serializable;
 import java.util.function.Supplier;
 
-public class VariableValue<VHandlerType extends ValueHandler> implements Serializable {
+public class VariableValue<VHandlerType extends AbstractValueHandler> implements Serializable {
     private String _name;
     private VHandlerType _value;
     private int _order;
 
     private transient Supplier<VHandlerType> _supplier;
-
-//    public VariableValue(String name) {
-//        _name = name;
-//    }
 
     public VariableValue(String name, int order, Supplier<VHandlerType> supplier) {
         _name = name;

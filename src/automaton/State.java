@@ -1,6 +1,7 @@
 package automaton;
 
 import values.IntervalValueHandler;
+import values.VariableValue;
 
 import java.io.Serializable;
 import java.util.Comparator;

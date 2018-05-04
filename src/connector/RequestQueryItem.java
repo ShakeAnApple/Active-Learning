@@ -1,7 +1,6 @@
 package connector;
 
 import automaton.State;
-import automaton.Symbol;
 import impl.SingleRequest;
 
 import java.util.UUID;

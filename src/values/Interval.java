@@ -5,28 +5,25 @@ import java.io.Serializable;
 /**
  * Created by Eskimos on 17.01.2018.
  */
-public class Interval<VType> implements Serializable {
-    private VType _from;
-    private VType _to;
+public class Interval implements Serializable {
+    private Double _from;
+    private Double _to;
 
-    public Interval(VType from, VType to){
+    public Interval(Double from, Double to){
         _from = from;
         _to = to;
     }
 
-    public VType getFrom(){
+    public Double getFrom(){
         return _from;
     }
 
-    public VType getTo(){
+    public Double getTo(){
         return _to;
     }
 
-    public boolean contains(VType value, ComparatorFunction<VType, Integer> comparator) {
-        if ((comparator.apply(value, _from) >= 0 ) && (comparator.apply(value, _to) < 0)){
-            return true;
-        }
-        return false;
+    public boolean contains(Double value) {
+        return value >= _from && value < _to;
     }
 
     @Override
