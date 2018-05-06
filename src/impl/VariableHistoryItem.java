@@ -1,17 +1,17 @@
 package impl;
 
 import values.VariableValue;
-import values.IntervalValueHandler;
+import values.IntervalValueHolder;
 
 public class VariableHistoryItem {
-    private VariableValue<IntervalValueHandler> _variableValue;
+    private VariableValue<IntervalValueHolder> _variableValue;
     private double _pearsonCoefficient;
 
-    public VariableHistoryItem(VariableValue<IntervalValueHandler> variableValue){
+    public VariableHistoryItem(VariableValue<IntervalValueHolder> variableValue){
         _variableValue = variableValue;
     }
 
-    public IntervalValueHandler getValue(){
+    public IntervalValueHolder getValue(){
         return _variableValue.getValue();
     }
 

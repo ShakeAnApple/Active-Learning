@@ -1,5 +1,8 @@
 import automaton.Automaton;
+import automaton.Transition;
 import config.*;
+import utils.NusmvConverter;
+import utils.Utils;
 import values.Symbol;
 import connector.IConnector;
 //import connector.matlab.MatlabConnector;
@@ -15,7 +18,7 @@ public class Main {
         String path = "C:\\Projects\\Uni\\Active Learning\\BFSLearning\\config.conf";
         //Config conf = ConfigReader.read(args[1]);
         Config conf = ConfigReader.read(path);
-        ConfigParser parser = new ConfigParser(new ValueHandlerFabric());
+        ConfigParser parser = new ConfigParser(new VariableInfoFabric());
         AbstractContext context = parser.parse(conf);
 
         boolean isMatlabModel = context instanceof MatlabContext;
@@ -31,15 +34,15 @@ public class Main {
     private static void processNxtModel(NxtContext context){
 
         //////////// old declaration /////////////////////////
-//        List<BooleanValueHandler> possibleBoolValues = List.of(new BooleanValueHandler(true), new BooleanValueHandler(false));
+//        List<BooleanValueHolder> possibleBoolValues = List.of(new BooleanValueHolder(true), new BooleanValueHolder(false));
 //
-//        VariableInfo<BooleanValueHandler> inputDoor0Open = new VariableInfo("door0", 2, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> inputDoor1Open = new VariableInfo("door1", 3, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> inputDoor2Open = new VariableInfo("door2", 4, possibleBoolValues, BooleanValueHandler::new);
+//        AbstractVariableInfo<BooleanValueHolder> inputDoor0Open = new AbstractVariableInfo("door0", 2, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> inputDoor1Open = new AbstractVariableInfo("door1", 3, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> inputDoor2Open = new AbstractVariableInfo("door2", 4, possibleBoolValues, BooleanValueHolder::new);
 //
-//        VariableInfo<BooleanValueHandler> inputDoMotorUp = new VariableInfo("motorUp", 0, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> inputDoMotorDown = new VariableInfo("motorDown", 1, possibleBoolValues, BooleanValueHandler::new);
-//        List<VariableInfo> inputVars = List.of(inputDoMotorDown, inputDoMotorUp,
+//        AbstractVariableInfo<BooleanValueHolder> inputDoMotorUp = new AbstractVariableInfo("motorUp", 0, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> inputDoMotorDown = new AbstractVariableInfo("motorDown", 1, possibleBoolValues, BooleanValueHolder::new);
+//        List<AbstractVariableInfo> inputVars = List.of(inputDoMotorDown, inputDoMotorUp,
 //                inputDoor0Open, inputDoor1Open, inputDoor2Open);
 //
 //        Interval[] posIntervals = new Interval[]{
@@ -50,34 +53,34 @@ public class Main {
 //                new Interval(418.5, 419.5)
 //        };
 //
-//        List<IntervalValueHandler> possiblePosValues = new ArrayList<>();
+//        List<IntervalValueHolder> possiblePosValues = new ArrayList<>();
 //
 //        for (Interval interval : posIntervals) {
 //            possiblePosValues.add(
-//                    new IntervalValueHandler(posIntervals, interval)
+//                    new IntervalValueHolder(posIntervals, interval)
 //            );
 //        }
 //
-//        VariableInfo<IntervalValueHandler> outputPos = new VariableInfo("pos", 9, possiblePosValues,
-//                () -> new IntervalValueHandler(posIntervals, posIntervals[0]));
+//        AbstractVariableInfo<IntervalValueHolder> outputPos = new AbstractVariableInfo("pos", 9, possiblePosValues,
+//                () -> new IntervalValueHolder(posIntervals, posIntervals[0]));
 //
-////        VariableInfo<BooleanValueHandler> outputButtonFloor0 = new VariableInfo("buttonFloor0", 0, possibleBoolValues, BooleanValueHandler::new);
-////        VariableInfo<BooleanValueHandler> outputButtonFloor1 = new VariableInfo("buttonFloor1", 1, possibleBoolValues, BooleanValueHandler::new);
-////        VariableInfo<BooleanValueHandler> outputButtonFloor2 = new VariableInfo("buttonFloor2", 2, possibleBoolValues, BooleanValueHandler::new);
+////        AbstractVariableInfo<BooleanValueHolder> outputButtonFloor0 = new AbstractVariableInfo("buttonFloor0", 0, possibleBoolValues, BooleanValueHolder::new);
+////        AbstractVariableInfo<BooleanValueHolder> outputButtonFloor1 = new AbstractVariableInfo("buttonFloor1", 1, possibleBoolValues, BooleanValueHolder::new);
+////        AbstractVariableInfo<BooleanValueHolder> outputButtonFloor2 = new AbstractVariableInfo("buttonFloor2", 2, possibleBoolValues, BooleanValueHolder::new);
 //
-//        VariableInfo<BooleanValueHandler> outputRequestFloor0 = new VariableInfo("requestFloor0", 0, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputRequestFloor1 = new VariableInfo("requestFloor1", 1, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputRequestFloor2 = new VariableInfo("requestFloor2", 2, possibleBoolValues, BooleanValueHandler::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputRequestFloor0 = new AbstractVariableInfo("requestFloor0", 0, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputRequestFloor1 = new AbstractVariableInfo("requestFloor1", 1, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputRequestFloor2 = new AbstractVariableInfo("requestFloor2", 2, possibleBoolValues, BooleanValueHolder::new);
 //
-//        VariableInfo<BooleanValueHandler> outputElevatorAtFloor0 = new VariableInfo("elevatorAtFloor0", 3, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputElevatorAtFloor1 = new VariableInfo("elevatorAtFloor1", 4, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputElevatorAtFloor2 = new VariableInfo("elevatorAtFloor2", 5, possibleBoolValues, BooleanValueHandler::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputElevatorAtFloor0 = new AbstractVariableInfo("elevatorAtFloor0", 3, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputElevatorAtFloor1 = new AbstractVariableInfo("elevatorAtFloor1", 4, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputElevatorAtFloor2 = new AbstractVariableInfo("elevatorAtFloor2", 5, possibleBoolValues, BooleanValueHolder::new);
 //
-//        VariableInfo<BooleanValueHandler> outputDoor0Closed = new VariableInfo("door0Closed", 6, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputDoor1Closed = new VariableInfo("door1Closed", 7, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputDoor2Closed = new VariableInfo("door2Closed", 8, possibleBoolValues, BooleanValueHandler::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputDoor0Closed = new AbstractVariableInfo("door0Closed", 6, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputDoor1Closed = new AbstractVariableInfo("door1Closed", 7, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputDoor2Closed = new AbstractVariableInfo("door2Closed", 8, possibleBoolValues, BooleanValueHolder::new);
 //
-//        List<VariableInfo> outputVars = List.of(
+//        List<AbstractVariableInfo> outputVars = List.of(
 //                outputDoor0Closed, outputDoor1Closed, outputDoor2Closed,
 //                outputElevatorAtFloor0, outputElevatorAtFloor1, outputElevatorAtFloor2,
 //                outputRequestFloor0, outputRequestFloor1, outputRequestFloor2,
@@ -107,12 +110,17 @@ public class Main {
             while (!ls.isReady()) {
                 ls.stepForward();
             }
+//            List<Transition> tr = hypothesis.getAllTransitions();
+//            Utils.serializeTransitions(tr, "C:\\tmp\\trans2");
+//            List<Transition> list = Utils.deserializeTransitions("C:\\tmp\\trans2");
+
             System.out.print("Total alg: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
+            NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen_newref.smv");
         } else {
             hypothesis.loadTransitions("C:\\tmp\\trans2");
 
             try {
-                hypothesis.getNusmvRepresentation();
+                NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen.smv");
             } catch (Exception e) {
                 System.out.print(e.getMessage());
             }
@@ -122,16 +130,16 @@ public class Main {
     private static void processMatlabModel(MatlabContext context){
 
         /////////////////////// old declaration //////////////////////////////////
-//        List<BooleanValueHandler> possibleBoolValues = List.of(new BooleanValueHandler(true), new BooleanValueHandler(false));
+//        List<BooleanValueHolder> possibleBoolValues = List.of(new BooleanValueHolder(true), new BooleanValueHolder(false));
 //
-//        VariableInfo<BooleanValueHandler> inputFwd = new VariableInfo("Fwd", 0, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> inputRetr = new VariableInfo("Retr", 1, possibleBoolValues, BooleanValueHandler::new);
-//        List<VariableInfo> inputVars = List.of(inputFwd,inputRetr);
+//        AbstractVariableInfo<BooleanValueHolder> inputFwd = new AbstractVariableInfo("Fwd", 0, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> inputRetr = new AbstractVariableInfo("Retr", 1, possibleBoolValues, BooleanValueHolder::new);
+//        List<AbstractVariableInfo> inputVars = List.of(inputFwd,inputRetr);
 //
-//        VariableInfo<BooleanValueHandler> outputLeft = new VariableInfo("Left", 0, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputRight = new VariableInfo("Right", 1, possibleBoolValues, BooleanValueHandler::new);
-//        VariableInfo<BooleanValueHandler> outputFailure = new VariableInfo("Failure", 2, possibleBoolValues, BooleanValueHandler::new);
-//        List<VariableInfo> outputVars = List.of(outputLeft,outputRight,outputFailure);
+//        AbstractVariableInfo<BooleanValueHolder> outputLeft = new AbstractVariableInfo("Left", 0, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputRight = new AbstractVariableInfo("Right", 1, possibleBoolValues, BooleanValueHolder::new);
+//        AbstractVariableInfo<BooleanValueHolder> outputFailure = new AbstractVariableInfo("Failure", 2, possibleBoolValues, BooleanValueHolder::new);
+//        List<AbstractVariableInfo> outputVars = List.of(outputLeft,outputRight,outputFailure);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         AlphabetBuilder alphabetBuilder = new AlphabetBuilder();

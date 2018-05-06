@@ -1,17 +1,17 @@
 package config;
 
-import values.AbstractValueHandler;
-import values.VariableInfo;
+import values.AbstractVariableInfo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConfigParser {
 
-    private final ValueHandlerFabric _handlerFabric;
+    private final VariableInfoFabric _varInfoFabric;
 
-    public ConfigParser(ValueHandlerFabric handlerFabric){
-        _handlerFabric = handlerFabric;
+    public ConfigParser(VariableInfoFabric handlerFabric){
+        _varInfoFabric = handlerFabric;
     }
 
     public AbstractContext parse(Config config){
@@ -29,27 +29,28 @@ public class ConfigParser {
     }
 
     private NxtContext parseNxtConfig(Config config){
-        List<VariableInfo> inputVars = parseVars(config.inputVarStrings);
-        List<VariableInfo> outputVars = parseVars(config.outputVarStrings);
+        List<AbstractVariableInfo> inputVars = parseVars(config.inputVarStrings);
+        List<AbstractVariableInfo> outputVars = parseVars(config.outputVarStrings);
 
         NxtContext context = new NxtContext(inputVars, outputVars, Integer.parseInt(config.inPort), Integer.parseInt(config.outPort));
         return context;
     }
 
     private MatlabContext parseMatlabConfig(Config config){
-        List<VariableInfo> inputVars = parseVars(config.inputVarStrings);
-        List<VariableInfo> outputVars = parseVars(config.outputVarStrings);
+        List<AbstractVariableInfo> inputVars = parseVars(config.inputVarStrings);
+        List<AbstractVariableInfo> outputVars = parseVars(config.outputVarStrings);
 
         MatlabContext context = new MatlabContext(inputVars, outputVars, config.workingDir, config.sysName);
         return context;
     }
 
-    private List<VariableInfo> parseVars(List<String> varStrings){
-        List<VariableInfo> res = new ArrayList<>();
+    private List<AbstractVariableInfo> parseVars(List<String> varStrings){
+        List<AbstractVariableInfo> res = new ArrayList<>();
         for (String s: varStrings){
-            String[] sMembers = s.split(" ");
-            AbstractValueHandler handler = _handlerFabric.getHandlerByName(sMembers[1]);
-            res.add(handler.tryParse(s));
+            String[] sMembers = s.replace(";", "").split(" ");
+            VariableInfoDefinition varDef = new VariableInfoDefinition(sMembers[2], sMembers[1], sMembers[0], Arrays.copyOfRange(sMembers, 3, sMembers.length));
+            AbstractVariableInfo varInfo = _varInfoFabric.create(varDef);
+            res.add(varInfo);
         }
         return res;
     }

@@ -1,67 +1,50 @@
 package values;
 
 import java.io.Serializable;
-import java.util.function.Supplier;
 
-public class VariableValue<VHandlerType extends AbstractValueHandler> implements Serializable {
-    private String _name;
-    private VHandlerType _value;
-    private int _order;
+public class VariableValue<VHolderType extends AbstractValueHolder> implements Serializable {
+    private VHolderType _valueHolder;
+    private AbstractVariableInfo _varInfo;
 
-    private transient Supplier<VHandlerType> _supplier;
+    public VariableValue(AbstractVariableInfo varInfo) {
+        _varInfo = varInfo;
+    }
 
-    public VariableValue(String name, int order, Supplier<VHandlerType> supplier) {
-        _name = name;
-        _order = order;
-
-        _supplier = supplier;
-
-        _value = _supplier.get();
+    public AbstractVariableInfo getVarInfo() {
+        return _varInfo;
     }
 
     public VariableValue clone(){
-        VariableValue res = new VariableValue<VHandlerType>(_name, _order, _supplier);
-        res._value = _value.clone();
+        VariableValue res = new VariableValue<VHolderType>(_varInfo);
+        res._valueHolder = _valueHolder.clone();
         return res;
     }
 
-    public int getOrder(){
-        return _order;
-    }
-
-    public void setValue(VHandlerType value){
-        _value = value;
+    public void setValue(VHolderType value){
+        _valueHolder = value;
     }
 
     public void parseAndSetValue(Object val) throws Exception {
-        _value.parseAndSetValue(val);
+        _valueHolder = (VHolderType) _varInfo.tryParseValue(val);
     }
 
-    public VHandlerType getValue(){
-        return _value;
-    }
-
-    public VariableValue<VHandlerType> createInstance(String name){
-        return new VariableValue<VHandlerType>(name, _order, _supplier);
-    }
-
-    public String getName(){
-        return _name;
+    public VHolderType getValue(){
+        return _valueHolder;
     }
 
     @Override
     public String toString() {
-        return String.format("%1$s: %2$s", _name, _value);
+        return String.format("%1$s: %2$s", _varInfo.getName(), _valueHolder);
     }
 
     @Override
     public boolean equals(Object obj) {
         VariableValue other = (VariableValue)obj;
 
-        if (_name != other._name){
+        if (_varInfo.getName() != other.getVarInfo().getName()){
             return false;
         }
 
-        return _value.equals(other._value);
+        return _valueHolder.equals(other._valueHolder);
     }
 }

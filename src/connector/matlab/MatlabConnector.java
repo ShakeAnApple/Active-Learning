@@ -159,7 +159,7 @@
 //
 //        for (int i= 1; i <= simulationsCount; i++){
 //
-//            Map<String, VariableValue> valuesByNames = _ctx.generateOutputVariablesValues().stream().collect(Collectors.toMap(VariableValue::getName, v -> v));
+//            Map<String, VariableValue> valuesByNames = _ctx.generateOutputVariablesValues().stream().collect(Collectors.toMap(v -> v.getVarInfo().getName(), v -> v));
 //
 //            for (int j = 1; j <= valuesByNames.values().size(); j++){
 //

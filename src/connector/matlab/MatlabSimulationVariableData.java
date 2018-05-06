@@ -1,19 +1,19 @@
 package connector.matlab;
 
 import values.VariableValue;
-import values.AbstractValueHandler;
+import values.AbstractValueHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatlabSimulationVariableData<VType extends AbstractValueHandler> {
+public class MatlabSimulationVariableData<VType extends AbstractValueHolder> {
 
     // TODO ordered list?
     private List<VType> _values;
     private String _varName;
 
     public MatlabSimulationVariableData(List<VariableValue<VType>> values, boolean isEmptyWordSimulation) {
-        String varName = values.get(0).getName();
+        String varName = values.get(0).getVarInfo().getName();
         _values = new ArrayList<VType>();
 
         // first element added twice as in matlab default transition CONSUMES MODELLING TIME
@@ -21,7 +21,7 @@ public class MatlabSimulationVariableData<VType extends AbstractValueHandler> {
 
         if (!isEmptyWordSimulation) {
             for (VariableValue<VType> val : values) {
-                if (!varName.equals(val.getName())) {
+                if (!varName.equals(val.getVarInfo().getName())) {
                     throw new IllegalArgumentException("all values should be of the same variable");
                 }
                 _values.add(val.getValue());

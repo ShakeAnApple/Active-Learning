@@ -1,6 +1,6 @@
 package automaton;
 
-import values.IntervalValueHandler;
+import values.IntervalValueHolder;
 import values.VariableValue;
 
 import java.io.Serializable;
@@ -33,13 +33,13 @@ public class State implements Serializable{
                 .getSymbol()
                 .getVariablesValues()
                 .stream()
-                .sorted(Comparator.comparing(VariableValue::getOrder))
+                .sorted(Comparator.comparing(v -> v.getVarInfo().getOrder()))
                 .collect(Collectors.toList());
         for(VariableValue v: orderedValues){
-            if (v.getValue() instanceof IntervalValueHandler){
-                sb.append(String.format("%1$1s: %2$s; ", v.getName(), ((IntervalValueHandler)(v.getValue())).getCurrentIntervalNum()));
+            if (v.getValue() instanceof IntervalValueHolder){
+                sb.append(String.format("%1$1s: %2$s; ", v.getVarInfo().getName(), ((IntervalValueHolder)(v.getValue())).getCurrentIntervalNum()));
             } else{
-                sb.append(String.format("%1$1s: %2$s; ", v.getName(), v.getValue()));
+                sb.append(String.format("%1$1s: %2$s; ", v.getVarInfo().getName(), v.getValue()));
             }
         }
         sb.append("isStart: " + _isStart);

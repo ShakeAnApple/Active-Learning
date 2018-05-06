@@ -3,6 +3,7 @@ package connector.nxt;
 import automaton.State;
 import automaton.StateValue;
 import config.AbstractContext;
+import values.BooleanValueHolder;
 import values.Symbol;
 import values.VariableValue;
 import connector.IConnector;
@@ -10,7 +11,6 @@ import connector.RequestQueryItem;
 import connector.ResponseQueryItem;
 import connector.tcp.TcpServer;
 import impl.SingleRequest;
-import values.BooleanValueHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -115,10 +115,11 @@ public class NxtStudioConnector implements IConnector {
     private Symbol parseResponse(String str){
         try {
             List<VariableValue> variableValues = _ctx.generateOutputVariablesValues();
-            variableValues.sort(Comparator.comparing(VariableValue::getOrder));
+            variableValues.sort(Comparator.comparing(v -> v.getVarInfo().getOrder()));
 
             String[] strVars = str.split(";");
             for (int i = 0; i < strVars.length; i++) {
+
                 variableValues.get(i).parseAndSetValue(strVars[i]);
             }
 
@@ -189,11 +190,11 @@ public class NxtStudioConnector implements IConnector {
 
         List<String> varValsString = varVals
                 .stream()
-                .sorted(Comparator.comparing(VariableValue::getOrder))
+                .sorted(Comparator.comparing(v -> v.getVarInfo().getOrder()))
                 .map(v -> v.getValue().toString())
                 .collect(Collectors.toList());
 
-        varValsString.add(0, String.valueOf(new BooleanValueHandler(isReset)));
+        varValsString.add(0, String.valueOf(new BooleanValueHolder(isReset)));
 
         return varValsString.toArray(new String[varValsString.size()]);
     }

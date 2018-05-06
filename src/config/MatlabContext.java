@@ -1,6 +1,6 @@
 package config;
 
-import values.VariableInfo;
+import values.AbstractVariableInfo;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class MatlabContext extends AbstractContext{
     private final String _workingDir;
     private final String _sysName;
 
-    public MatlabContext(List<VariableInfo> inputVars, List<VariableInfo> outputVars, String workingDir, String sysName) {
+    public MatlabContext(List<AbstractVariableInfo> inputVars, List<AbstractVariableInfo> outputVars, String workingDir, String sysName) {
         super(inputVars, outputVars);
 
         _workingDir = workingDir;

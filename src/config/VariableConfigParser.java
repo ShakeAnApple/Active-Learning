@@ -1,9 +1,8 @@
 package config;
 
-import values.AbstractValueHandler;
-import values.ValueHandler;
-import values.VariableInfo;
+import values.AbstractValueHolder;
+import values.AbstractVariableInfo;
 
 public interface VariableConfigParser<VType> {
-    VariableInfo<AbstractValueHandler<VType>> tryParse(String s);
+    AbstractVariableInfo<AbstractValueHolder<VType>> tryParse(String s);
 }

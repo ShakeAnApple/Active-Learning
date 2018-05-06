@@ -6,8 +6,8 @@ import connector.IConnector;
 import connector.RequestQueryItem;
 import connector.ResponseQueryItem;
 import utils.Utils;
-import values.AbstractValueHandler;
-import values.IntervalValueHandler;
+import values.AbstractValueHolder;
+import values.IntervalValueHolder;
 import values.Symbol;
 import values.VariableValue;
 
@@ -176,7 +176,7 @@ public class LearningService {
                     .getSymbol()
                     .getVariablesValues()
                     .stream()
-                    .filter(v -> v.getValue() instanceof IntervalValueHandler)
+                    .filter(v -> v.getValue() instanceof IntervalValueHolder)
                     .collect(Collectors.toList());
 
             List<VariableValue> intervalsFromEndState = resp
@@ -185,19 +185,19 @@ public class LearningService {
                     .getSymbol()
                     .getVariablesValues()
                     .stream()
-                    .filter(v -> v.getValue() instanceof IntervalValueHandler)
+                    .filter(v -> v.getValue() instanceof IntervalValueHolder)
                     .collect(Collectors.toList());
 
             boolean changeInsideIntervalDetected = true;
             for(VariableValue startContValue: intervalsFromStartState){
                 VariableValue endContValue = intervalsFromEndState
                         .stream()
-                        .filter(v -> v.getName().equals(startContValue.getName()))
+                        .filter(v -> v.getVarInfo().getName().equals(startContValue.getVarInfo().getName()))
                         .findFirst().get();
 
                 changeInsideIntervalDetected = changeInsideIntervalDetected &&
                         startContValue.getValue().equals(endContValue.getValue()) &&
-                        !((IntervalValueHandler) startContValue.getValue()).getConcreteValue().equals(((IntervalValueHandler) endContValue.getValue()).getConcreteValue());
+                        !((IntervalValueHolder) startContValue.getValue()).getConcreteValue().equals(((IntervalValueHolder) endContValue.getValue()).getConcreteValue());
             }
 
             if (changeInsideIntervalDetected){
@@ -235,21 +235,21 @@ public class LearningService {
                 .collect(Collectors.toList());
 
         // TODO temp adhoc, replace with dnf minimizing
-        Map<String, AbstractValueHandler> valuesByNames = new HashMap<>();
+        Map<String, AbstractValueHolder> valuesByNames = new HashMap<>();
         for(VariableValue vv: lastRequestSymbols.get(0).getVariablesValues()) {
-            valuesByNames.put(vv.getName(), null);
+            valuesByNames.put(vv.getVarInfo().getName(), null);
         }
         for(Symbol s: lastRequestSymbols){
             for(VariableValue vv: s.getVariablesValues()){
-                if (!valuesByNames.containsKey(vv.getName())) {
+                if (!valuesByNames.containsKey(vv.getVarInfo().getName())) {
                     continue;
                 }
 
-                AbstractValueHandler lastValue = valuesByNames.get(vv.getName());
+                AbstractValueHolder lastValue = valuesByNames.get(vv.getVarInfo().getName());
                 if (lastValue == null || lastValue.equals(vv.getValue())){
-                    valuesByNames.put(vv.getName(), vv.getValue());
+                    valuesByNames.put(vv.getVarInfo().getName(), vv.getValue());
                 } else {
-                    valuesByNames.remove(vv.getName());
+                    valuesByNames.remove(vv.getVarInfo().getName());
                 }
             }
         }
@@ -300,8 +300,8 @@ public class LearningService {
         List<String> intervalValuesNames = _outputAlphabet.get(0)
                 .getVariablesValues()
                 .stream()
-                .filter(v -> v.getValue() instanceof IntervalValueHandler)
-                .map(v -> v.getName())
+                .filter(v -> v.getValue() instanceof IntervalValueHolder)
+                .map(v -> v.getVarInfo().getName())
                 .collect(Collectors.toList());
 
         List<ResponseQueryItem> responsesToNextInterval = new ArrayList<>();
@@ -322,8 +322,8 @@ public class LearningService {
                     .filter(r -> {
                         boolean notChanged = true; //needToRepeat
                         for(String varName : intervalValuesNames){
-                            IntervalValueHandler startVal = (IntervalValueHandler) r.getStartState().getStateValue().getSymbol().getVariableValueByName(varName).getValue();
-                            IntervalValueHandler endVal = (IntervalValueHandler) r.getEndState().getStateValue().getSymbol().getVariableValueByName(varName).getValue();
+                            IntervalValueHolder startVal = (IntervalValueHolder) r.getStartState().getStateValue().getSymbol().getVariableValueByName(varName).getValue();
+                            IntervalValueHolder endVal = (IntervalValueHolder) r.getEndState().getStateValue().getSymbol().getVariableValueByName(varName).getValue();
                             notChanged = notChanged &&
                                     startVal.equals(endVal) &&
                                     !startVal.getConcreteValue().equals(endVal.getConcreteValue());
@@ -366,15 +366,15 @@ public class LearningService {
         List<String> intervalValuesNames = _outputAlphabet.get(0)
                 .getVariablesValues()
                 .stream()
-                .filter(v -> v.getValue() instanceof IntervalValueHandler)
-                .map(v -> v.getName())
+                .filter(v -> v.getValue() instanceof IntervalValueHolder)
+                .map(v -> v.getVarInfo().getName())
                 .collect(Collectors.toList());
 
         for (ResponseQueryItem r: loopedQueries){
 
-            List<VariableValue<IntervalValueHandler>> intervalValues = new ArrayList<>();
+            List<VariableValue<IntervalValueHolder>> intervalValues = new ArrayList<>();
             for (int i = 0; i < intervalValuesNames.size(); i++) {
-                intervalValues.add((VariableValue<IntervalValueHandler>) r.getStartState()
+                intervalValues.add((VariableValue<IntervalValueHolder>) r.getStartState()
                         .getStateValue()
                         .getSymbol()
                         .getVariableValueByName(intervalValuesNames.get(i)));
@@ -382,7 +382,7 @@ public class LearningService {
 
             List<VariableHistoryItem> sortedVariableHistoryItems = intervalValues
                     .stream()
-                    .sorted(Comparator.comparing(VariableValue::getOrder))
+                    .sorted(Comparator.comparing(v -> v.getVarInfo().getOrder()))
                     .map(v -> new VariableHistoryItem(v.clone()))
                     .collect(Collectors.toList());
 
@@ -430,9 +430,9 @@ public class LearningService {
                 if (r.getStartState().equals(r.getEndState())){
                     allLoopsResolved = false;
 
-                    List<VariableValue<IntervalValueHandler>> intervalValues = new ArrayList<>();
+                    List<VariableValue<IntervalValueHolder>> intervalValues = new ArrayList<>();
                     for (int i = 0; i < intervalValuesNames.size(); i++){
-                        intervalValues.add((VariableValue<IntervalValueHandler>) r.getEndState()
+                        intervalValues.add((VariableValue<IntervalValueHolder>) r.getEndState()
                                 .getStateValue()
                                 .getSymbol()
                                 .getVariableValueByName(intervalValuesNames.get(i)));
@@ -440,7 +440,7 @@ public class LearningService {
 
                     List<VariableHistoryItem> sortedHistoryItems = intervalValues
                             .stream()
-                            .sorted(Comparator.comparing(VariableValue::getOrder))
+                            .sorted(Comparator.comparing(v -> v.getVarInfo().getOrder()))
                             .map(v -> new VariableHistoryItem(v.clone()))
                             .collect(Collectors.toList());
 
@@ -540,10 +540,6 @@ public class LearningService {
         if (_possibleStates.size() == _processedStates.size()
                 || _nextStates.keySet().size() == 0){
 
-            List<Transition> tr = _hypothesis.getAllTransitions();
-
-            Utils.serializeTransitions(tr, "C:\\Temp\\trans2");
-            List<Transition> list = Utils.deserializeTransitions("C:\\Temp\\trans2");
 
             return true;
         }

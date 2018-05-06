@@ -1,6 +1,6 @@
 package config;
 
-import values.VariableInfo;
+import values.AbstractVariableInfo;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class NxtContext extends AbstractContext {
     private final int _inPort;
     private final int _outPort;
 
-    public NxtContext(List<VariableInfo> inputVars, List<VariableInfo> outputVars, int inPort, int outPort) {
+    public NxtContext(List<AbstractVariableInfo> inputVars, List<AbstractVariableInfo> outputVars, int inPort, int outPort) {
         super(inputVars, outputVars);
         _inPort = inPort;
         _outPort = outPort;

@@ -6,24 +6,24 @@ import java.util.*;
 public class Symbol implements Serializable{
     private Map<String, VariableValue> _valuesByName;
 
-    // TODO fix constructors
-    public Symbol(List<VariableInfo> automatonVars, boolean a) {
-        _valuesByName = new HashMap<>();
+//    // TODO fix constructors
+//    public Symbol(List<AbstractVariableInfo> automatonVars, boolean a) {
+//        _valuesByName = new HashMap<>();
+//
+//        for (AbstractVariableInfo v: automatonVars) {
+//            _valuesByName.put(v.getName(), v.createVariableValue());
+//        }
+//    }
 
-        for (VariableInfo v: automatonVars) {
-            _valuesByName.put(v.getName(), v.createVariableValue());
-        }
-    }
-
-    private Symbol(){
-        _valuesByName = new HashMap<>();
-    }
+//    private Symbol(){
+//        _valuesByName = new HashMap<>();
+//    }
 
     public Symbol(List<VariableValue> variableValues) {
         _valuesByName = new HashMap<>();
 
         for (VariableValue v: variableValues) {
-            _valuesByName.put(v.getName(), v);
+            _valuesByName.put(v.getVarInfo().getName(), v);
         }
     }
 
@@ -39,7 +39,7 @@ public class Symbol implements Serializable{
         return _valuesByName.get(varName);
     }
 
-    public void setVariableValueByName(String varName, AbstractValueHandler valueHandler){
+    public void setVariableValueByName(String varName, AbstractValueHolder valueHandler){
         _valuesByName.get(varName).setValue(valueHandler);
     }
 
