@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="54141FE9790F5A47" Name="CallButtons" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="3" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Dmitry" Date="11/8/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="ForcedTurnOnProbability" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="LiftAtFloor0" />
+        <With Var="LiftAtFloor1" />
+        <With Var="LiftAtFloor2" />
+        <With Var="Door0Opened" />
+        <With Var="Door1Opened" />
+        <With Var="Door2Opened" />
+        <With Var="ForcedTurnOnProbability" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetButtonFloor0" />
+        <With Var="resetButtonFloor1" />
+        <With Var="resetButtonFloor2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm" />
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="ButtonFloor0" />
+        <With Var="ButtonFloor1" />
+        <With Var="ButtonFloor2" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="ButtonFloor0" />
+        <With Var="ButtonFloor1" />
+        <With Var="ButtonFloor2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="LiftAtFloor0" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="LiftAtFloor1" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="LiftAtFloor2" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="Door0Opened" Type="BOOL" />
+      <VarDeclaration Name="Door1Opened" Type="BOOL" />
+      <VarDeclaration Name="Door2Opened" Type="BOOL" />
+      <VarDeclaration Name="ForcedTurnOnProbability" Type="REAL" />
+      <VarDeclaration Name="resetButtonFloor0" Type="BOOL" />
+      <VarDeclaration Name="resetButtonFloor1" Type="BOOL" />
+      <VarDeclaration Name="resetButtonFloor2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="ButtonFloor0" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="ButtonFloor1" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="ButtonFloor2" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="Button0" Type="CallButton" x="1080" y="300" Namespace="Main">
+      <Parameter Name="Seed" Value="95661543349" />
+      <Parameter Name="Mul" Value="168304679907" />
+    </FB>
+    <FB ID="2" Name="Button1" Type="CallButton" x="2540" y="300" Namespace="Main">
+      <Parameter Name="Seed" Value="968679678422" />
+      <Parameter Name="Mul" Value="268574357597" />
+    </FB>
+    <FB ID="3" Name="Button2" Type="CallButton" x="4120" y="300" Namespace="Main">
+      <Parameter Name="Seed" Value="1271444808946" />
+      <Parameter Name="Mul" Value="34830467966907" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>80</X>
+        <Y>77.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>80</X>
+        <Y>92.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="LiftAtFloor0">
+      <Position>
+        <X>55</X>
+        <Y>142.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LiftAtFloor1">
+      <Position>
+        <X>470</X>
+        <Y>142.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LiftAtFloor2">
+      <Position>
+        <X>860</X>
+        <Y>142.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ForcedTurnOnProbability">
+      <Position>
+        <X>35</X>
+        <Y>222.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Door0Opened">
+      <Position>
+        <X>55</X>
+        <Y>157.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Door1Opened">
+      <Position>
+        <X>470</X>
+        <Y>157.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Door2Opened">
+      <Position>
+        <X>860</X>
+        <Y>157.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="resetButtonFloor0">
+      <Position>
+        <X>25</X>
+        <Y>247.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetButtonFloor1">
+      <Position>
+        <X>430</X>
+        <Y>282.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetButtonFloor2">
+      <Position>
+        <X>820</X>
+        <Y>297.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1240</X>
+        <Y>77.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1240</X>
+        <Y>92.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="ButtonFloor0">
+      <Position>
+        <X>475</X>
+        <Y>112.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="ButtonFloor1">
+      <Position>
+        <X>860</X>
+        <Y>112.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="ButtonFloor2">
+      <Position>
+        <X>1240</X>
+        <Y>142.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RESOUT">
+      <Position>
+        <X>1290</X>
+        <Y>107.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="Button0.INIT" dx1="40.83337" />
+      <Connection Source="REQ" Destination="Button0.REQ" dx1="48.95837" />
+      <Connection Source="Button0.INITO" Destination="Button1.INIT" />
+      <Connection Source="Button1.INITO" Destination="Button2.INIT" />
+      <Connection Source="Button2.INITO" Destination="INITO" dx1="40" />
+      <Connection Source="Button0.CNF" Destination="Button1.REQ" />
+      <Connection Source="Button1.CNF" Destination="Button2.REQ" />
+      <Connection Source="Button2.CNF" Destination="CNF" dx1="40" />
+      <Connection Source="RESET" Destination="Button0.RESET" dx1="247.1667" />
+      <Connection Source="Button0.RESOUT" Destination="Button1.RESET">
+        <Points>
+          <Points>
+            <X>468.796844</X>
+            <Y>114.5</Y>
+          </Points>
+          <Points>
+            <X>478.796844</X>
+            <Y>114.5</Y>
+          </Points>
+          <Points>
+            <X>478.796844</X>
+            <Y>107.5</Y>
+          </Points>
+          <Points>
+            <X>617.5</X>
+            <Y>107.5</Y>
+          </Points>
+          <Points>
+            <X>617.5</X>
+            <Y>114.5</Y>
+          </Points>
+          <Points>
+            <X>630</X>
+            <Y>114.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="Button1.RESOUT" Destination="Button2.RESET">
+        <Points>
+          <Points>
+            <X>833.7969</X>
+            <Y>114.5</Y>
+          </Points>
+          <Points>
+            <X>843.7969</X>
+            <Y>114.5</Y>
+          </Points>
+          <Points>
+            <X>843.7969</X>
+            <Y>107.5</Y>
+          </Points>
+          <Points>
+            <X>1002.5</X>
+            <Y>107.5</Y>
+          </Points>
+          <Points>
+            <X>1002.5</X>
+            <Y>114.5</Y>
+          </Points>
+          <Points>
+            <X>1025</X>
+            <Y>114.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="Button2.RESOUT" Destination="RESOUT" dx1="40" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="LiftAtFloor0" Destination="Button0.LiftAtFloor" dx1="41.00006" />
+      <Connection Source="LiftAtFloor1" Destination="Button1.LiftAtFloor" dx1="40" />
+      <Connection Source="LiftAtFloor2" Destination="Button2.LiftAtFloor" dx1="21" />
+      <Connection Source="ForcedTurnOnProbability" Destination="Button0.ForcedTurnOnProbability">
+        <Points>
+          <Points>
+            <X>230.15625</X>
+            <Y>230.000015</Y>
+          </Points>
+          <Points>
+            <X>220</X>
+            <Y>230.000015</Y>
+          </Points>
+          <Points>
+            <X>220</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>265</X>
+            <Y>194.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="ForcedTurnOnProbability" Destination="Button1.ForcedTurnOnProbability">
+        <Points>
+          <Points>
+            <X>230.15625</X>
+            <Y>230.000015</Y>
+          </Points>
+          <Points>
+            <X>242.5</X>
+            <Y>230.000015</Y>
+          </Points>
+          <Points>
+            <X>242.5</X>
+            <Y>262.5</Y>
+          </Points>
+          <Points>
+            <X>477.5</X>
+            <Y>262.5</Y>
+          </Points>
+          <Points>
+            <X>477.5</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>630</X>
+            <Y>194.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="ForcedTurnOnProbability" Destination="Button2.ForcedTurnOnProbability">
+        <Points>
+          <Points>
+            <X>230.15625</X>
+            <Y>230.000015</Y>
+          </Points>
+          <Points>
+            <X>242.5</X>
+            <Y>230.000015</Y>
+          </Points>
+          <Points>
+            <X>242.5</X>
+            <Y>262.5</Y>
+          </Points>
+          <Points>
+            <X>842.5</X>
+            <Y>262.5</Y>
+          </Points>
+          <Points>
+            <X>842.5</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>1025</X>
+            <Y>194.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="Door0Opened" Destination="Button0.DoorOpened" dx1="40" />
+      <Connection Source="Door1Opened" Destination="Button1.DoorOpened" dx1="40" />
+      <Connection Source="Door2Opened" Destination="Button2.DoorOpened" dx1="40" />
+      <Connection Source="Button0.Button" Destination="ButtonFloor0">
+        <Points>
+          <Points>
+            <X>468.796844</X>
+            <Y>164.5</Y>
+          </Points>
+          <Points>
+            <X>465.000031</X>
+            <Y>164.5</Y>
+          </Points>
+          <Points>
+            <X>465.000031</X>
+            <Y>120</Y>
+          </Points>
+          <Points>
+            <X>475</X>
+            <Y>120</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="Button1.Button" Destination="ButtonFloor1" dx1="654.8127" dx2="30" dy="-108" />
+      <Connection Source="Button2.Button" Destination="ButtonFloor2">
+        <Points>
+          <Points>
+            <X>1228.79688</X>
+            <Y>164.5</Y>
+          </Points>
+          <Points>
+            <X>1256.29688</X>
+            <Y>164.5</Y>
+          </Points>
+          <Points>
+            <X>1256.29688</X>
+            <Y>150</Y>
+          </Points>
+          <Points>
+            <X>1240</X>
+            <Y>150</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="resetButtonFloor0" Destination="Button0.ResetButton" dx1="160.2709" />
+      <Connection Source="resetButtonFloor1" Destination="Button1.ResetButton" dx1="40.271" />
+      <Connection Source="resetButtonFloor2" Destination="Button2.ResetButton" dx1="40.27075" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

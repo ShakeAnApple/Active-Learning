@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="1D0EC039F261B2EB" Name="DummyControl" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/17/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="AtFloor0" />
+        <With Var="AtFloor1" />
+        <With Var="AtFloor2" />
+        <With Var="DoorClosed0" />
+        <With Var="DoorClosed1" />
+        <With Var="DoorClosed2" />
+        <With Var="Button0" />
+        <With Var="Button1" />
+        <With Var="Button2" />
+        <With Var="Req0" />
+        <With Var="Req1" />
+        <With Var="Req2" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="AtFloor0" />
+        <With Var="AtFloor1" />
+        <With Var="AtFloor2" />
+        <With Var="DoorClosed0" />
+        <With Var="DoorClosed1" />
+        <With Var="DoorClosed2" />
+        <With Var="Button0" />
+        <With Var="Button1" />
+        <With Var="Button2" />
+        <With Var="Req0" />
+        <With Var="Req1" />
+        <With Var="Req2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="liftUp" />
+        <With Var="liftDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="liftUp" />
+        <With Var="liftDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="AtFloor0" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="AtFloor1" Type="BOOL" />
+      <VarDeclaration Name="AtFloor2" Type="BOOL" />
+      <VarDeclaration Name="DoorClosed0" Type="BOOL" />
+      <VarDeclaration Name="DoorClosed1" Type="BOOL" />
+      <VarDeclaration Name="DoorClosed2" Type="BOOL" />
+      <VarDeclaration Name="Button0" Type="BOOL" />
+      <VarDeclaration Name="Button1" Type="BOOL" />
+      <VarDeclaration Name="Button2" Type="BOOL" />
+      <VarDeclaration Name="Req0" Type="BOOL" />
+      <VarDeclaration Name="Req1" Type="BOOL" />
+      <VarDeclaration Name="Req2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="liftUp" Type="BOOL" />
+      <VarDeclaration Name="liftDown" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="door0" Type="BOOL" />
+      <VarDeclaration Name="door1" Type="BOOL" />
+      <VarDeclaration Name="door2" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Name="AtSomeFloor" Type="BOOL" />
+      <VarDeclaration Name="IsRequested" Type="BOOL" />
+      <VarDeclaration Name="NeedStop" Type="BOOL" />
+    </InternalVars>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="447.8488" y="648.3352" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="liftDown := TRUE;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="AtSomeFloor := AtFloor0 OR AtFloor1 OR AtFloor2;&#xD;&#xA;IsRequested := (Button0 OR Req0) OR (Button1 OR Req1) OR (Button2 OR Req2);&#xD;&#xA;NeedStop := FALSE;&#xD;&#xA;&#xD;&#xA;(* Close door if opened *)&#xD;&#xA;IF NOT DoorClosed0 THEN door0 := FALSE; END_IF;&#xD;&#xA;IF NOT DoorClosed1 THEN door1 := FALSE; END_IF;&#xD;&#xA;IF NOT DoorClosed2 THEN door2 := FALSE; END_IF;&#xD;&#xA;&#xD;&#xA;(* Doesn't change direction while moving *)&#xD;&#xA;IF AtSomeFloor THEN&#xD;&#xA;	(* Stop if nowhere to go *)&#xD;&#xA;	IF NOT IsRequested THEN&#xD;&#xA;		liftUp := FALSE;&#xD;&#xA;		liftDown := FALSE;&#xD;&#xA;	ELSE&#xD;&#xA;		IF NOT (DoorClosed0 AND DoorClosed1 AND DoorClosed2) THEN&#xD;&#xA;			NeedStop := TRUE;&#xD;&#xA;		END_IF;&#xD;&#xA;		(* Check if we arrived on one of the requested floors (if true, open a door) *)&#xD;&#xA;		IF AtFloor0 AND (Button0 OR Req0) THEN&#xD;&#xA;			door0 := TRUE;&#xD;&#xA;			NeedStop := TRUE;&#xD;&#xA;		END_IF;&#xD;&#xA;		IF AtFloor1 AND (Button1 OR Req1) THEN&#xD;&#xA;			door1 := TRUE;&#xD;&#xA;			NeedStop := TRUE;&#xD;&#xA;		END_IF;&#xD;&#xA;		IF AtFloor2 AND (Button2 OR Req2) THEN&#xD;&#xA;			door2 := TRUE;&#xD;&#xA;			NeedStop := TRUE;&#xD;&#xA;		END_IF;&#xD;&#xA;		(* If arrived on the right floor, stop *)&#xD;&#xA;		IF NeedStop THEN&#xD;&#xA;  		liftUp := FALSE;&#xD;&#xA;	  	liftDown := FALSE;&#xD;&#xA;	  ELSE&#xD;&#xA;	  	(* 0 floor requeted - go down *)&#xD;&#xA;	  	IF (Button0 OR Req0) THEN&#xD;&#xA;    		liftUp := FALSE;&#xD;&#xA;	    	liftDown := TRUE;&#xD;&#xA;	  	END_IF;&#xD;&#xA;	  	(* 2 floor requeted - go up *)&#xD;&#xA;	  	IF (Button2 OR Req2) THEN&#xD;&#xA;    		liftUp := TRUE;&#xD;&#xA;	    	liftDown := FALSE;&#xD;&#xA;	  	END_IF;&#xD;&#xA;	  	(* Check if we are lower or higher *)&#xD;&#xA;	  	IF (Button1 OR Req1) THEN&#xD;&#xA;	  		liftUp := AtFloor0;&#xD;&#xA;	  		liftDown := AtFloor2;&#xD;&#xA;	  	END_IF;&#xD;&#xA;	  END_IF;&#xD;&#xA;	END_IF;&#xD;&#xA;END_IF;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

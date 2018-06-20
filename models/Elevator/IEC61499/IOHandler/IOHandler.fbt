@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="51DCD95FAEF0A687" Name="IOHandler" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="14" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Dmitry" Date="9/6/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="motorUp" />
+        <With Var="motorDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="motorUp" />
+        <With Var="motorDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="requestFloor0" />
+        <With Var="requestFloor1" />
+        <With Var="requestFloor2" />
+        <With Var="elevatorAtFloor0" />
+        <With Var="elevatorAtFloor1" />
+        <With Var="elevatorAtFloor2" />
+        <With Var="door0Closed" />
+        <With Var="door1Closed" />
+        <With Var="door2Closed" />
+        <With Var="liftPos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="motorUp" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="motorDown" Type="BOOL" />
+      <VarDeclaration Name="door0" Type="BOOL" />
+      <VarDeclaration Name="door1" Type="BOOL" />
+      <VarDeclaration Name="door2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="requestFloor0" Type="BOOL" />
+      <VarDeclaration Name="requestFloor1" Type="BOOL" />
+      <VarDeclaration Name="requestFloor2" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor0" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor1" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor2" Type="BOOL" />
+      <VarDeclaration Name="door0Closed" Type="BOOL" />
+      <VarDeclaration Name="door1Closed" Type="BOOL" />
+      <VarDeclaration Name="door2Closed" Type="BOOL" />
+      <VarDeclaration Name="liftPos" Type="REAL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="9" Name="FB2" Type="InputSender" x="1340" y="500" Namespace="Main" />
+    <FB ID="3" Name="FB1" Type="Model" x="2560" y="500" Namespace="Main" />
+    <FB ID="10" Name="FB3" Type="OutputSender" x="4020" y="500" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>130</X>
+        <Y>127.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>130</X>
+        <Y>142.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="motorDown">
+      <Position>
+        <X>140</X>
+        <Y>207.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door0">
+      <Position>
+        <X>140</X>
+        <Y>222.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door1">
+      <Position>
+        <X>140</X>
+        <Y>237.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door2">
+      <Position>
+        <X>140</X>
+        <Y>252.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="motorUp">
+      <Position>
+        <X>140</X>
+        <Y>192.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="CNF">
+      <Position>
+        <X>1415</X>
+        <Y>142.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="requestFloor0">
+      <Position>
+        <X>1415</X>
+        <Y>237.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="requestFloor1">
+      <Position>
+        <X>1415</X>
+        <Y>252.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="requestFloor2">
+      <Position>
+        <X>1415</X>
+        <Y>267.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor0">
+      <Position>
+        <X>1415</X>
+        <Y>282.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor1">
+      <Position>
+        <X>1415</X>
+        <Y>297.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor2">
+      <Position>
+        <X>1415</X>
+        <Y>312.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door0Closed">
+      <Position>
+        <X>1415</X>
+        <Y>327.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door1Closed">
+      <Position>
+        <X>1415</X>
+        <Y>342.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door2Closed">
+      <Position>
+        <X>1415</X>
+        <Y>357.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="liftPos">
+      <Position>
+        <X>1415</X>
+        <Y>372.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="REQ" Destination="FB2.REQ" dx1="48.95831" />
+      <Connection Source="FB1.CNF" Destination="FB3.REQ" dx1="240" />
+      <Connection Source="FB3.CNF" Destination="CNF" dx1="42.9165" />
+      <Connection Source="INIT" Destination="FB2.INIT" dx1="40.83331" />
+      <Connection Source="FB3.INITO" Destination="FB1.INIT" dx1="42.91504" dx2="30" dy="-358">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB2.CNF" Destination="FB1.REQ" />
+      <Connection Source="FB2.INITO" Destination="FB3.INIT">
+        <Points>
+          <Points>
+            <X>510.5677</X>
+            <Y>134.5</Y>
+          </Points>
+          <Points>
+            <X>489.072876</X>
+            <Y>134.5</Y>
+          </Points>
+          <Points>
+            <X>489.072876</X>
+            <Y>107.5</Y>
+          </Points>
+          <Points>
+            <X>930</X>
+            <Y>107.5</Y>
+          </Points>
+          <Points>
+            <X>930</X>
+            <Y>134.5</Y>
+          </Points>
+          <Points>
+            <X>1000</X>
+            <Y>134.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB2.RESET" Destination="FB1.RESET" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="motorDown" Destination="FB2.motorDown" dx1="41.52087" />
+      <Connection Source="door0" Destination="FB2.door0" dx1="40" />
+      <Connection Source="door1" Destination="FB2.door1" dx1="40" />
+      <Connection Source="door2" Destination="FB2.door2" dx1="40" />
+      <Connection Source="motorUp" Destination="FB2.motorUp" dx1="40" />
+      <Connection Source="FB1.requestFloor0" Destination="FB3.requestFloor0" dx1="72.3335" />
+      <Connection Source="FB1.requestFloor1" Destination="FB3.requestFloor1" dx1="92.3335" />
+      <Connection Source="FB1.requestFloor2" Destination="FB3.requestFloor2" dx1="112.3335" />
+      <Connection Source="FB1.elevatorAtFloor0" Destination="FB3.elevatorAtFloor0" dx1="132.3335" />
+      <Connection Source="FB1.elevatorAtFloor1" Destination="FB3.elevatorAtFloor1" dx1="152.3335" />
+      <Connection Source="FB1.elevatorAtFloor2" Destination="FB3.elevatorAtFloor2" dx1="172.3335" />
+      <Connection Source="FB1.door0Closed" Destination="FB3.door0Closed" dx1="192.3335" />
+      <Connection Source="FB1.door1Closed" Destination="FB3.door1Closed" dx1="212.3335" />
+      <Connection Source="FB1.door2Closed" Destination="FB3.door2Closed" dx1="232.3335" />
+      <Connection Source="FB1.liftPos" Destination="FB3.liftPos" dx1="252.3335" />
+      <Connection Source="FB3.requestFloor0" Destination="requestFloor0" dx1="42.9165" />
+      <Connection Source="FB3.requestFloor1" Destination="requestFloor1" dx1="42.9165" />
+      <Connection Source="FB3.requestFloor2" Destination="requestFloor2" dx1="42.9165" />
+      <Connection Source="FB3.elevatorAtFloor0" Destination="elevatorAtFloor0" dx1="42.9165" />
+      <Connection Source="FB3.elevatorAtFloor1" Destination="elevatorAtFloor1" dx1="42.9165" />
+      <Connection Source="FB3.elevatorAtFloor2" Destination="elevatorAtFloor2" dx1="42.9165" />
+      <Connection Source="FB3.door0Closed" Destination="door0Closed" dx1="42.9165" />
+      <Connection Source="FB3.door1Closed" Destination="door1Closed" dx1="42.9165" />
+      <Connection Source="FB3.door2Closed" Destination="door2Closed" dx1="42.9165" />
+      <Connection Source="FB2.motorUp" Destination="FB1.motorUp" />
+      <Connection Source="FB2.motorDown" Destination="FB1.motorDown" />
+      <Connection Source="FB2.door0" Destination="FB1.door0" />
+      <Connection Source="FB2.door1" Destination="FB1.door1" />
+      <Connection Source="FB2.door2" Destination="FB1.door2" />
+      <Connection Source="FB3.liftPosOut" Destination="liftPos" dx1="42.9165" />
+      <Connection Source="FB2.resetPos" Destination="FB1.resetPos" />
+      <Connection Source="FB2.resetCarAt0" Destination="FB1.resetCarAt0" />
+      <Connection Source="FB2.resetCarAt1" Destination="FB1.resetCarAt1" />
+      <Connection Source="FB2.resetCarAt2" Destination="FB1.resetCarAt2" />
+      <Connection Source="FB2.resetDoor0Closed" Destination="FB1.resetDoor0Closed" />
+      <Connection Source="FB2.resetDoor1Closed" Destination="FB1.resetDoor1Closed" />
+      <Connection Source="FB2.resetDoor2Closed" Destination="FB1.resetDoor2Closed" />
+      <Connection Source="FB2.resetReqButton0" Destination="FB1.resetReqButton0" />
+      <Connection Source="FB2.resetReqButton1" Destination="FB1.resetReqButton1" />
+      <Connection Source="FB2.resetReqButton2" Destination="FB1.resetReqButton2" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

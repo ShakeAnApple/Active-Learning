@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="B4BAD84BB79C2A1B" Name="RandomEventConverter" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Dmitry" Date="8/30/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="Mod" />
+        <With Var="Probability" />
+        <With Var="Input" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="ResetResult" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="Result" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="Result" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="Mod" Type="LINT" />
+      <VarDeclaration Name="Probability" Type="REAL" />
+      <VarDeclaration Name="Input" Type="LINT" />
+      <VarDeclaration Name="ResetResult" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="Result" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECState Name="RESET" x="1040" y="660">
+        <ECAction Algorithm="RESET" Output="RESOUT" />
+      </ECState>
+      <ECState Name="STATE1" x="1320" y="992">
+        <ECAction Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="REQ" Condition="REQ AND NOT(RESET)" x="447.8488" y="648.3352" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
+      <ECTransition Source="START" Destination="RESET" Condition="RESET" x="839.2173" y="470.6552">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="198.7061,108.3215,220.9241,118.8401" />
+      </ECTransition>
+      <ECTransition Source="RESET" Destination="STATE1" Condition="1" x="1252.627" y="776.7659">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="306.1116,180.8976,322.1101,199.8672" />
+      </ECTransition>
+      <ECTransition Source="STATE1" Destination="START" Condition="1" x="925.0778" y="785.7058">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="260.1494,221.7691,208.0858,183.5838" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text=";" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="Result := (Mod - 1) * Probability &gt;= ABS(Input MOD Mod);" />
+    </Algorithm>
+    <Algorithm Name="RESET">
+      <ST Text="Result := ResetResult;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

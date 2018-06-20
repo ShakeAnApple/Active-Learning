@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="1B438121FDF205E0" Name="FloorCarElevator" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/17/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="CarPos" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetCarAt0" />
+        <With Var="resetCarAt1" />
+        <With Var="resetCarAt2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="CarAt0" />
+        <With Var="CarAt1" />
+        <With Var="CarAt2" />
+        <With Var="CarAtFloor" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="CarAt0" />
+        <With Var="CarAt1" />
+        <With Var="CarAt2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="CarPos" Type="REAL" Comment="Input event qualifier" />
+      <VarDeclaration Name="resetCarAt0" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt1" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="CarAt0" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="CarAt1" Type="BOOL" />
+      <VarDeclaration Name="CarAt2" Type="BOOL" />
+      <VarDeclaration Name="CarAtFloor" Type="INT" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="REQ" Comment="Normal execution" x="1605.647" y="788.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECState Name="RESET" x="200" y="820">
+        <ECAction Algorithm="RESET" Output="RESOUT" />
+      </ECState>
+      <ECTransition Source="START" Destination="REQ" Condition="REQ AND NOT(RESET)" x="1064.536" y="529.9393">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="231.2131,117.1047,295.565,137.8762" />
+      </ECTransition>
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="1157.643" y="698.6194">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="326.9351,190.4401,264.5203,170.1869" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="RESET" Condition="RESET" x="471.1934" y="661.2274">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="130.2249,156.6046,111.1829,180.096" />
+      </ECTransition>
+      <ECTransition Source="RESET" Destination="START" Condition="1" x="352.3726" y="570.7338">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="79.77386,149.9017,98.97649,126.4698" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="// Determine floor number of elevator&#xD;&#xA;IF CarPos &lt; 30.5 THEN&#xD;&#xA;	CarAtFloor := 2;&#xD;&#xA;	CarAt2 := TRUE;&#xD;&#xA;	CarAt0 := FALSE;&#xD;&#xA;	CarAt1 := FALSE;&#xD;&#xA;ELSIF (CarPos  &gt; 224.5) AND (CarPos &lt; 225.5) THEN&#xD;&#xA;	CarAtFloor := 1;&#xD;&#xA;	CarAt1 := TRUE;&#xD;&#xA;	CarAt0 := FALSE;&#xD;&#xA;	CarAt2 := FALSE;&#xD;&#xA;ELSIF CarPos &gt; 418.5 THEN&#xD;&#xA;	CarAtFloor := 0;&#xD;&#xA;	CarAt0 := TRUE;&#xD;&#xA;	CarAt1 := FALSE;&#xD;&#xA;	CarAt2 := FALSE;&#xD;&#xA;ELSE&#xD;&#xA;	CarAt2 := FALSE;&#xD;&#xA;	CarAt0 := FALSE;&#xD;&#xA;	CarAt1 := FALSE;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+    <Algorithm Name="RESET">
+      <ST Text="CarAt0 := resetCarAt0;&#xD;&#xA;CarAt1 := resetCarAt1;&#xD;&#xA;CarAt2 := resetCarAt2;&#xD;&#xA;IF (CarAt0) THEN&#xD;&#xA;	CarAtFloor := 0;&#xD;&#xA;ELSIF (CarAt1) THEN&#xD;&#xA;	CarAtFloor := 1;&#xD;&#xA;ELSIF CarAt2 THEN&#xD;&#xA;	CarAtFloor := 2;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

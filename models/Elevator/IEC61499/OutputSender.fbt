@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="8838B22B6C573C9C" Name="OutputSender" Comment="Extracted Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="8" />
+  <VersionInfo Author="Dmitry" Date="11/3/2016" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request" />
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="requestFloor0" />
+        <With Var="requestFloor1" />
+        <With Var="requestFloor2" />
+        <With Var="elevatorAtFloor0" />
+        <With Var="elevatorAtFloor1" />
+        <With Var="elevatorAtFloor2" />
+        <With Var="door0Closed" />
+        <With Var="door1Closed" />
+        <With Var="door2Closed" />
+        <With Var="liftPos" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="requestFloor0" />
+        <With Var="requestFloor1" />
+        <With Var="requestFloor2" />
+        <With Var="elevatorAtFloor0" />
+        <With Var="elevatorAtFloor1" />
+        <With Var="elevatorAtFloor2" />
+        <With Var="door0Closed" />
+        <With Var="door1Closed" />
+        <With Var="door2Closed" />
+        <With Var="liftPosOut" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="requestFloor0" />
+        <With Var="requestFloor1" />
+        <With Var="requestFloor2" />
+        <With Var="elevatorAtFloor0" />
+        <With Var="elevatorAtFloor1" />
+        <With Var="elevatorAtFloor2" />
+        <With Var="door0Closed" />
+        <With Var="door1Closed" />
+        <With Var="door2Closed" />
+        <With Var="liftPosOut" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="requestFloor0" Type="BOOL" />
+      <VarDeclaration Name="requestFloor1" Type="BOOL" />
+      <VarDeclaration Name="requestFloor2" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor0" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor1" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor2" Type="BOOL" />
+      <VarDeclaration Name="door0Closed" Type="BOOL" />
+      <VarDeclaration Name="door1Closed" Type="BOOL" />
+      <VarDeclaration Name="door2Closed" Type="BOOL" />
+      <VarDeclaration Name="liftPos" Type="REAL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="requestFloor0" Type="BOOL" />
+      <VarDeclaration Name="requestFloor1" Type="BOOL" />
+      <VarDeclaration Name="requestFloor2" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor0" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor1" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor2" Type="BOOL" />
+      <VarDeclaration Name="door0Closed" Type="BOOL" />
+      <VarDeclaration Name="door1Closed" Type="BOOL" />
+      <VarDeclaration Name="door2Closed" Type="BOOL" />
+      <VarDeclaration Name="liftPosOut" Type="REAL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="3" Name="FB3" Type="TCPIO" x="2660" y="880" Namespace="Runtime.IoCommon">
+      <Parameter Name="PORT" Value=";127.0.0.1:64998" />
+    </FB>
+    <FB ID="1" Name="FB7" Type="OutputDecompressor" x="3720" y="880" Namespace="Main">
+      <Parameter Name="delimiter" Value=";" />
+    </FB>
+    <FB ID="2" Name="FB6" Type="OutputCompressor" x="1620" y="860" Namespace="Main">
+      <Parameter Name="QI" Value="TRUE" />
+      <Parameter Name="delimiter" Value=";" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>175</X>
+        <Y>217.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>175</X>
+        <Y>232.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="requestFloor0">
+      <Position>
+        <X>175</X>
+        <Y>357.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="requestFloor1">
+      <Position>
+        <X>175</X>
+        <Y>372.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="requestFloor2">
+      <Position>
+        <X>175</X>
+        <Y>387.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="elevatorAtFloor0">
+      <Position>
+        <X>175</X>
+        <Y>402.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="elevatorAtFloor1">
+      <Position>
+        <X>175</X>
+        <Y>417.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="elevatorAtFloor2">
+      <Position>
+        <X>175</X>
+        <Y>432.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door0Closed">
+      <Position>
+        <X>175</X>
+        <Y>447.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door1Closed">
+      <Position>
+        <X>175</X>
+        <Y>462.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door2Closed">
+      <Position>
+        <X>175</X>
+        <Y>477.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="liftPos">
+      <Position>
+        <X>175</X>
+        <Y>492.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1160</X>
+        <Y>222.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1160</X>
+        <Y>237.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="requestFloor0">
+      <Position>
+        <X>1160</X>
+        <Y>347.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="requestFloor1">
+      <Position>
+        <X>1160</X>
+        <Y>362.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="requestFloor2">
+      <Position>
+        <X>1160</X>
+        <Y>377.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor0">
+      <Position>
+        <X>1160</X>
+        <Y>392.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor1">
+      <Position>
+        <X>1160</X>
+        <Y>407.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor2">
+      <Position>
+        <X>1160</X>
+        <Y>422.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door0Closed">
+      <Position>
+        <X>1160</X>
+        <Y>437.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door1Closed">
+      <Position>
+        <X>1160</X>
+        <Y>452.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door2Closed">
+      <Position>
+        <X>1160</X>
+        <Y>467.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="liftPosOut">
+      <Position>
+        <X>1160</X>
+        <Y>482.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="FB6.INITO" Destination="FB3.INIT" dx1="48.125" />
+      <Connection Source="INIT" Destination="FB6.INIT" dx1="40.83331" />
+      <Connection Source="REQ" Destination="FB6.REQ" dx1="48.95831" />
+      <Connection Source="FB6.CNF" Destination="FB3.REQ" dx1="48.125" />
+      <Connection Source="FB3.IND" Destination="FB7.REQ" dx1="92.16675" />
+      <Connection Source="FB3.INITO" Destination="FB7.INIT" />
+      <Connection Source="FB3.CNF" Destination="FB3.ACK" dx1="100" dx2="90" dy="-168" />
+      <Connection Source="FB7.INITO" Destination="INITO" dx1="40" />
+      <Connection Source="FB7.CNF" Destination="CNF" dx1="40" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="FB6.QO" Destination="FB3.QI" dx1="48.125" />
+      <Connection Source="FB7.requestFloor0" Destination="requestFloor0" dx1="40" />
+      <Connection Source="FB7.requestFloor1" Destination="requestFloor1" dx1="40" />
+      <Connection Source="FB7.requestFloor2" Destination="requestFloor2" dx1="40" />
+      <Connection Source="FB7.elevatorAtFloor0" Destination="elevatorAtFloor0" dx1="40" />
+      <Connection Source="FB7.elevatorAtFloor1" Destination="elevatorAtFloor1" dx1="40" />
+      <Connection Source="FB7.elevatorAtFloor2" Destination="elevatorAtFloor2" dx1="40" />
+      <Connection Source="FB7.door0Closed" Destination="door0Closed" dx1="40" />
+      <Connection Source="FB7.door1Closed" Destination="door1Closed" dx1="40" />
+      <Connection Source="FB7.door2Closed" Destination="door2Closed" dx1="40" />
+      <Connection Source="requestFloor0" Destination="FB6.requestFloor0" dx1="40" />
+      <Connection Source="requestFloor1" Destination="FB6.requestFloor1" dx1="40" />
+      <Connection Source="requestFloor2" Destination="FB6.requestFloor2" dx1="40" />
+      <Connection Source="elevatorAtFloor0" Destination="FB6.elevatorAtFloor0" dx1="46.125" />
+      <Connection Source="elevatorAtFloor1" Destination="FB6.elevatorAtFloor1" dx1="46.125" />
+      <Connection Source="elevatorAtFloor2" Destination="FB6.elevatorAtFloor2" dx1="46.125" />
+      <Connection Source="door0Closed" Destination="FB6.door0Closed" dx1="57.47925" />
+      <Connection Source="door1Closed" Destination="FB6.door1Closed" dx1="57.47925" />
+      <Connection Source="door2Closed" Destination="FB6.door2Closed" dx1="57.47925" />
+      <Connection Source="liftPos" Destination="FB6.liftPos" dx1="110.0834" />
+      <Connection Source="FB3.DATAIN" Destination="FB7.input" dx1="342.1667">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB6.RESULT" Destination="FB3.DATAOUT" dx1="48.125" />
+      <Connection Source="FB3.QO" Destination="FB7.QI" dx1="122.1667">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB7.liftPos" Destination="liftPosOut" dx1="40" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

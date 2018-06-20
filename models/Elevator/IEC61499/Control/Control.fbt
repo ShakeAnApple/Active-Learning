@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="3A80E9947856D59F" Name="Control" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="1" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/3/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="AtFloor0" />
+        <With Var="AtFloor1" />
+        <With Var="AtFloor2" />
+        <With Var="DoorClosed0" />
+        <With Var="DoorClosed1" />
+        <With Var="DoorClosed2" />
+        <With Var="ButtonAt0" />
+        <With Var="ButtonAt1" />
+        <With Var="ButtonAt2" />
+        <With Var="ButtonFor0" />
+        <With Var="ButtonFor1" />
+        <With Var="ButtonFor2" />
+        <With Var="iterIn" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="AtFloor0" />
+        <With Var="AtFloor1" />
+        <With Var="AtFloor2" />
+        <With Var="DoorClosed0" />
+        <With Var="DoorClosed1" />
+        <With Var="DoorClosed2" />
+        <With Var="ButtonAt0" />
+        <With Var="ButtonAt1" />
+        <With Var="ButtonAt2" />
+        <With Var="ButtonFor0" />
+        <With Var="ButtonFor1" />
+        <With Var="ButtonFor2" />
+        <With Var="iterIn" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="MoveUp" />
+        <With Var="MoveDown" />
+        <With Var="Open0" />
+        <With Var="Open1" />
+        <With Var="Open2" />
+        <With Var="iterOut" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="MoveUp" />
+        <With Var="MoveDown" />
+        <With Var="Open0" />
+        <With Var="Open1" />
+        <With Var="Open2" />
+        <With Var="iterOut" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="ButtonAt0" Type="BOOL" />
+      <VarDeclaration Name="ButtonAt1" Type="BOOL" />
+      <VarDeclaration Name="ButtonAt2" Type="BOOL" />
+      <VarDeclaration Name="ButtonFor0" Type="BOOL" />
+      <VarDeclaration Name="ButtonFor1" Type="BOOL" />
+      <VarDeclaration Name="ButtonFor2" Type="BOOL" />
+      <VarDeclaration Name="AtFloor0" Type="BOOL" />
+      <VarDeclaration Name="AtFloor1" Type="BOOL" />
+      <VarDeclaration Name="AtFloor2" Type="BOOL" />
+      <VarDeclaration Name="DoorClosed0" Type="BOOL" />
+      <VarDeclaration Name="DoorClosed1" Type="BOOL" />
+      <VarDeclaration Name="DoorClosed2" Type="BOOL" />
+      <VarDeclaration Name="iterIn" Type="INT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="MoveUp" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="MoveDown" Type="BOOL" />
+      <VarDeclaration Name="Open0" Type="BOOL" />
+      <VarDeclaration Name="Open1" Type="BOOL" />
+      <VarDeclaration Name="Open2" Type="BOOL" />
+      <VarDeclaration Name="iterOut" Type="INT" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="FB1" Type="DummyControl" x="1140" y="440" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>165</X>
+        <Y>112.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>165</X>
+        <Y>127.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="AtFloor0">
+      <Position>
+        <X>115</X>
+        <Y>177.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="AtFloor1">
+      <Position>
+        <X>115</X>
+        <Y>192.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="AtFloor2">
+      <Position>
+        <X>115</X>
+        <Y>207.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="DoorClosed0">
+      <Position>
+        <X>115</X>
+        <Y>222.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="DoorClosed1">
+      <Position>
+        <X>115</X>
+        <Y>237.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="DoorClosed2">
+      <Position>
+        <X>115</X>
+        <Y>252.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ButtonAt0">
+      <Position>
+        <X>115</X>
+        <Y>267.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ButtonAt1">
+      <Position>
+        <X>115</X>
+        <Y>282.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ButtonAt2">
+      <Position>
+        <X>115</X>
+        <Y>297.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ButtonFor0">
+      <Position>
+        <X>115</X>
+        <Y>312.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ButtonFor1">
+      <Position>
+        <X>115</X>
+        <Y>327.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ButtonFor2">
+      <Position>
+        <X>115</X>
+        <Y>342.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="iterIn">
+      <Position>
+        <X>115.549484</X>
+        <Y>357.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>440</X>
+        <Y>112.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>440</X>
+        <Y>127.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="MoveUp">
+      <Position>
+        <X>455</X>
+        <Y>177.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="MoveDown">
+      <Position>
+        <X>455</X>
+        <Y>192.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="Open0">
+      <Position>
+        <X>455</X>
+        <Y>207.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="Open1">
+      <Position>
+        <X>455</X>
+        <Y>222.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="Open2">
+      <Position>
+        <X>455</X>
+        <Y>237.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="iterOut">
+      <Position>
+        <X>456.401062</X>
+        <Y>252.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95831" />
+      <Connection Source="INIT" Destination="FB1.INIT" dx1="40.83331" />
+      <Connection Source="FB1.INITO" Destination="INITO" dx1="40" dx2="40" dy="1" />
+      <Connection Source="FB1.CNF" Destination="CNF" dx1="40" dx2="40" dy="1" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="AtFloor0" Destination="FB1.AtFloor0" dx1="40" />
+      <Connection Source="AtFloor2" Destination="FB1.AtFloor2" dx1="40" />
+      <Connection Source="AtFloor1" Destination="FB1.AtFloor1" dx1="40" />
+      <Connection Source="DoorClosed0" Destination="FB1.DoorClosed0" dx1="40" />
+      <Connection Source="DoorClosed1" Destination="FB1.DoorClosed1" dx1="40" />
+      <Connection Source="DoorClosed2" Destination="FB1.DoorClosed2" dx1="40" />
+      <Connection Source="ButtonAt0" Destination="FB1.Button0" dx1="40" />
+      <Connection Source="ButtonAt1" Destination="FB1.Button1" dx1="40" />
+      <Connection Source="ButtonAt2" Destination="FB1.Button2" dx1="40" />
+      <Connection Source="ButtonFor0" Destination="FB1.Req0" dx1="40" />
+      <Connection Source="ButtonFor1" Destination="FB1.Req1" dx1="40" />
+      <Connection Source="ButtonFor2" Destination="FB1.Req2" dx1="40" />
+      <Connection Source="FB1.liftUp" Destination="MoveUp" dx1="48.47913" />
+      <Connection Source="FB1.liftDown" Destination="MoveDown" dx1="48.47913" />
+      <Connection Source="FB1.door0" Destination="Open0" dx1="48.47913" />
+      <Connection Source="FB1.door1" Destination="Open1" dx1="48.47913" />
+      <Connection Source="FB1.door2" Destination="Open2" dx1="48.47913" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

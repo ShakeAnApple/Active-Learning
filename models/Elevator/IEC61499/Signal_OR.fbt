@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="C1C6D70C904474F9" Name="Signal_OR" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Eskimos" Date="2/8/2018" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="I0" Comment="Initialization Request" />
+      <Event Name="I1" Comment="Normal Execution Request" />
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="OUT" Comment="Initialization Confirm" />
+    </EventOutputs>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="S1" Comment="Normal execution" x="585.647" y="908.9412">
+        <ECAction Output="OUT" />
+      </ECState>
+      <ECTransition Source="START" Destination="S1" Condition="I0 OR I1" x="651.5088" y="664.073">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="166.1994,149.9611,168.3317,181.2248" />
+      </ECTransition>
+      <ECTransition Source="S1" Destination="START" Condition="1" x="568.5576" y="744.1765">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="143.3897,207.926,141.2574,176.6622" />
+      </ECTransition>
+    </ECC>
+  </BasicFB>
+</FBType>

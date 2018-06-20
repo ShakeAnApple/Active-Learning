@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="C3033723308242C5" Name="integEC" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="milos" Date="2007-06-14" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="speed" />
+        <With Var="maxValue" />
+        <With Var="minValue" />
+      </Event>
+      <Event Name="REQ" Comment="cycle calculation call">
+        <With Var="speed" />
+        <With Var="maxValue" />
+        <With Var="minValue" />
+        <With Var="curPos" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetPos" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="liftPos" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="liftPos" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="liftPos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="speed" Type="REAL" InitialValue="0.0" Comment="pv1 to integrate" />
+      <VarDeclaration Name="maxValue" Type="REAL" />
+      <VarDeclaration Name="minValue" Type="REAL" />
+      <VarDeclaration Name="curPos" Type="REAL" />
+      <VarDeclaration Name="resetPos" Type="REAL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="liftPos" Type="REAL" InitialValue="0.0" Comment="out value (depends on integType)" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="600.9409" y="465.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="963.5294" y="181.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="177.647" y="928.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECState Name="RESET" x="1264" y="700">
+        <ECAction Algorithm="RESET" Output="RESOUT" />
+      </ECState>
+      <ECTransition Source="START" Destination="RESET" Condition="RESET" x="966.4143" y="523.3464">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="223.6764,121.0321,260.3643,134.4093" />
+      </ECTransition>
+      <ECTransition Source="RESET" Destination="START" Condition="1" x="924.4434" y="664.412">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="249.7114,176.5473,216.1494,164.6732" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="454.8836" y="748.6287">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="129.4504,176.1872,102.118,206.1176" />
+      </ECTransition>
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="378.8192" y="622.1765">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="83.65731,164.2593,110.9897,134.3289" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="775.0881" y="242.7511">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="185.9982,63.31814,205.1194,48.32892" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="841.9011" y="386.2007">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="220.5429,93.00414,201.4217,107.9934" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="liftPos := 30.0;" />
+    </Algorithm>
+    <Algorithm Name="REQ">
+      <ST Text="&#xD;&#xA;liftPos := LIMIT(minValue, liftPos + speed, maxValue);" />
+    </Algorithm>
+    <Algorithm Name="RESET">
+      <ST Text="liftPos := resetPos;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

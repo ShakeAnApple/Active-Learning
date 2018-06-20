@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="CEEDD1484B28FA78" Name="Lift" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="6" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/3/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="MoveUp" />
+        <With Var="MoveDown" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="MoveUp" />
+        <With Var="MoveDown" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetPos" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="LiftPos" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="LiftPos" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="LiftPos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="MoveUp" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="MoveDown" Type="BOOL" />
+      <VarDeclaration Name="resetPos" Type="REAL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="LiftPos" Type="REAL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="4" Name="FB4" Type="ChangeDetect" x="3500" y="920" Namespace="Main" />
+    <FB ID="5" Name="IThis" Type="Lift_HMI" x="4100" y="800" Namespace="Main" />
+    <FB ID="6" Name="FB2" Type="E_DELAY" x="1800" y="800" Namespace="IEC61499.Standard">
+      <Parameter Name="DT" Value="t#5ms" />
+    </FB>
+    <FB ID="3" Name="FB3" Type="LiftMove" x="1020" y="740" Namespace="Main" />
+    <FB ID="1" Name="FB1" Type="integEC" x="2460" y="740" Namespace="Main">
+      <Parameter Name="maxValue" Value="419.0" />
+      <Parameter Name="minValue" Value="30.0" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>130</X>
+        <Y>187.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>130</X>
+        <Y>202.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="MoveUp">
+      <Position>
+        <X>80</X>
+        <Y>252.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="MoveDown">
+      <Position>
+        <X>80</X>
+        <Y>267.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetPos">
+      <Position>
+        <X>475</X>
+        <Y>327.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>130</X>
+        <Y>167.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1180</X>
+        <Y>202.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>785</X>
+        <Y>217.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="LiftPos">
+      <Position>
+        <X>750</X>
+        <Y>252.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RESOUT">
+      <Position>
+        <X>775</X>
+        <Y>162.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="REQ" Destination="FB3.REQ" dx1="48.95831" />
+      <Connection Source="INIT" Destination="FB3.INIT" dx1="40.83331" />
+      <Connection Source="FB3.INITO" Destination="FB1.INIT">
+        <Points>
+          <Points>
+            <X>372.416656</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>382.5</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>382.5</X>
+            <Y>182.5</Y>
+          </Points>
+          <Points>
+            <X>547.5</X>
+            <Y>182.5</Y>
+          </Points>
+          <Points>
+            <X>547.5</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>610</X>
+            <Y>194.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="FB1.CNF" Destination="FB4.REQ" dx1="43.33325" />
+      <Connection Source="FB1.CNF" Destination="CNF" dx1="43.33325" />
+      <Connection Source="FB2.EO" Destination="FB1.REQ">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB3.CNF" Destination="FB2.START" />
+      <Connection Source="FB1.INITO" Destination="IThis.INIT" dx1="221.7283">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.CHG" Destination="IThis.REQ" dx1="40" />
+      <Connection Source="IThis.INITO" Destination="INITO" dx1="49.396" />
+      <Connection Source="RESET" Destination="FB1.RESET">
+        <Points>
+          <Points>
+            <X>207.708328</X>
+            <Y>175.000015</Y>
+          </Points>
+          <Points>
+            <X>217.708328</X>
+            <Y>175.000015</Y>
+          </Points>
+          <Points>
+            <X>217.708328</X>
+            <Y>167.5</Y>
+          </Points>
+          <Points>
+            <X>547.5</X>
+            <Y>167.5</Y>
+          </Points>
+          <Points>
+            <X>547.5</X>
+            <Y>224.5</Y>
+          </Points>
+          <Points>
+            <X>610</X>
+            <Y>224.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="FB1.RESOUT" Destination="RESOUT" dx1="90" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="FB3.speed" Destination="FB1.speed" dx1="450.1666">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="MoveDown" Destination="FB3.MoveDown" dx1="46.25" />
+      <Connection Source="MoveUp" Destination="FB3.MoveUp" dx1="40.79175" />
+      <Connection Source="FB1.liftPos" Destination="FB4.INP" dx1="81.72827">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB1.liftPos" Destination="LiftPos" dx1="90" dx2="40" dy="-29" />
+      <Connection Source="FB1.liftPos" Destination="FB1.curPos" dx1="81.72827" dx2="560" dy="332">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.OUT" Destination="IThis.Position" />
+      <Connection Source="resetPos" Destination="FB1.resetPos" dx1="40" dx2="40" dy="-0.9998779" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

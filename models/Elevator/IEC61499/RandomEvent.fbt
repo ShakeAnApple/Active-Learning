@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="EDDDC43CDF623376" Name="RandomEvent" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="3" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Dmitry" Date="8/30/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="Seed" />
+        <With Var="Probability" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="Seed" />
+        <With Var="Probability" />
+        <With Var="Mul" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="ResetResult" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="Result" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="Result" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="Result" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="Seed" Type="LINT" />
+      <VarDeclaration Name="Probability" Type="REAL" />
+      <VarDeclaration Name="Mul" Type="LINT" />
+      <VarDeclaration Name="ResetResult" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="Result" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="FB1" Type="RandomGenerator" x="700" y="80" Namespace="Main" />
+    <FB ID="3" Name="FB2" Type="RandomEventConverter" x="1960" y="140" Namespace="Main">
+      <Parameter Name="Mod" Value="61784137971" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>20</X>
+        <Y>22.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>20</X>
+        <Y>37.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="Seed">
+      <Position>
+        <X>20</X>
+        <Y>87.96355</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Probability">
+      <Position>
+        <X>315</X>
+        <Y>102.963539</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Mul">
+      <Position>
+        <X>20.84636</X>
+        <Y>102.963539</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>355</X>
+        <Y>52.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="ResetResult">
+      <Position>
+        <X>320</X>
+        <Y>167.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>300</X>
+        <Y>22.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>625</X>
+        <Y>37.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="Result">
+      <Position>
+        <X>630</X>
+        <Y>87.96354</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RESOUT">
+      <Position>
+        <X>690</X>
+        <Y>47.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="FB1.INIT" dx1="170.8334">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95837" />
+      <Connection Source="FB1.INITO" Destination="INITO" dx1="43.3125" />
+      <Connection Source="FB2.CNF" Destination="CNF" dx1="259.5625" dx2="590" dy="-108" />
+      <Connection Source="FB1.CNF" Destination="FB2.REQ" />
+      <Connection Source="RESET" Destination="FB2.RESET" dx1="40" />
+      <Connection Source="FB2.RESOUT" Destination="RESOUT" dx1="70" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="Seed" Destination="FB1.Seed" dx1="46.12503" />
+      <Connection Source="FB1.Next" Destination="FB2.Input" dx1="40" />
+      <Connection Source="Probability" Destination="FB2.Probability" dx1="46.81262" />
+      <Connection Source="FB2.Result" Destination="Result" dx1="99.5625" dx2="610" dy="272" />
+      <Connection Source="Mul" Destination="FB1.Mul" dx1="40" />
+      <Connection Source="ResetResult" Destination="FB2.ResetResult" dx1="47.02087" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

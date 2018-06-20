@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="8A678A773DADC490" Name="CallButton" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="6" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/3/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="LiftAtFloor" />
+        <With Var="DoorOpened" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="LiftAtFloor" />
+        <With Var="DoorOpened" />
+        <With Var="ForcedTurnOnProbability" />
+        <With Var="Mul" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="ResetButton" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="Button" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="Button" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="Button" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="LiftAtFloor" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="DoorOpened" Type="BOOL" />
+      <VarDeclaration Name="ForcedTurnOnProbability" Type="REAL" />
+      <VarDeclaration Name="Seed" Type="LINT" />
+      <VarDeclaration Name="Mul" Type="LINT" />
+      <VarDeclaration Name="ResetButton" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="Button" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="2" Name="FB2" Type="AND_-2118623424" x="2660" y="360" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=2;OUT:BOOL" />
+    </FB>
+    <FB ID="3" Name="IThis" Type="CallButton_HMI" x="3740" y="300" Namespace="Main">
+      <Parameter Name="QI" Value="TRUE" />
+    </FB>
+    <FB ID="6" Name="FB4" Type="RandomEvent" x="1220" y="300" Namespace="Main" />
+    <FB ID="4" Name="FB1" Type="ChangeDetect" x="3160" y="360" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>90</X>
+        <Y>77.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>90</X>
+        <Y>92.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="LiftAtFloor">
+      <Position>
+        <X>495</X>
+        <Y>142.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="DoorOpened">
+      <Position>
+        <X>495</X>
+        <Y>157.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ForcedTurnOnProbability">
+      <Position>
+        <X>80</X>
+        <Y>157.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Seed">
+      <Position>
+        <X>80</X>
+        <Y>142.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Mul">
+      <Position>
+        <X>80.84636</X>
+        <Y>172.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="ResetButton">
+      <Position>
+        <X>120</X>
+        <Y>202.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1125</X>
+        <Y>77.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>210</X>
+        <Y>112.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="Button">
+      <Position>
+        <X>1115</X>
+        <Y>157.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RESOUT">
+      <Position>
+        <X>485</X>
+        <Y>112.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="FB2.CNF" Destination="FB1.REQ">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="REQ" Destination="FB4.REQ" dx1="48.95837" />
+      <Connection Source="INIT" Destination="FB4.INIT">
+        <Points>
+          <Points>
+            <X>152.291656</X>
+            <Y>84.99999</Y>
+          </Points>
+          <Points>
+            <X>162.291656</X>
+            <Y>84.99999</Y>
+          </Points>
+          <Points>
+            <X>290</X>
+            <Y>84.5</Y>
+          </Points>
+          <Points>
+            <X>300</X>
+            <Y>84.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.CNF" Destination="FB2.REQ" />
+      <Connection Source="REQ" Destination="CNF" dx1="48.95837" />
+      <Connection Source="RESET" Destination="FB4.RESET" dx1="787.1667" />
+      <Connection Source="FB4.RESOUT" Destination="RESOUT" dx1="40" />
+      <Connection Source="FB4.INITO" Destination="IThis.INIT">
+        <Points>
+          <Points>
+            <X>442.609344</X>
+            <Y>84.5</Y>
+          </Points>
+          <Points>
+            <X>407.4999</X>
+            <Y>84.5</Y>
+          </Points>
+          <Points>
+            <X>407.4999</X>
+            <Y>55</Y>
+          </Points>
+          <Points>
+            <X>870</X>
+            <Y>55</Y>
+          </Points>
+          <Points>
+            <X>870</X>
+            <Y>84.5</Y>
+          </Points>
+          <Points>
+            <X>930</X>
+            <Y>84.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB1.CHG" Destination="IThis.REQ" />
+      <Connection Source="FB4.CNF" Destination="IThis.REQ">
+        <Points>
+          <Points>
+            <X>442.609344</X>
+            <Y>99.5</Y>
+          </Points>
+          <Points>
+            <X>449.9999</X>
+            <Y>99.5</Y>
+          </Points>
+          <Points>
+            <X>449.9999</X>
+            <Y>75</Y>
+          </Points>
+          <Points>
+            <X>857.5</X>
+            <Y>75</Y>
+          </Points>
+          <Points>
+            <X>857.5</X>
+            <Y>99.5</Y>
+          </Points>
+          <Points>
+            <X>930</X>
+            <Y>99.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="IThis.INITO" Destination="INITO" dx1="84.25" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="LiftAtFloor" Destination="FB2.IN1" dx1="40" />
+      <Connection Source="DoorOpened" Destination="FB2.IN2" dx1="40" />
+      <Connection Source="FB2.OUT" Destination="FB1.INP" dx1="63.7395">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="ForcedTurnOnProbability" Destination="FB4.Probability" dx1="40" />
+      <Connection Source="Seed" Destination="FB4.Seed" dx1="386.1251" />
+      <Connection Source="Mul" Destination="FB4.Mul" dx1="40" />
+      <Connection Source="ResetButton" Destination="FB4.ResetResult" dx1="44.85425" />
+      <Connection Source="FB1.OUT" Destination="IThis.ResetButton">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.Result" Destination="IThis.ForcedTurnOn">
+        <Points>
+          <Points>
+            <X>442.609344</X>
+            <Y>164.5</Y>
+          </Points>
+          <Points>
+            <X>452.609344</X>
+            <Y>164.5</Y>
+          </Points>
+          <Points>
+            <X>452.609344</X>
+            <Y>187.5</Y>
+          </Points>
+          <Points>
+            <X>757.5</X>
+            <Y>187.5</Y>
+          </Points>
+          <Points>
+            <X>757.5</X>
+            <Y>179.5</Y>
+          </Points>
+          <Points>
+            <X>930</X>
+            <Y>179.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="IThis.Button" Destination="Button" dx1="70" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

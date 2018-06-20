@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="3A5F42FB6513C98B" Name="ReqPanelLift" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="30" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/3/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="LiftAt0" />
+        <With Var="LiftAt1" />
+        <With Var="LiftAt2" />
+        <With Var="DoorOpen0" />
+        <With Var="DoorOpen1" />
+        <With Var="DoorOpen2" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="LiftAt0" />
+        <With Var="LiftAt1" />
+        <With Var="LiftAt2" />
+        <With Var="DoorOpen0" />
+        <With Var="DoorOpen1" />
+        <With Var="DoorOpen2" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="ResetReqButton0" />
+        <With Var="ResetReqButton1" />
+        <With Var="ResetReqButton2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="ButtonFor0" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="ButtonFor0" />
+        <With Var="ButtonFor1" />
+        <With Var="ButtonFor2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="LiftAt0" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="LiftAt1" Type="BOOL" />
+      <VarDeclaration Name="LiftAt2" Type="BOOL" />
+      <VarDeclaration Name="DoorOpen0" Type="BOOL" />
+      <VarDeclaration Name="DoorOpen1" Type="BOOL" />
+      <VarDeclaration Name="DoorOpen2" Type="BOOL" />
+      <VarDeclaration Name="ResetReqButton0" Type="BOOL" />
+      <VarDeclaration Name="ResetReqButton1" Type="BOOL" />
+      <VarDeclaration Name="ResetReqButton2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="ButtonFor0" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="ButtonFor1" Type="BOOL" />
+      <VarDeclaration Name="ButtonFor2" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="FB1" Type="AND_-2118623424" x="940" y="1580" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=2;OUT:BOOL" />
+    </FB>
+    <FB ID="4" Name="FB3" Type="AND_-2118623424" x="940" y="2140" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=2;OUT:BOOL" />
+    </FB>
+    <FB ID="5" Name="FB4" Type="AND_-2118623424" x="940" y="2680" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=2;OUT:BOOL" />
+    </FB>
+    <FB ID="30" Name="FB7" Type="Signal_OR" x="2200" y="3300" Namespace="Main" />
+    <FB ID="10" Name="FB2" Type="ChangeDetect" x="2780" y="1440" Namespace="Main" />
+    <FB ID="11" Name="FB5" Type="ChangeDetect" x="2780" y="2020" Namespace="Main" />
+    <FB ID="12" Name="FB6" Type="ChangeDetect" x="2780" y="2680" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>810</X>
+        <Y>817.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>45</X>
+        <Y>397.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="LiftAt0">
+      <Position>
+        <X>45</X>
+        <Y>447.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LiftAt1">
+      <Position>
+        <X>50</X>
+        <Y>587.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LiftAt2">
+      <Position>
+        <X>50</X>
+        <Y>722.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="DoorOpen0">
+      <Position>
+        <X>45</X>
+        <Y>462.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="DoorOpen1">
+      <Position>
+        <X>50</X>
+        <Y>602.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="DoorOpen2">
+      <Position>
+        <X>50</X>
+        <Y>737.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>45</X>
+        <Y>337.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="ResetReqButton0">
+      <Position>
+        <X>440</X>
+        <Y>442.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ResetReqButton1">
+      <Position>
+        <X>450</X>
+        <Y>587.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="ResetReqButton2">
+      <Position>
+        <X>455</X>
+        <Y>752.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>910</X>
+        <Y>817.9635</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>660</X>
+        <Y>827.9635</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="ButtonFor0">
+      <Position>
+        <X>1280</X>
+        <Y>572.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="ButtonFor1">
+      <Position>
+        <X>1280</X>
+        <Y>587.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="ButtonFor2">
+      <Position>
+        <X>1280</X>
+        <Y>602.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95837" />
+      <Connection Source="FB1.CNF" Destination="FB3.REQ" dx1="47.47913" dx2="50" dy="402">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB3.CNF" Destination="FB4.REQ" dx1="37.47913" dx2="50" dy="342">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.CNF" Destination="FB6.REQ">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.CNF" Destination="FB5.REQ" dx1="177.4791">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.CNF" Destination="FB2.REQ" dx1="177.4791">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="RESET" Destination="FB2.RESET" dx1="819.1667" />
+      <Connection Source="RESET" Destination="FB5.RESET" dx1="819.1667" />
+      <Connection Source="RESET" Destination="FB6.RESET" dx1="819.1667" />
+      <Connection Source="RESET" Destination="FB7.I0" dx1="219.1667" />
+      <Connection Source="FB7.OUT" Destination="CNF" dx1="40" />
+      <Connection Source="INIT" Destination="INITO" />
+      <Connection Source="REQ" Destination="FB7.I1" dx1="268.9584" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="LiftAt0" Destination="FB1.IN1" dx1="40" />
+      <Connection Source="DoorOpen0" Destination="FB1.IN2" dx1="40" />
+      <Connection Source="DoorOpen1" Destination="FB3.IN2" dx1="40" />
+      <Connection Source="LiftAt1" Destination="FB3.IN1" dx1="40" />
+      <Connection Source="DoorOpen2" Destination="FB4.IN2" dx1="40" />
+      <Connection Source="LiftAt2" Destination="FB4.IN1" dx1="40" />
+      <Connection Source="FB1.OUT" Destination="FB2.INP" dx1="70" />
+      <Connection Source="FB3.OUT" Destination="FB5.INP" dx1="257.4791">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.OUT" Destination="FB6.INP" dx1="257.4791">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="ResetReqButton0" Destination="FB2.ResetINP" dx1="42.85425" />
+      <Connection Source="ResetReqButton1" Destination="FB5.ResetINP" dx1="42.85425" />
+      <Connection Source="ResetReqButton2" Destination="FB6.ResetINP" dx1="42.85425" />
+      <Connection Source="FB2.OUT" Destination="ButtonFor0" dx1="40" />
+      <Connection Source="FB5.OUT" Destination="ButtonFor1" dx1="40" />
+      <Connection Source="FB6.OUT" Destination="ButtonFor2" dx1="40" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

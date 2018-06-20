@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="1D03FEE60A2D6BA" Name="OutputDecompressor" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Dmitry" Date="11/2/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="QI" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="QI" />
+        <With Var="delimiter" />
+        <With Var="input" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="QO" />
+        <With Var="requestFloor0" />
+        <With Var="requestFloor1" />
+        <With Var="requestFloor2" />
+        <With Var="elevatorAtFloor0" />
+        <With Var="elevatorAtFloor1" />
+        <With Var="elevatorAtFloor2" />
+        <With Var="door0Closed" />
+        <With Var="door1Closed" />
+        <With Var="door2Closed" />
+        <With Var="liftPos" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="QO" />
+        <With Var="requestFloor0" />
+        <With Var="requestFloor1" />
+        <With Var="requestFloor2" />
+        <With Var="elevatorAtFloor0" />
+        <With Var="elevatorAtFloor1" />
+        <With Var="elevatorAtFloor2" />
+        <With Var="door0Closed" />
+        <With Var="door1Closed" />
+        <With Var="door2Closed" />
+        <With Var="liftPos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="delimiter" Type="STRING" />
+      <VarDeclaration Name="input" Type="STRING[200]" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="requestFloor0" Type="BOOL" />
+      <VarDeclaration Name="requestFloor1" Type="BOOL" />
+      <VarDeclaration Name="requestFloor2" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor0" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor1" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor2" Type="BOOL" />
+      <VarDeclaration Name="door0Closed" Type="BOOL" />
+      <VarDeclaration Name="door1Closed" Type="BOOL" />
+      <VarDeclaration Name="door2Closed" Type="BOOL" />
+      <VarDeclaration Name="liftPos" Type="REAL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="447.8488" y="648.3352" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="QO := TRUE;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	subs : ARRAY[1..18] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		subs[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;(*buttonFloor0 := STRING_TO_BOOL(subs[1]);&#xD;&#xA;buttonFloor1 := STRING_TO_BOOL(subs[2]);&#xD;&#xA;buttonFloor2 := STRING_TO_BOOL(subs[3]);*)&#xD;&#xA;requestFloor0 := STRING_TO_BOOL(subs[1]);&#xD;&#xA;requestFloor1 := STRING_TO_BOOL(subs[2]);&#xD;&#xA;requestFloor2 := STRING_TO_BOOL(subs[3]);&#xD;&#xA;elevatorAtFloor0 := STRING_TO_BOOL(subs[4]);&#xD;&#xA;elevatorAtFloor1 := STRING_TO_BOOL(subs[5]);&#xD;&#xA;elevatorAtFloor2 := STRING_TO_BOOL(subs[6]);&#xD;&#xA;door0Closed := STRING_TO_BOOL(subs[7]);&#xD;&#xA;door1Closed := STRING_TO_BOOL(subs[8]);&#xD;&#xA;door2Closed := STRING_TO_BOOL(subs[9]);&#xD;&#xA;liftPos := STRING_TO_INT(subs[10]);" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

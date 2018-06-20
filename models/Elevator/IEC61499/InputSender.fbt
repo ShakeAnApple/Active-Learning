@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="EE4A4896EECF6454" Name="InputSender" Comment="Extracted Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="5" />
+  <VersionInfo Author="Dmitry" Date="11/3/2016" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request" />
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="motorUp" />
+        <With Var="motorDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm" />
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="motorUp" />
+        <With Var="motorDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetPos" />
+        <With Var="resetCarAt0" />
+        <With Var="resetCarAt1" />
+        <With Var="resetCarAt2" />
+        <With Var="resetDoor0Closed" />
+        <With Var="resetDoor1Closed" />
+        <With Var="resetDoor2Closed" />
+        <With Var="resetReqButton0" />
+        <With Var="resetReqButton1" />
+        <With Var="resetReqButton2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="motorUp" Type="BOOL" />
+      <VarDeclaration Name="motorDown" Type="BOOL" />
+      <VarDeclaration Name="door0" Type="BOOL" />
+      <VarDeclaration Name="door1" Type="BOOL" />
+      <VarDeclaration Name="door2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="motorUp" Type="BOOL" />
+      <VarDeclaration Name="motorDown" Type="BOOL" />
+      <VarDeclaration Name="door0" Type="BOOL" />
+      <VarDeclaration Name="door1" Type="BOOL" />
+      <VarDeclaration Name="door2" Type="BOOL" />
+      <VarDeclaration Name="resetPos" Type="REAL" />
+      <VarDeclaration Name="resetCarAt0" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt1" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt2" Type="BOOL" />
+      <VarDeclaration Name="resetDoor0Closed" Type="BOOL" />
+      <VarDeclaration Name="resetDoor1Closed" Type="BOOL" />
+      <VarDeclaration Name="resetDoor2Closed" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton0" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton1" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton2" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="FB2" Type="TCPIO" x="1800" y="560" Namespace="Runtime.IoCommon">
+      <Parameter Name="PORT" Value=";127.0.0.1:64999" />
+    </FB>
+    <FB ID="3" Name="FB4" Type="InputCompressor" x="860" y="560" Namespace="Main">
+      <Parameter Name="delimiter" Value=";" />
+      <Parameter Name="QI" Value="TRUE" />
+    </FB>
+    <FB ID="2" Name="FB5" Type="InputDecompressor" x="2840" y="560" Namespace="Main">
+      <Parameter Name="delimiter" Value=";" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>115</X>
+        <Y>142.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>115</X>
+        <Y>157.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="motorUp">
+      <Position>
+        <X>60</X>
+        <Y>237.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="motorDown">
+      <Position>
+        <X>45</X>
+        <Y>252.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door0">
+      <Position>
+        <X>75</X>
+        <Y>267.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door1">
+      <Position>
+        <X>75</X>
+        <Y>282.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door2">
+      <Position>
+        <X>75</X>
+        <Y>297.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>950</X>
+        <Y>142.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>950</X>
+        <Y>157.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="motorUp">
+      <Position>
+        <X>960</X>
+        <Y>237.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="motorDown">
+      <Position>
+        <X>960</X>
+        <Y>252.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door0">
+      <Position>
+        <X>960</X>
+        <Y>267.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door1">
+      <Position>
+        <X>960</X>
+        <Y>282.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door2">
+      <Position>
+        <X>960</X>
+        <Y>297.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetPos">
+      <Position>
+        <X>1100</X>
+        <Y>312.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetCarAt0">
+      <Position>
+        <X>1095</X>
+        <Y>327.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetCarAt1">
+      <Position>
+        <X>1130</X>
+        <Y>342.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetCarAt2">
+      <Position>
+        <X>1165</X>
+        <Y>357.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RESET">
+      <Position>
+        <X>950</X>
+        <Y>172.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="resetDoor0Closed">
+      <Position>
+        <X>1005</X>
+        <Y>372.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetDoor1Closed">
+      <Position>
+        <X>995</X>
+        <Y>387.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetDoor2Closed">
+      <Position>
+        <X>1030</X>
+        <Y>402.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetReqButton0">
+      <Position>
+        <X>1160</X>
+        <Y>467.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetReqButton1">
+      <Position>
+        <X>1215</X>
+        <Y>482.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetReqButton2">
+      <Position>
+        <X>1055</X>
+        <Y>492.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="FB4.INITO" Destination="FB2.INIT" />
+      <Connection Source="INIT" Destination="FB4.INIT" dx1="40.83337" dx2="390" dy="-50.00006" />
+      <Connection Source="REQ" Destination="FB4.REQ" dx1="48.95837" dx2="390" dy="49.99994" />
+      <Connection Source="FB4.CNF" Destination="FB2.REQ" />
+      <Connection Source="FB2.CNF" Destination="FB2.ACK" dx1="60" dx2="90" dy="-168" />
+      <Connection Source="FB2.IND" Destination="FB5.REQ" dx1="92.16675" />
+      <Connection Source="FB2.INITO" Destination="FB5.INIT" />
+      <Connection Source="FB5.INITO" Destination="INITO" dx1="43.89575" />
+      <Connection Source="FB5.CNF" Destination="CNF" dx1="43.89575" />
+      <Connection Source="FB5.RESET" Destination="RESET" dx1="43.89575" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="FB4.QO" Destination="FB2.QI" dx1="273.5209">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB5.motorUp" Destination="motorUp" dx1="43.89575" />
+      <Connection Source="FB5.motorDown" Destination="motorDown" dx1="43.89575" />
+      <Connection Source="FB5.door0" Destination="door0" dx1="43.89575" />
+      <Connection Source="FB5.door1" Destination="door1" dx1="43.89575" />
+      <Connection Source="FB5.door2" Destination="door2" dx1="43.89575" />
+      <Connection Source="motorUp" Destination="FB4.motorUp" dx1="16.06256" />
+      <Connection Source="motorDown" Destination="FB4.motorDown" dx1="40" dx2="100" dy="-1" />
+      <Connection Source="door0" Destination="FB4.door0" dx1="40.27081" />
+      <Connection Source="door1" Destination="FB4.door1" dx1="40" />
+      <Connection Source="door2" Destination="FB4.door2" dx1="40" />
+      <Connection Source="FB4.RESULT" Destination="FB2.DATAOUT" dx1="43.52087" />
+      <Connection Source="FB2.DATAIN" Destination="FB5.input" dx1="222.1667">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB2.QO" Destination="FB5.QI" dx1="112.1667" />
+      <Connection Source="FB5.resetPos" Destination="resetPos" dx1="40" />
+      <Connection Source="FB5.resetCarAt0" Destination="resetCarAt0" dx1="40" />
+      <Connection Source="FB5.resetCarAt1" Destination="resetCarAt1" dx1="40" />
+      <Connection Source="FB5.resetCarAt2" Destination="resetCarAt2" dx1="40" />
+      <Connection Source="FB5.resetDoor1Closed" Destination="resetDoor1Closed" dx1="40" />
+      <Connection Source="FB5.resetDoor2Closed" Destination="resetDoor2Closed" dx1="40" />
+      <Connection Source="FB5.resetReqButton0" Destination="resetReqButton0" dx1="43.89575" />
+      <Connection Source="FB5.resetDoor0Closed" Destination="resetDoor0Closed" dx1="40" />
+      <Connection Source="FB5.resetReqButton1" Destination="resetReqButton1" dx1="43.89575" />
+      <Connection Source="FB5.resetReqButton2" Destination="resetReqButton2" dx1="43.89575" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

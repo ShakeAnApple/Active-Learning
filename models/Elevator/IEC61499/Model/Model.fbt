@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="A9A45F503DC587D0" Name="Model" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="12" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/17/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="motorUp" />
+        <With Var="motorDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="motorUp" />
+        <With Var="motorDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetPos" />
+        <With Var="resetCarAt0" />
+        <With Var="resetCarAt1" />
+        <With Var="resetCarAt2" />
+        <With Var="resetDoor0Closed" />
+        <With Var="resetDoor1Closed" />
+        <With Var="resetDoor2Closed" />
+        <With Var="resetReqButton0" />
+        <With Var="resetReqButton1" />
+        <With Var="resetReqButton2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="requestFloor0" />
+        <With Var="requestFloor1" />
+        <With Var="requestFloor2" />
+        <With Var="elevatorAtFloor0" />
+        <With Var="elevatorAtFloor1" />
+        <With Var="elevatorAtFloor2" />
+        <With Var="door0Closed" />
+        <With Var="door1Closed" />
+        <With Var="door2Closed" />
+        <With Var="liftPos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="motorUp" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="motorDown" Type="BOOL" />
+      <VarDeclaration Name="door0" Type="BOOL" />
+      <VarDeclaration Name="door1" Type="BOOL" />
+      <VarDeclaration Name="door2" Type="BOOL" />
+      <VarDeclaration Name="resetPos" Type="REAL" />
+      <VarDeclaration Name="resetCarAt0" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt1" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt2" Type="BOOL" />
+      <VarDeclaration Name="resetDoor0Closed" Type="BOOL" />
+      <VarDeclaration Name="resetDoor1Closed" Type="BOOL" />
+      <VarDeclaration Name="resetDoor2Closed" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton0" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton1" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="requestFloor0" Type="BOOL" />
+      <VarDeclaration Name="requestFloor1" Type="BOOL" />
+      <VarDeclaration Name="requestFloor2" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor0" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor1" Type="BOOL" />
+      <VarDeclaration Name="elevatorAtFloor2" Type="BOOL" />
+      <VarDeclaration Name="door0Closed" Type="BOOL" />
+      <VarDeclaration Name="door1Closed" Type="BOOL" />
+      <VarDeclaration Name="door2Closed" Type="BOOL" />
+      <VarDeclaration Name="liftPos" Type="REAL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="FB1" Type="Lift" x="1280" y="1420" Namespace="Main" />
+    <FB ID="11" Name="Doors" Type="Doors" x="4800" y="980" Namespace="Main" />
+    <FB ID="3" Name="FB3" Type="ReqPanelLift" x="8340" y="1340" Namespace="Main" />
+    <FB ID="4" Name="FB4" Type="FloorCarElevator" x="2480" y="1480" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>150</X>
+        <Y>357.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>150</X>
+        <Y>372.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="motorUp">
+      <Position>
+        <X>150</X>
+        <Y>437.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="motorDown">
+      <Position>
+        <X>150</X>
+        <Y>452.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door0">
+      <Position>
+        <X>1060</X>
+        <Y>437.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door1">
+      <Position>
+        <X>1060</X>
+        <Y>452.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="door2">
+      <Position>
+        <X>1060</X>
+        <Y>467.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetPos">
+      <Position>
+        <X>150</X>
+        <Y>467.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetCarAt0">
+      <Position>
+        <X>460</X>
+        <Y>452.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetCarAt1">
+      <Position>
+        <X>460</X>
+        <Y>472.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetCarAt2">
+      <Position>
+        <X>460</X>
+        <Y>487.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>125</X>
+        <Y>202.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="resetDoor0Closed">
+      <Position>
+        <X>990</X>
+        <Y>482.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetDoor1Closed">
+      <Position>
+        <X>990</X>
+        <Y>497.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetDoor2Closed">
+      <Position>
+        <X>990</X>
+        <Y>512.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetReqButton0">
+      <Position>
+        <X>1905</X>
+        <Y>507.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetReqButton1">
+      <Position>
+        <X>1905</X>
+        <Y>522.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetReqButton2">
+      <Position>
+        <X>1905</X>
+        <Y>537.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="CNF">
+      <Position>
+        <X>2305</X>
+        <Y>357.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="requestFloor0">
+      <Position>
+        <X>2345</X>
+        <Y>437.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="requestFloor1">
+      <Position>
+        <X>2345</X>
+        <Y>452.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="requestFloor2">
+      <Position>
+        <X>2345</X>
+        <Y>467.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor0">
+      <Position>
+        <X>850</X>
+        <Y>422.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor1">
+      <Position>
+        <X>850</X>
+        <Y>437.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="elevatorAtFloor2">
+      <Position>
+        <X>850</X>
+        <Y>452.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door0Closed">
+      <Position>
+        <X>1465</X>
+        <Y>497.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door1Closed">
+      <Position>
+        <X>1420</X>
+        <Y>542.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="door2Closed">
+      <Position>
+        <X>1410</X>
+        <Y>577.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="liftPos">
+      <Position>
+        <X>465</X>
+        <Y>397.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95837" />
+      <Connection Source="INIT" Destination="FB1.INIT" dx1="40.83337" />
+      <Connection Source="FB1.CNF" Destination="FB4.REQ" />
+      <Connection Source="FB4.CNF" Destination="Doors.REQ" dx1="55.8335" />
+      <Connection Source="FB1.INITO" Destination="Doors.INIT">
+        <Points>
+          <Points>
+            <X>452.802063</X>
+            <Y>364.5</Y>
+          </Points>
+          <Points>
+            <X>554.276</X>
+            <Y>364.5</Y>
+          </Points>
+          <Points>
+            <X>554.276</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>1066.776</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>1066.776</X>
+            <Y>254.5</Y>
+          </Points>
+          <Points>
+            <X>1195</X>
+            <Y>254.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB3.CNF" Destination="CNF" dx1="102.1035" />
+      <Connection Source="FB3.INITO" Destination="FB1.REQ" dx1="42.10352" dx2="70" dy="-108" />
+      <Connection Source="RESET" Destination="FB1.RESET" dx1="40" />
+      <Connection Source="FB1.RESOUT" Destination="FB4.RESET" />
+      <Connection Source="FB4.RESOUT" Destination="Doors.RESET" dx1="75.8335" />
+      <Connection Source="Doors.INITO" Destination="FB3.INIT" dx1="140" />
+      <Connection Source="Doors.CNF" Destination="FB3.REQ" dx1="120" />
+      <Connection Source="Doors.RESOUT" Destination="FB3.RESET" dx1="100" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="motorUp" Destination="FB1.MoveUp" dx1="40" />
+      <Connection Source="motorDown" Destination="FB1.MoveDown" dx1="41.52087" />
+      <Connection Source="FB3.ButtonFor0" Destination="requestFloor0" dx1="42.10352" />
+      <Connection Source="FB3.ButtonFor1" Destination="requestFloor1" dx1="42.10352" />
+      <Connection Source="FB3.ButtonFor2" Destination="requestFloor2" dx1="42.10352" />
+      <Connection Source="FB1.LiftPos" Destination="FB4.CarPos">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB4.CarAt0" Destination="FB3.LiftAt0" dx1="2657.917" />
+      <Connection Source="FB4.CarAt1" Destination="FB3.LiftAt1" dx1="2667.917" />
+      <Connection Source="FB4.CarAt2" Destination="FB3.LiftAt2" dx1="2677.917" />
+      <Connection Source="FB4.CarAt2" Destination="elevatorAtFloor2" dx1="135.8333" />
+      <Connection Source="FB4.CarAt1" Destination="elevatorAtFloor1" dx1="115.8333" />
+      <Connection Source="FB4.CarAt0" Destination="elevatorAtFloor0" dx1="95.83325" />
+      <Connection Source="FB1.LiftPos" Destination="liftPos" dx1="90" dx2="40" dy="-79" />
+      <Connection Source="door1" Destination="Doors.door1Open" dx1="10.54199" />
+      <Connection Source="Doors.door0Closed" Destination="door0Closed" dx1="80" />
+      <Connection Source="Doors.door1Closed" Destination="door1Closed" dx1="60" />
+      <Connection Source="Doors.door2Closed" Destination="door2Closed" dx1="56.521">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="door0" Destination="Doors.door0Open">
+        <Points>
+          <Points>
+            <X>1164.8645</X>
+            <Y>445</Y>
+          </Points>
+          <Points>
+            <X>1162.5</X>
+            <Y>445</Y>
+          </Points>
+          <Points>
+            <X>1162.5</X>
+            <Y>334.5</Y>
+          </Points>
+          <Points>
+            <X>1195</X>
+            <Y>334.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="resetPos" Destination="FB1.resetPos" dx1="40" />
+      <Connection Source="resetCarAt1" Destination="FB4.resetCarAt1" dx1="40" />
+      <Connection Source="resetCarAt2" Destination="FB4.resetCarAt2" dx1="40" />
+      <Connection Source="resetDoor0Closed" Destination="Doors.resetDoor0Closed" dx1="40" />
+      <Connection Source="resetDoor1Closed" Destination="Doors.resetDoor1Closed" dx1="40" />
+      <Connection Source="resetDoor2Closed" Destination="Doors.resetDoor2Closed" dx1="40" />
+      <Connection Source="resetReqButton0" Destination="FB3.ResetReqButton0" dx1="40" dx2="40" dy="-1" />
+      <Connection Source="resetReqButton1" Destination="FB3.ResetReqButton1" dx1="40" dx2="40" dy="-1.000244" />
+      <Connection Source="resetReqButton2" Destination="FB3.ResetReqButton2" dx1="40" dx2="40" dy="-1.000244" />
+      <Connection Source="resetCarAt0" Destination="FB4.resetCarAt0" dx1="41.0105" />
+      <Connection Source="door2" Destination="Doors.door2Open" dx1="40" />
+      <Connection Source="Doors.Door0Opened" Destination="FB3.DoorOpen0" dx1="40" />
+      <Connection Source="Doors.Door1Opened" Destination="FB3.DoorOpen1" dx1="40" />
+      <Connection Source="Doors.Door2Opened" Destination="FB3.DoorOpen2" dx1="877.8335" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

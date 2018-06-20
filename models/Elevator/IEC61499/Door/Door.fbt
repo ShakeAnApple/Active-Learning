@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="92A49D90C384EC27" Name="Door" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="4" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/3/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="OpenDoor" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="OpenDoor" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="ResetDoorClosed" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="DoorOpened" />
+        <With Var="DoorClosed" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="DoorOpened" />
+        <With Var="DoorClosed" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="DoorOpened" />
+        <With Var="DoorClosed" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="OpenDoor" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="ResetDoorClosed" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="DoorOpened" Type="BOOL" />
+      <VarDeclaration Name="DoorClosed" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="4" Name="FB3" Type="ChangeDetect" x="1780" y="280" Namespace="Main" />
+    <FB ID="3" Name="IThis" Type="Door_HMI" x="2380" y="160" Namespace="Main" />
+    <FB ID="2" Name="FB2" Type="DoorSensor" x="1780" y="740" Namespace="Main">
+      <Parameter Name="ValueOpen" Value="49.0" />
+      <Parameter Name="ValueClosed" Value="1.0" />
+    </FB>
+    <FB ID="1" Name="FB1" Type="DoorMove" x="880" y="740" Namespace="Main">
+      <Parameter Name="CycleTime" Value="0.02" />
+      <Parameter Name="MaxOpenPos" Value="50.0" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>15</X>
+        <Y>187.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>15</X>
+        <Y>202.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="OpenDoor">
+      <Position>
+        <X>15</X>
+        <Y>252.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="ResetDoorClosed">
+      <Position>
+        <X>10</X>
+        <Y>312.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>660</X>
+        <Y>187.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>660</X>
+        <Y>202.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="DoorOpened">
+      <Position>
+        <X>660</X>
+        <Y>252.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="DoorClosed">
+      <Position>
+        <X>660</X>
+        <Y>267.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RESOUT">
+      <Position>
+        <X>770</X>
+        <Y>217.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="FB1.CNF" Destination="FB2.REQ" />
+      <Connection Source="FB1.INITO" Destination="FB2.INIT" />
+      <Connection Source="FB2.CNF" Destination="CNF" dx1="47.45825" />
+      <Connection Source="FB2.INITO" Destination="INITO" dx1="47.45825" />
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95837" />
+      <Connection Source="INIT" Destination="FB1.INIT" dx1="40.83334" />
+      <Connection Source="FB1.CNF" Destination="FB3.REQ" dx1="45.20886">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="RESET" Destination="FB1.RESET" dx1="47.16669" />
+      <Connection Source="FB1.RESOUT" Destination="FB2.RESET" />
+      <Connection Source="FB1.INITO" Destination="IThis.INIT">
+        <Points>
+          <Points>
+            <X>383.6979</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>360.000153</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>360.000153</X>
+            <Y>49.5</Y>
+          </Points>
+          <Points>
+            <X>590</X>
+            <Y>49.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB1.INITO" Destination="IThis.INITC">
+        <Points>
+          <Points>
+            <X>383.6979</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>358.6251</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>358.6251</X>
+            <Y>50</Y>
+          </Points>
+          <Points>
+            <X>555</X>
+            <Y>50</Y>
+          </Points>
+          <Points>
+            <X>555</X>
+            <Y>64.5</Y>
+          </Points>
+          <Points>
+            <X>590</X>
+            <Y>64.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB3.CHG" Destination="IThis.REQ" />
+      <Connection Source="FB2.RESOUT" Destination="RESOUT" dx1="87.45825" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="OpenDoor" Destination="FB1.OpenDoor" dx1="42.81256" />
+      <Connection Source="FB1.PosDoor" Destination="FB2.DoorPos" />
+      <Connection Source="FB2.DoorOpen" Destination="DoorOpened" dx1="90" />
+      <Connection Source="FB2.DoorClosed" Destination="DoorClosed" dx1="110" />
+      <Connection Source="FB1.PosDoor" Destination="FB3.INP" dx1="125.2089">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="ResetDoorClosed" Destination="FB2.ResetDoorClosed">
+        <Points>
+          <Points>
+            <X>171.833328</X>
+            <Y>319.999969</Y>
+          </Points>
+          <Points>
+            <X>182.5</X>
+            <Y>319.999969</Y>
+          </Points>
+          <Points>
+            <X>182.5</X>
+            <Y>342.5</Y>
+          </Points>
+          <Points>
+            <X>392.5</X>
+            <Y>342.5</Y>
+          </Points>
+          <Points>
+            <X>392.5</X>
+            <Y>319.5</Y>
+          </Points>
+          <Points>
+            <X>440</X>
+            <Y>319.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="ResetDoorClosed" Destination="FB1.ResetDoorClosed" dx1="40" />
+      <Connection Source="FB3.OUT" Destination="IThis.DoorPosition" dx1="40" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

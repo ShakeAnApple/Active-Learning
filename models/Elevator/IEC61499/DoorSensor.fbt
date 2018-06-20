@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="BCC7F19C577AD6B6" Name="DoorSensor" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/3/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="DoorPos" />
+        <With Var="ValueOpen" />
+        <With Var="ValueClosed" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="DoorPos" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="ResetDoorClosed" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="DoorOpen" />
+        <With Var="DoorClosed" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="DoorOpen" />
+        <With Var="DoorClosed" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="DoorOpen" />
+        <With Var="DoorClosed" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="DoorPos" Type="REAL" Comment="Input event qualifier" />
+      <VarDeclaration Name="ValueOpen" Type="REAL" />
+      <VarDeclaration Name="ValueClosed" Type="REAL" />
+      <VarDeclaration Name="ResetDoorClosed" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="DoorOpen" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="DoorClosed" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="157.647" y="780.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECState Name="RESET" x="1148" y="708">
+        <ECAction Algorithm="RESET" Output="RESOUT" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
+      <ECTransition Source="START" Destination="REQ" Condition="REQ &amp; (RESET &lt;&gt; TRUE)" x="409.8888" y="665.9915">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="115.3796,160.2874,92.22596,180.7728" />
+      </ECTransition>
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="343.3259" y="527.3492">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="77.24285,136.5927,100.4042,115.9956" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="RESET" Condition="RESET" x="892.1748" y="495.4046">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="207.712,112.2756,238.7235,126.7943" />
+      </ECTransition>
+      <ECTransition Source="RESET" Destination="START" Condition="1" x="841.4135" y="649.516">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="228.1234,174.4358,197.1119,159.9171" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text=";" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="IF DoorPos &gt; ValueOpen THEN&#xD;&#xA;	DoorOpen := TRUE;&#xD;&#xA;	DoorClosed := FALSE;&#xD;&#xA;ELSIF DoorPos &lt; ValueClosed THEN&#xD;&#xA;	DoorOpen := FALSE;&#xD;&#xA;	DoorClosed := TRUE;&#xD;&#xA;ELSE&#xD;&#xA;	DoorOpen := FALSE;&#xD;&#xA;	DoorClosed := FALSE;&#xD;&#xA;END_IF;&#xD;&#xA;" />
+    </Algorithm>
+    <Algorithm Name="RESET">
+      <ST Text="DoorClosed := ResetDoorClosed;&#xD;&#xA;DoorOpen := NOT(ResetDoorClosed);&#xD;&#xA;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

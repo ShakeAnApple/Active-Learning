@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProperties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DefaultProfile>
+    <Device Name="DEV0">
+      <Property Name="IPAddress" Value="127.0.0.1" />
+      <ComplexProperty Name="Ports">
+        <Property Name="Deploy" Value="61499" />
+        <Property Name="HMI" Value="61498" />
+        <Property Name="Watch" Value="61497" />
+      </ComplexProperty>
+    </Device>
+  </DefaultProfile>
+  <Profile Name="(Local Test)">
+    <Device Name="DEV0">
+      <ComplexProperty Name="Ports">
+        <Property Name="Deploy" Value="7506" />
+        <Property Name="HMI" Value="7505" />
+        <Property Name="Watch" Value="7504" />
+        <Property Name="Archive" Value="7503" />
+      </ComplexProperty>
+      <Property Name="Login" Value="Yes" />
+    </Device>
+  </Profile>
+</DeviceProperties>

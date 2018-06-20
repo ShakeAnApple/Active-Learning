@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="69A16193CAA7799E" Name="DoorMove" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Andrei" Date="6/3/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="OpenDoor" />
+        <With Var="CycleTime" />
+        <With Var="MaxOpenPos" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="OpenDoor" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="ResetDoorClosed" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="PosDoor" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="PosDoor" />
+      </Event>
+      <Event Name="RESOUT">
+        <With Var="PosDoor" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="OpenDoor" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="CycleTime" Type="REAL" />
+      <VarDeclaration Name="MaxOpenPos" Type="REAL" />
+      <VarDeclaration Name="ResetDoorClosed" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="PosDoor" Type="REAL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="197.647" y="880.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECState Name="RESET" x="1192" y="704">
+        <ECAction Algorithm="RESET" Output="RESOUT" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="437.8713" y="701.4904">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="121.8171,165.9239,100.7121,192.5403" />
+      </ECTransition>
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="365.8196" y="580.1764">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="82.44132,153.2593,105.2057,124.3289" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="RESET" Condition="RESET" x="911.3026" y="492.216">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="211.4801,111.6144,244.494,125.7997" />
+      </ECTransition>
+      <ECTransition Source="RESET" Destination="START" Condition="1" x="864.0219" y="647.6526">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="234.6246,173.7691,201.6107,159.5838" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="PosDoor := 0.0;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="(*IF OpenDoor AND (PosDoor + 50*CycleTime &lt; MaxOpenPos) THEN&#xD;&#xA;	PosDoor := PosDoor + 50 * CycleTime;&#xD;&#xA;ELSIF OpenDoor AND (PosDoor + 50*CycleTime &gt; MaxOpenPos) THEN&#xD;&#xA;	PosDoor := MaxOpenPos;&#xD;&#xA;ELSIF NOT(OpenDoor) AND (PosDoor - 50*CycleTime &gt; 0.0) THEN&#xD;&#xA;	PosDoor := PosDoor - 50 * CycleTime;&#xD;&#xA;ELSIF NOT(OpenDoor) AND (PosDoor - 50*CycleTime &lt; 0.0) THEN&#xD;&#xA;	PosDoor := 0.0;&#xD;&#xA;ELSE&#xD;&#xA;	PosDoor := PosDoor;&#xD;&#xA;END_IF;*)&#xD;&#xA;IF OpenDoor AND (PosDoor &lt; MaxOpenPos) THEN&#xD;&#xA;	PosDoor := MaxOpenPos;&#xD;&#xA;ELSIF OpenDoor AND (PosDoor &gt; MaxOpenPos) THEN&#xD;&#xA;	PosDoor := MaxOpenPos;&#xD;&#xA;ELSIF NOT(OpenDoor) AND (PosDoor &gt; 0.0) THEN&#xD;&#xA;	PosDoor := 0;&#xD;&#xA;ELSIF NOT(OpenDoor) AND (PosDoor &lt; 0.0) THEN&#xD;&#xA;	PosDoor := 0.0;&#xD;&#xA;ELSE&#xD;&#xA;	PosDoor := PosDoor;&#xD;&#xA;END_IF;&#xD;&#xA;&#xD;&#xA;(*IF OpenDoor AND (PosDoor &lt; MaxOpenPos) THEN&#xD;&#xA;	PosDoor := -1;&#xD;&#xA;ELSIF OpenDoor AND (PosDoor &gt; MaxOpenPos) THEN&#xD;&#xA;	PosDoor := -1;&#xD;&#xA;ELSIF NOT(OpenDoor) AND (PosDoor &gt; 0.0) THEN&#xD;&#xA;	PosDoor := -1;&#xD;&#xA;ELSIF NOT(OpenDoor) AND (PosDoor &lt; 0.0) THEN&#xD;&#xA;	PosDoor := -1;&#xD;&#xA;ELSE&#xD;&#xA;	PosDoor := -1;&#xD;&#xA;END_IF;*)" />
+    </Algorithm>
+    <Algorithm Name="RESET">
+      <ST Text="IF (ResetDoorClosed) THEN&#xD;&#xA;	PosDoor := 0.0;&#xD;&#xA;ELSE&#xD;&#xA;	PosDoor := MaxOpenPos;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

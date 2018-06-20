@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="B3F47294FCEA5D9F" Name="InputDecompressor" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Dmitry" Date="11/1/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="QI" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="QI" />
+        <With Var="delimiter" />
+        <With Var="input" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="QO" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="QO" />
+        <With Var="motorUp" />
+        <With Var="motorDown" />
+        <With Var="door0" />
+        <With Var="door1" />
+        <With Var="door2" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetPos" />
+        <With Var="resetCarAt0" />
+        <With Var="resetCarAt1" />
+        <With Var="resetCarAt2" />
+        <With Var="resetDoor0Closed" />
+        <With Var="resetDoor1Closed" />
+        <With Var="resetDoor2Closed" />
+        <With Var="resetReqButton0" />
+        <With Var="resetReqButton1" />
+        <With Var="resetReqButton2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="delimiter" Type="STRING" />
+      <VarDeclaration Name="input" Type="STRING[200]" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="motorUp" Type="BOOL" />
+      <VarDeclaration Name="motorDown" Type="BOOL" />
+      <VarDeclaration Name="door0" Type="BOOL" />
+      <VarDeclaration Name="door1" Type="BOOL" />
+      <VarDeclaration Name="door2" Type="BOOL" />
+      <VarDeclaration Name="resetPos" Type="REAL" />
+      <VarDeclaration Name="resetCarAt0" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt1" Type="BOOL" />
+      <VarDeclaration Name="resetCarAt2" Type="BOOL" />
+      <VarDeclaration Name="resetDoor0Closed" Type="BOOL" />
+      <VarDeclaration Name="resetDoor1Closed" Type="BOOL" />
+      <VarDeclaration Name="resetDoor2Closed" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton0" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton1" Type="BOOL" />
+      <VarDeclaration Name="resetReqButton2" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Name="reset" Type="BOOL" />
+      <VarDeclaration Name="subs" Type="STRING" ArraySize="14" />
+    </InternalVars>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="PARSE_REQ_SYMB" x="952" y="1372">
+        <ECAction Algorithm="PARSE_REQ_SYMB" Output="CNF" />
+      </ECState>
+      <ECState Name="PARSE_RESET_SYMB" x="2456" y="252">
+        <ECAction Algorithm="PARSE_RESET_SYMB" Output="RESET" />
+      </ECState>
+      <ECState Name="PARSE_RESET" x="1924" y="908">
+        <ECAction Algorithm="PARSE_RESET" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
+      <ECTransition Source="START" Destination="PARSE_RESET" Condition="REQ" x="1260.379" y="591.136">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="269.8398,126.8121,360.853,158.5816" />
+      </ECTransition>
+      <ECTransition Source="PARSE_RESET" Destination="PARSE_RESET_SYMB" Condition="reset" x="2142.174" y="526.3279">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="514.9052,149.7485,552.7272,104.4701" />
+      </ECTransition>
+      <ECTransition Source="PARSE_RESET" Destination="PARSE_REQ_SYMB" Condition="NOT(reset)" x="1286.469" y="1101.502">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="346.1604,257.3719,287.2993,286.963" />
+      </ECTransition>
+      <ECTransition Source="PARSE_REQ_SYMB" Destination="START" Condition="1" x="750.6384" y="975.7058">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="202.9041,285.1024,173.3312,215.2505" />
+      </ECTransition>
+      <ECTransition Source="PARSE_RESET_SYMB" Destination="START" Condition="1" x="1514.195" y="421.0518">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="448.4983,103.6161,317.1549,115.4634" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="QO := TRUE;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text=";" />
+    </Algorithm>
+    <Algorithm Name="PARSE_RESET">
+      <ST Text="VAR&#xD;&#xA;	i: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;i := 1;&#xD;&#xA;(*WHILE MID(input, 1, i) &lt;&gt; delimiter DO&#xD;&#xA;	i := i + 1;&#xD;&#xA;END_WHILE;*)&#xD;&#xA;reset := STRING_TO_BOOL(MID(input, i, 1));" />
+    </Algorithm>
+    <Algorithm Name="PARSE_RESET_SYMB">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..11] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;	&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;&#xD;&#xA;(*resetButtonFloor0 := STRING_TO_BOOL(subs[1]);&#xD;&#xA;resetButtonFloor1 := STRING_TO_BOOL(subs[2]);&#xD;&#xA;resetButtonFloor2 := STRING_TO_BOOL(subs[3]);*)&#xD;&#xA;&#xD;&#xA;resetReqButton0 := STRING_TO_BOOL(substr[2]);&#xD;&#xA;resetReqButton1 := STRING_TO_BOOL(substr[3]);&#xD;&#xA;resetReqButton2 := STRING_TO_BOOL(substr[4]);&#xD;&#xA;&#xD;&#xA;resetCarAt0 := STRING_TO_BOOL(substr[5]);&#xD;&#xA;resetCarAt1 := STRING_TO_BOOL(substr[6]);&#xD;&#xA;resetCarAt2 := STRING_TO_BOOL(substr[7]);&#xD;&#xA;&#xD;&#xA;resetDoor0Closed := STRING_TO_BOOL(substr[8]);&#xD;&#xA;resetDoor1Closed := STRING_TO_BOOL(substr[9]);&#xD;&#xA;resetDoor2Closed := STRING_TO_BOOL(substr[10]);&#xD;&#xA;&#xD;&#xA;resetPos := STRING_TO_REAL(substr[11]);&#xD;&#xA;" />
+    </Algorithm>
+    <Algorithm Name="PARSE_REQ_SYMB">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..6] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;motorUp := STRING_TO_BOOL(substr[2]);&#xD;&#xA;motorDown := STRING_TO_BOOL(substr[3]);&#xD;&#xA;door0 := STRING_TO_BOOL(substr[4]);&#xD;&#xA;door1 := STRING_TO_BOOL(substr[5]);&#xD;&#xA;door2 := STRING_TO_BOOL(substr[6]);&#xD;&#xA;(*requestFloor0 := STRING_TO_BOOL(substr[7]);&#xD;&#xA;requestFloor1 := STRING_TO_BOOL(substr[8]);&#xD;&#xA;requestFloor2 := STRING_TO_BOOL(substr[9]);*)&#xD;&#xA;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

@@ -1,0 +1,252 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{EE48556B-4E39-4C7A-8646-4D1812E9B79E}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Main</RootNamespace>
+    <AssemblyName>IEC61499</AssemblyName>
+    <NxtVersion>2.1.0.0</NxtVersion>
+    <Platform Condition=" '$(Platform)' == '' ">Windows</Platform>
+    <CreateHMI>false</CreateHMI>
+    <HMIProject>HMI</HMIProject>
+    <CATInstancesHaveIds>true</CATInstancesHaveIds>
+    <ProjectType>IEC61499</ProjectType>
+    <CreateHMICF>false</CreateHMICF>
+    <VerboseDeploy>False</VerboseDeploy>
+    <DeployOnlyChanges>False</DeployOnlyChanges>
+    <DeployConnectionTimeout>60</DeployConnectionTimeout>
+    <DeployAnswerTimeout>10</DeployAnswerTimeout>
+    <DeployPreConnectWait>2</DeployPreConnectWait>
+    <ArchiveLinkServiceTimeout>30</ArchiveLinkServiceTimeout>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Default\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <IntermediateOutputPath>obj\Default\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Default\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <IntermediateOutputPath>obj\Default\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows' ">
+    <Version>1.0</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'Windows' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <Import Project="$(SharpDevelopBinPath)\NxtControl.Build.61499.Targets" />
+  <ItemGroup>
+    <None Include="CallButtons\CallButtons.cfg">
+      <DependentUpon>CallButtons.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="CallButton\CallButton.cfg">
+      <DependentUpon>CallButton.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="Control\Control.cfg">
+      <DependentUpon>Control.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="Doors\Doors.cfg">
+      <DependentUpon>Doors.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="Door\Door.cfg">
+      <DependentUpon>Door.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="FloorIndicator\FloorIndicator.cfg">
+      <DependentUpon>FloorIndicator.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="IEC61499.iecproj" />
+    <None Include="IOHandler\IOHandler.cfg">
+      <DependentUpon>IOHandler.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="Lift\Lift.cfg">
+      <DependentUpon>Lift.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="Model\Model.cfg">
+      <DependentUpon>Model.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="Project.doc.xml" />
+    <None Include="ReqPanelLift\ReqPanelLift.cfg">
+      <DependentUpon>ReqPanelLift.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </None>
+    <None Include="System\System.cfg">
+      <DependentUpon>System.sys</DependentUpon>
+      <IEC61499Type>System</IEC61499Type>
+    </None>
+    <None Include="System\System.Device.Properties.xml">
+      <DependentUpon>System.sys</DependentUpon>
+    </None>
+    <Compile Include="Basic.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="CallButtons\CallButtons.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="CallButtons\CallButtons_HMI.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+      <Usage>Private</Usage>
+      <DependentUpon>CallButtons.fbt</DependentUpon>
+      <HMI>..\HMI\CallButtons\CallButtons_sDefault.cnv.cs</HMI>
+    </Compile>
+    <Compile Include="CallButton\CallButton.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="CallButton\CallButton_HMI.fbt">
+      <DependentUpon>CallButton\CallButton.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="ChangeDetect.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="Control\Control.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="Control\Control_HMI.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+      <Usage>Private</Usage>
+      <DependentUpon>Control.fbt</DependentUpon>
+      <HMI>..\HMI\Control\Control_sDefault.cnv.cs</HMI>
+    </Compile>
+    <Compile Include="DoorMove.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="DoorSensor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="Doors\Doors.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="Doors\Doors_HMI.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+      <Usage>Private</Usage>
+      <DependentUpon>Doors.fbt</DependentUpon>
+      <HMI>..\HMI\Doors\Doors_sDefault.cnv.cs</HMI>
+    </Compile>
+    <Compile Include="Door\Door.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="Door\Door_HMI.fbt">
+      <DependentUpon>Door\Door.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="DummyControl.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="FloorCarElevator.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="FloorIndicator\FloorIndicator.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="FloorIndicator\FloorIndicator_HMI.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+      <Usage>Private</Usage>
+      <DependentUpon>FloorIndicator.fbt</DependentUpon>
+      <HMI>..\HMI\FloorIndicator\FloorIndicator_sDefault.cnv.cs</HMI>
+    </Compile>
+    <Compile Include="InputCompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="InputDecompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="InputSender.fbt">
+      <IEC61499Type>Composite</IEC61499Type>
+    </Compile>
+    <Compile Include="integEC.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="IOHandler\IOHandler.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="IOHandler\IOHandler_HMI.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+      <Usage>Private</Usage>
+      <DependentUpon>IOHandler.fbt</DependentUpon>
+      <HMI>..\HMI\IOHandler\IOHandler_sDefault.cnv.cs</HMI>
+    </Compile>
+    <Compile Include="LiftMove.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="Lift\Lift.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="Lift\Lift_HMI.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+      <Usage>Private</Usage>
+      <DependentUpon>Lift.fbt</DependentUpon>
+      <HMI>..\HMI\Lift\Lift_sDefault.cnv.cs</HMI>
+    </Compile>
+    <Compile Include="Model\Model.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="Model\Model_HMI.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+      <Usage>Private</Usage>
+      <DependentUpon>Model.fbt</DependentUpon>
+      <HMI>..\HMI\Model\Model_sDefault.cnv.cs</HMI>
+    </Compile>
+    <Compile Include="OutputCompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="OutputDecompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="OutputSender.fbt">
+      <IEC61499Type>Composite</IEC61499Type>
+    </Compile>
+    <Compile Include="RandomEvent.fbt">
+      <IEC61499Type>Composite</IEC61499Type>
+    </Compile>
+    <Compile Include="RandomEventConverter.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="RandomGenerator.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="ReqPanelLift\ReqPanelLift.fbt">
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="ReqPanelLift\ReqPanelLift_HMI.fbt">
+      <DependentUpon>ReqPanelLift\ReqPanelLift.fbt</DependentUpon>
+      <IEC61499Type>CAT</IEC61499Type>
+    </Compile>
+    <Compile Include="Signal_OR.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="SR.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="SysFunc1.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="System\System.sys">
+      <IEC61499Type>System</IEC61499Type>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration" />
+    <Folder Include="License" />
+    <Folder Include="Log" />
+    <Reference Include="nxtControl.Standard">
+      <Version>2.1.1.0</Version>
+    </Reference>
+    <Reference Include="Runtime.Base">
+      <Version>2.1.1.0</Version>
+    </Reference>
+  </ItemGroup>
+</Project>
