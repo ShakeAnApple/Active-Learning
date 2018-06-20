@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="19CA9B6F370F3B74" Name="Model" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="4" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/7/2012" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="BASEX" />
+        <With Var="BASEY" />
+      </Event>
+      <Event Name="CLK" Comment="Clock">
+        <With Var="CYL1_SPEED" />
+        <With Var="CYL2_SPEED" />
+        <With Var="VCYL_SPEED" />
+      </Event>
+      <Event Name="REQ">
+        <With Var="Add1" />
+        <With Var="Add2" />
+        <With Var="Add3" />
+      </Event>
+      <Event Name="ADD_WP">
+        <With Var="Add1" />
+        <With Var="Add2" />
+        <With Var="Add3" />
+        <With Var="AddedWP_X" />
+        <With Var="AddedWP_Y" />
+      </Event>
+      <Event Name="ADD_WP00" />
+      <Event Name="REMOVE_WP" />
+      <Event Name="CYL_IND">
+        <With Var="cyl1_fwd" />
+        <With Var="cyl1_back" />
+        <With Var="cyl2_fwd" />
+        <With Var="cyl2_back" />
+        <With Var="vcyl_down" />
+        <With Var="vacuum_on" />
+        <With Var="vacuum_off" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="BASE_X" />
+        <With Var="BASE_Y" />
+        <With Var="CYL1_X" />
+        <With Var="CYL1_Y" />
+        <With Var="CYL2_X" />
+        <With Var="CYL2_Y" />
+        <With Var="VCYL_X" />
+        <With Var="VCYL_Y" />
+        <With Var="WP_X" />
+        <With Var="WP_Y" />
+        <With Var="WP2_X" />
+        <With Var="WP2_Y" />
+        <With Var="WP3_X" />
+        <With Var="WP3_Y" />
+        <With Var="VACUUM_ON" />
+        <With Var="c1home" />
+        <With Var="c1end" />
+        <With Var="c2home" />
+        <With Var="c2end" />
+        <With Var="vchome" />
+        <With Var="vcend" />
+        <With Var="pp0" />
+        <With Var="pp1" />
+        <With Var="pp2" />
+        <With Var="pp3" />
+      </Event>
+      <Event Name="CHG" Comment="View State Changed">
+        <With Var="c1home" />
+        <With Var="c1end" />
+        <With Var="c2home" />
+        <With Var="c2end" />
+        <With Var="vchome" />
+        <With Var="vcend" />
+        <With Var="pp0" />
+        <With Var="pp1" />
+        <With Var="pp2" />
+        <With Var="pp3" />
+        <With Var="VACUUM_ON" />
+      </Event>
+      <Event Name="CNF">
+        <With Var="VCYL_Y" />
+        <With Var="WP_X" />
+        <With Var="WP_Y" />
+        <With Var="WP2_X" />
+        <With Var="WP2_Y" />
+        <With Var="WP3_X" />
+        <With Var="WP3_Y" />
+        <With Var="CYL2_X" />
+        <With Var="VCYL_X" />
+        <With Var="CYL2_Y" />
+        <With Var="CYL1_Y" />
+        <With Var="CYL1_X" />
+      </Event>
+      <Event Name="WP_ADDED" />
+      <Event Name="WP_REMOVED" />
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="BASEX" Type="UINT" />
+      <VarDeclaration Name="BASEY" Type="UINT" />
+      <VarDeclaration Name="CYL1_SPEED" Type="UINT" />
+      <VarDeclaration Name="CYL2_SPEED" Type="UINT" />
+      <VarDeclaration Name="VCYL_SPEED" Type="UINT" />
+      <VarDeclaration Name="cyl1_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl1_back" Type="BOOL" Comment="Response Data from Socket" />
+      <VarDeclaration Name="cyl2_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl2_back" Type="BOOL" />
+      <VarDeclaration Name="vcyl_down" Type="BOOL" />
+      <VarDeclaration Name="vacuum_on" Type="BOOL" />
+      <VarDeclaration Name="vacuum_off" Type="BOOL" />
+      <VarDeclaration Name="Add1" Type="BOOL" />
+      <VarDeclaration Name="Add2" Type="BOOL" />
+      <VarDeclaration Name="Add3" Type="BOOL" />
+      <VarDeclaration Name="AddedWP_X" Type="UINT" />
+      <VarDeclaration Name="AddedWP_Y" Type="UINT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="BASE_X" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="BASE_Y" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="CYL1_X" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="CYL1_Y" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="CYL2_X" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="CYL2_Y" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="VCYL_X" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="VCYL_Y" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="WP_X" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="WP_Y" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="WP2_X" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="WP2_Y" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="WP3_X" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="WP3_Y" Type="UINT" Comment="Response Data from Socket" />
+      <VarDeclaration Name="VACUUM_ON" Type="BOOL" Comment="Response Data from Socket" />
+      <VarDeclaration Name="c1home" Type="BOOL" />
+      <VarDeclaration Name="c1end" Type="BOOL" />
+      <VarDeclaration Name="c2home" Type="BOOL" />
+      <VarDeclaration Name="c2end" Type="BOOL" />
+      <VarDeclaration Name="vchome" Type="BOOL" />
+      <VarDeclaration Name="vcend" Type="BOOL" />
+      <VarDeclaration Name="pp0" Type="BOOL" />
+      <VarDeclaration Name="pp1" Type="BOOL" />
+      <VarDeclaration Name="pp2" Type="BOOL" />
+      <VarDeclaration Name="pp3" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="Cylinder" Type="PnpCylinders" x="980" y="780" Namespace="Main">
+      <Parameter Name="InitialPosition" Value="0.0" />
+      <Parameter Name="HomeSensorRange" Value="[0,0]" />
+      <Parameter Name="MidSensorRange" Value="[50,50]" />
+      <Parameter Name="EndSensorRange" Value="[100,100]" />
+      <Parameter Name="Loaded" Value="0" />
+      <Parameter Name="LoadType" Value="0" />
+      <Parameter Name="LCMovingtDistance" Value="75" />
+      <Parameter Name="RCMovingtDistance" Value="150" />
+      <Parameter Name="VCMovingtDistance" Value="75" />
+    </FB>
+    <FB ID="2" Name="SuctionUnit" Type="PnPVacuum" x="2420" y="540" Namespace="Main" />
+    <FB ID="3" Name="WPSensors" Type="WP_Sensor" x="4320" y="700" Namespace="Main" />
+    <FB ID="4" Name="ViewControl" Type="PnpXYCalculator" x="3160" y="1040" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CLK">
+      <Position>
+        <X>3</X>
+        <Y>18</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>3</X>
+        <Y>33</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="ADD_WP">
+      <Position>
+        <X>3</X>
+        <Y>48</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="ADD_WP00">
+      <Position>
+        <X>3</X>
+        <Y>63</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REMOVE_WP">
+      <Position>
+        <X>3</X>
+        <Y>78</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CYL_IND">
+      <Position>
+        <X>3</X>
+        <Y>93</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="BASEX">
+      <Position>
+        <X>3</X>
+        <Y>108</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="BASEY">
+      <Position>
+        <X>3</X>
+        <Y>123</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="CYL1_SPEED">
+      <Position>
+        <X>3</X>
+        <Y>138</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="CYL2_SPEED">
+      <Position>
+        <X>3</X>
+        <Y>153</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCYL_SPEED">
+      <Position>
+        <X>3</X>
+        <Y>168</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="cyl1_fwd">
+      <Position>
+        <X>3</X>
+        <Y>183</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="cyl1_back">
+      <Position>
+        <X>3</X>
+        <Y>198</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="cyl2_fwd">
+      <Position>
+        <X>3</X>
+        <Y>213</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="cyl2_back">
+      <Position>
+        <X>3</X>
+        <Y>228</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vcyl_down">
+      <Position>
+        <X>3</X>
+        <Y>243</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vacuum_on">
+      <Position>
+        <X>3</X>
+        <Y>258</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vacuum_off">
+      <Position>
+        <X>3</X>
+        <Y>273</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Add1">
+      <Position>
+        <X>3</X>
+        <Y>288</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Add2">
+      <Position>
+        <X>3</X>
+        <Y>303</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Add3">
+      <Position>
+        <X>3</X>
+        <Y>318</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="AddedWP_X">
+      <Position>
+        <X>3</X>
+        <Y>333</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="AddedWP_Y">
+      <Position>
+        <X>3</X>
+        <Y>348</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1265</X>
+        <Y>107.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CHG">
+      <Position>
+        <X>1270</X>
+        <Y>122.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1270</X>
+        <Y>137.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="WP_ADDED">
+      <Position>
+        <X>1235</X>
+        <Y>152.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="WP_REMOVED">
+      <Position>
+        <X>1255</X>
+        <Y>347.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="BASE_X">
+      <Position>
+        <X>1260</X>
+        <Y>362.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="BASE_Y">
+      <Position>
+        <X>1260</X>
+        <Y>377.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="CYL1_X">
+      <Position>
+        <X>1260</X>
+        <Y>392.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="CYL1_Y">
+      <Position>
+        <X>1260</X>
+        <Y>407.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="CYL2_X">
+      <Position>
+        <X>1260</X>
+        <Y>422.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="CYL2_Y">
+      <Position>
+        <X>1260</X>
+        <Y>437.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCYL_X">
+      <Position>
+        <X>1260</X>
+        <Y>452.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCYL_Y">
+      <Position>
+        <X>1260</X>
+        <Y>467.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="WP_X">
+      <Position>
+        <X>1235</X>
+        <Y>167.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="WP_Y">
+      <Position>
+        <X>1235</X>
+        <Y>182.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="WP2_X">
+      <Position>
+        <X>1265</X>
+        <Y>482.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="WP2_Y">
+      <Position>
+        <X>1265</X>
+        <Y>497.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="WP3_X">
+      <Position>
+        <X>1265</X>
+        <Y>512.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="WP3_Y">
+      <Position>
+        <X>1265</X>
+        <Y>527.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VACUUM_ON">
+      <Position>
+        <X>1230</X>
+        <Y>542.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c1home">
+      <Position>
+        <X>1260</X>
+        <Y>557.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c1end">
+      <Position>
+        <X>1265</X>
+        <Y>572.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c2home">
+      <Position>
+        <X>1260</X>
+        <Y>587.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c2end">
+      <Position>
+        <X>1265</X>
+        <Y>602.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vchome">
+      <Position>
+        <X>1260</X>
+        <Y>617.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vcend">
+      <Position>
+        <X>1270</X>
+        <Y>632.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="pp0">
+      <Position>
+        <X>1240</X>
+        <Y>197.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="pp1">
+      <Position>
+        <X>1240</X>
+        <Y>212.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="pp2">
+      <Position>
+        <X>1240</X>
+        <Y>227.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="pp3">
+      <Position>
+        <X>1240</X>
+        <Y>242.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="Cylinder.INIT" dx1="308.8334" />
+      <Connection Source="ADD_WP" Destination="ViewControl.ADD_WP" dx1="1737.063">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="ADD_WP00" Destination="ViewControl.ADD_WP00" dx1="1729.604">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="REMOVE_WP" Destination="ViewControl.REMOVE_WP" dx1="1722.229">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="ViewControl.WP_ADDED" Destination="WP_ADDED">
+        <Points>
+          <Points>
+            <X>971.2969</X>
+            <Y>299.5</Y>
+          </Points>
+          <Points>
+            <X>993.7969</X>
+            <Y>299.5</Y>
+          </Points>
+          <Points>
+            <X>993.7969</X>
+            <Y>157.5</Y>
+          </Points>
+          <Points>
+            <X>1187.5</X>
+            <Y>157.5</Y>
+          </Points>
+          <Points>
+            <X>1187.5</X>
+            <Y>160.000015</Y>
+          </Points>
+          <Points>
+            <X>1235</X>
+            <Y>160.000015</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="ViewControl.WP_REMOVED" Destination="WP_REMOVED" dx1="44.8125" />
+      <Connection Source="Cylinder.INITO" Destination="SuctionUnit.INIT" dx1="51.04175" />
+      <Connection Source="SuctionUnit.INITO" Destination="ViewControl.INIT" dx1="83.41675" />
+      <Connection Source="CLK" Destination="Cylinder.CLK" dx1="306.4167" />
+      <Connection Source="CYL_IND" Destination="Cylinder.CYL_IND" dx1="209.3959" />
+      <Connection Source="CYL_IND" Destination="SuctionUnit.CLK" dx1="189.3959" />
+      <Connection Source="SuctionUnit.CHG" Destination="ViewControl.CLK" dx1="63.41675" />
+      <Connection Source="ViewControl.INITO" Destination="WPSensors.INIT" dx1="44.8125" />
+      <Connection Source="WPSensors.CNF" Destination="CHG" dx1="71.771" />
+      <Connection Source="WPSensors.INITO" Destination="INITO" dx1="51.771" />
+      <Connection Source="ViewControl.CNF" Destination="WPSensors.REQ" dx1="70" />
+      <Connection Source="Cylinder.CNF" Destination="ViewControl.CLK" dx1="220" />
+      <Connection Source="Cylinder.CHG" Destination="CHG">
+        <Points>
+          <Points>
+            <X>449.739563</X>
+            <Y>219.5</Y>
+          </Points>
+          <Points>
+            <X>467.5</X>
+            <Y>219.5</Y>
+          </Points>
+          <Points>
+            <X>467.5</X>
+            <Y>117.5</Y>
+          </Points>
+          <Points>
+            <X>747.5</X>
+            <Y>117.5</Y>
+          </Points>
+          <Points>
+            <X>747.5</X>
+            <Y>130</Y>
+          </Points>
+          <Points>
+            <X>1270</X>
+            <Y>130</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="SuctionUnit.CHG" Destination="CHG" dx1="70" />
+      <Connection Source="ViewControl.CNF" Destination="CNF" dx1="70" />
+      <Connection Source="CYL_IND" Destination="ViewControl.REQ" dx1="1469.396" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="ViewControl.BASE_X" Destination="BASE_X" dx1="130" />
+      <Connection Source="ViewControl.BASE_Y" Destination="BASE_Y" dx1="150" />
+      <Connection Source="ViewControl.CYL1_X" Destination="CYL1_X" dx1="170" />
+      <Connection Source="ViewControl.CYL1_Y" Destination="CYL1_Y" dx1="190" />
+      <Connection Source="ViewControl.CYL2_X" Destination="CYL2_X" dx1="210" />
+      <Connection Source="ViewControl.CYL2_Y" Destination="CYL2_Y" dx1="230" />
+      <Connection Source="ViewControl.VCYL_X" Destination="VCYL_X" dx1="250" />
+      <Connection Source="ViewControl.VCYL_Y" Destination="VCYL_Y" dx1="270" />
+      <Connection Source="ViewControl.WP_X" Destination="WP_X" dx1="864.8125" />
+      <Connection Source="ViewControl.WP_Y" Destination="WP_Y" dx1="864.8125" />
+      <Connection Source="ViewControl.WP2_X" Destination="WP2_X" dx1="330" />
+      <Connection Source="ViewControl.WP2_Y" Destination="WP2_Y" dx1="350" />
+      <Connection Source="ViewControl.WP3_X" Destination="WP3_X" dx1="370" />
+      <Connection Source="ViewControl.WP3_Y" Destination="WP3_Y" dx1="390" />
+      <Connection Source="BASEX" Destination="ViewControl.BASEX" dx1="1734.396">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="BASEY" Destination="ViewControl.BASEY" dx1="1814.396">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="vacuum_on" Destination="ViewControl.vacuum_on">
+        <Points>
+          <Points>
+            <X>135.682281</X>
+            <Y>265.036438</Y>
+          </Points>
+          <Points>
+            <X>137.5</X>
+            <Y>265.036438</Y>
+          </Points>
+          <Points>
+            <X>137.5</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>635</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>635</X>
+            <Y>424.5</Y>
+          </Points>
+          <Points>
+            <X>785</X>
+            <Y>424.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="vacuum_off" Destination="ViewControl.vacuum_off">
+        <Points>
+          <Points>
+            <X>135.677078</X>
+            <Y>280.036438</Y>
+          </Points>
+          <Points>
+            <X>137.500015</X>
+            <Y>280.036438</Y>
+          </Points>
+          <Points>
+            <X>137.500015</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>620</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>620</X>
+            <Y>439.5</Y>
+          </Points>
+          <Points>
+            <X>785</X>
+            <Y>439.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="Add1" Destination="ViewControl.Add1">
+        <Points>
+          <Points>
+            <X>105.494781</X>
+            <Y>295.036438</Y>
+          </Points>
+          <Points>
+            <X>122.5</X>
+            <Y>295.036438</Y>
+          </Points>
+          <Points>
+            <X>122.5</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>605</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>605</X>
+            <Y>454.5</Y>
+          </Points>
+          <Points>
+            <X>785</X>
+            <Y>454.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="Add2" Destination="ViewControl.Add2">
+        <Points>
+          <Points>
+            <X>105.494781</X>
+            <Y>310.036438</Y>
+          </Points>
+          <Points>
+            <X>122.5</X>
+            <Y>310.036438</Y>
+          </Points>
+          <Points>
+            <X>122.5</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>585</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>585</X>
+            <Y>469.5</Y>
+          </Points>
+          <Points>
+            <X>785</X>
+            <Y>469.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="Add3" Destination="ViewControl.Add3">
+        <Points>
+          <Points>
+            <X>105.494781</X>
+            <Y>325.036438</Y>
+          </Points>
+          <Points>
+            <X>122.5</X>
+            <Y>325.036438</Y>
+          </Points>
+          <Points>
+            <X>122.5</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>575</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>575</X>
+            <Y>484.5</Y>
+          </Points>
+          <Points>
+            <X>785</X>
+            <Y>484.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="AddedWP_X" Destination="ViewControl.AddedWP_X">
+        <Points>
+          <Points>
+            <X>136.854156</X>
+            <Y>340.036438</Y>
+          </Points>
+          <Points>
+            <X>137.5</X>
+            <Y>340.036438</Y>
+          </Points>
+          <Points>
+            <X>137.5</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>555</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>555</X>
+            <Y>499.5</Y>
+          </Points>
+          <Points>
+            <X>785</X>
+            <Y>499.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="AddedWP_Y" Destination="ViewControl.AddedWP_Y">
+        <Points>
+          <Points>
+            <X>136.854156</X>
+            <Y>355.036438</Y>
+          </Points>
+          <Points>
+            <X>137.5</X>
+            <Y>355.036438</Y>
+          </Points>
+          <Points>
+            <X>137.5</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>545</X>
+            <Y>592.5</Y>
+          </Points>
+          <Points>
+            <X>545</X>
+            <Y>514.5</Y>
+          </Points>
+          <Points>
+            <X>785</X>
+            <Y>514.5</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="Cylinder.LCAbsolutePos" Destination="ViewControl.LCPos" dx1="60" />
+      <Connection Source="CYL1_SPEED" Destination="Cylinder.LCForwardSpeed" dx1="40" />
+      <Connection Source="CYL1_SPEED" Destination="Cylinder.LCBackwardSpeed" dx1="40" />
+      <Connection Source="CYL2_SPEED" Destination="Cylinder.RCForwardSpeed">
+        <Points>
+          <Points>
+            <X>144.557281</X>
+            <Y>160.036469</Y>
+          </Points>
+          <Points>
+            <X>142.5</X>
+            <Y>160.036469</Y>
+          </Points>
+          <Points>
+            <X>142.5</X>
+            <Y>524.5</Y>
+          </Points>
+          <Points>
+            <X>240</X>
+            <Y>524.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="CYL2_SPEED" Destination="Cylinder.RCBackwardSpeed" dx1="40" dx2="410" dy="109.8541" />
+      <Connection Source="VCYL_SPEED" Destination="Cylinder.VCSpeed" dx1="47.04169" dx2="470" dy="769.8541" />
+      <Connection Source="cyl1_fwd" Destination="Cylinder.LCExtend" dx1="41.60422" />
+      <Connection Source="cyl1_back" Destination="Cylinder.LCRetract" dx1="40" />
+      <Connection Source="cyl2_fwd" Destination="Cylinder.RCExtend" dx1="41.60422" />
+      <Connection Source="cyl2_back" Destination="Cylinder.RCRetract" dx1="40" />
+      <Connection Source="vcyl_down" Destination="Cylinder.VCExtend" dx1="8.395874" />
+      <Connection Source="Cylinder.RCAbsolutePos" Destination="ViewControl.RCPos" dx1="80" />
+      <Connection Source="Cylinder.VCAbsolutePos" Destination="ViewControl.VCPos" dx1="40" />
+      <Connection Source="Cylinder.LCAtHome" Destination="c1home">
+        <Points>
+          <Points>
+            <X>449.739563</X>
+            <Y>314.5</Y>
+          </Points>
+          <Points>
+            <X>499.739563</X>
+            <Y>314.5</Y>
+          </Points>
+          <Points>
+            <X>499.739563</X>
+            <Y>612.5</Y>
+          </Points>
+          <Points>
+            <X>982.5</X>
+            <Y>612.5</Y>
+          </Points>
+          <Points>
+            <X>982.5</X>
+            <Y>565.000061</Y>
+          </Points>
+          <Points>
+            <X>1260</X>
+            <Y>565.000061</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="Cylinder.LCAtEnd" Destination="c1end">
+        <Points>
+          <Points>
+            <X>449.739563</X>
+            <Y>329.5</Y>
+          </Points>
+          <Points>
+            <X>494.739563</X>
+            <Y>329.5</Y>
+          </Points>
+          <Points>
+            <X>494.739563</X>
+            <Y>612.5</Y>
+          </Points>
+          <Points>
+            <X>982.5</X>
+            <Y>612.5</Y>
+          </Points>
+          <Points>
+            <X>982.5</X>
+            <Y>580.000061</Y>
+          </Points>
+          <Points>
+            <X>1265</X>
+            <Y>580.000061</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="Cylinder.RCAtHome" Destination="c2home">
+        <Points>
+          <Points>
+            <X>449.739563</X>
+            <Y>359.5</Y>
+          </Points>
+          <Points>
+            <X>489.739563</X>
+            <Y>359.5</Y>
+          </Points>
+          <Points>
+            <X>489.739563</X>
+            <Y>612.5</Y>
+          </Points>
+          <Points>
+            <X>982.5</X>
+            <Y>612.5</Y>
+          </Points>
+          <Points>
+            <X>982.5</X>
+            <Y>595.000061</Y>
+          </Points>
+          <Points>
+            <X>1260</X>
+            <Y>595.000061</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="Cylinder.RCAtEnd" Destination="c2end" dx1="140" />
+      <Connection Source="Cylinder.VCAtHome" Destination="vchome" dx1="120" />
+      <Connection Source="Cylinder.VCAtEnd" Destination="vcend" dx1="100" />
+      <Connection Source="SuctionUnit.VacState" Destination="VACUUM_ON" dx1="983.4167" />
+      <Connection Source="vacuum_on" Destination="SuctionUnit.VacuumOn" dx1="928.6354" />
+      <Connection Source="vacuum_off" Destination="SuctionUnit.VacuumOff" dx1="928.6458" />
+      <Connection Source="SuctionUnit.VacState" Destination="ViewControl.vacuumon" dx1="43.41675" dx2="410" dy="152" />
+      <Connection Source="ViewControl.WP_X" Destination="WPSensors.WP1_X" dx1="290" />
+      <Connection Source="ViewControl.WP_Y" Destination="WPSensors.WP1_Y" dx1="310" />
+      <Connection Source="ViewControl.WP2_X" Destination="WPSensors.WP2_X" dx1="330" />
+      <Connection Source="ViewControl.WP2_Y" Destination="WPSensors.WP2_Y" dx1="350" />
+      <Connection Source="ViewControl.WP3_X" Destination="WPSensors.WP3_X" dx1="370" />
+      <Connection Source="ViewControl.WP3_Y" Destination="WPSensors.WP3_Y" dx1="390" />
+      <Connection Source="WPSensors.wp11" Destination="pp0" dx1="151.771" />
+      <Connection Source="WPSensors.wp14" Destination="pp3" dx1="131.771" />
+      <Connection Source="WPSensors.wp13" Destination="pp2" dx1="111.771" />
+      <Connection Source="WPSensors.wp12" Destination="pp1" dx1="91.771" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="3DBB4C1142EDBB1A" Name="PnPView" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="1" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/8/2012" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="BASE_X" />
+        <With Var="BASE_Y" />
+        <With Var="CYL1_Y" />
+        <With Var="CYL2_Y" />
+        <With Var="CYL1_X" />
+        <With Var="CYL2_X" />
+        <With Var="VCYL_X" />
+        <With Var="VCYL_Y" />
+        <With Var="WP_X" />
+        <With Var="WP_Y" />
+        <With Var="VACUUM_ON" />
+        <With Var="WP2_Y" />
+        <With Var="WP2_X" />
+        <With Var="WP3_X" />
+        <With Var="WP3_Y" />
+        <With Var="QI" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="CYL1_X" />
+        <With Var="CYL2_X" />
+        <With Var="VCYL_X" />
+        <With Var="VCYL_Y" />
+        <With Var="WP_X" />
+        <With Var="WP_Y" />
+        <With Var="VACUUM_ON" />
+        <With Var="WP2_X" />
+        <With Var="WP2_Y" />
+        <With Var="WP3_X" />
+        <With Var="WP3_Y" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="QO" />
+        <With Var="STATUS" />
+        <With Var="ADD1" />
+        <With Var="ADD2" />
+        <With Var="ADD3" />
+      </Event>
+      <Event Name="CNF">
+        <With Var="ADD1" />
+        <With Var="ADD2" />
+        <With Var="ADD3" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="BASE_X" Type="UINT" />
+      <VarDeclaration Name="BASE_Y" Type="UINT" />
+      <VarDeclaration Name="CYL1_X" Type="UINT" />
+      <VarDeclaration Name="CYL1_Y" Type="UINT" />
+      <VarDeclaration Name="CYL2_X" Type="UINT" />
+      <VarDeclaration Name="CYL2_Y" Type="UINT" />
+      <VarDeclaration Name="VCYL_X" Type="UINT" />
+      <VarDeclaration Name="VCYL_Y" Type="UINT" />
+      <VarDeclaration Name="WP_X" Type="UINT" />
+      <VarDeclaration Name="WP_Y" Type="UINT" />
+      <VarDeclaration Name="WP2_X" Type="UINT" />
+      <VarDeclaration Name="WP2_Y" Type="UINT" />
+      <VarDeclaration Name="WP3_X" Type="UINT" />
+      <VarDeclaration Name="WP3_Y" Type="UINT" />
+      <VarDeclaration Name="VACUUM_ON" Type="BOOL" />
+      <VarDeclaration Name="QI" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" />
+      <VarDeclaration Name="STATUS" Type="WSTRING" />
+      <VarDeclaration Name="ADD1" Type="BOOL" />
+      <VarDeclaration Name="ADD2" Type="BOOL" />
+      <VarDeclaration Name="ADD3" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="IThis" Type="PnPView_HMI" x="1360" y="100" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>3</X>
+        <Y>18</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="BASE_X">
+      <Position>
+        <X>3</X>
+        <Y>33</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="BASE_Y">
+      <Position>
+        <X>3</X>
+        <Y>48</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="CYL1_X">
+      <Position>
+        <X>3</X>
+        <Y>63</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="CYL1_Y">
+      <Position>
+        <X>3</X>
+        <Y>78</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="CYL2_X">
+      <Position>
+        <X>3</X>
+        <Y>93</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="CYL2_Y">
+      <Position>
+        <X>3</X>
+        <Y>108</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCYL_X">
+      <Position>
+        <X>3</X>
+        <Y>123</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCYL_Y">
+      <Position>
+        <X>3</X>
+        <Y>138</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP_X">
+      <Position>
+        <X>3</X>
+        <Y>153</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP_Y">
+      <Position>
+        <X>3</X>
+        <Y>168</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP2_X">
+      <Position>
+        <X>3</X>
+        <Y>183</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP2_Y">
+      <Position>
+        <X>3</X>
+        <Y>198</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP3_X">
+      <Position>
+        <X>3</X>
+        <Y>213</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP3_Y">
+      <Position>
+        <X>3</X>
+        <Y>228</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VACUUM_ON">
+      <Position>
+        <X>3</X>
+        <Y>243</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="QI">
+      <Position>
+        <X>185.578125</X>
+        <Y>77.96354</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>529.411438</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="QO">
+      <Position>
+        <X>602.911438</X>
+        <Y>97.96354</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="STATUS">
+      <Position>
+        <X>564.8073</X>
+        <Y>122.963539</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="ADD1">
+      <Position>
+        <X>581.98175</X>
+        <Y>152.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>547.9661</X>
+        <Y>42.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="ADD2">
+      <Position>
+        <X>581.98175</X>
+        <Y>172.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="ADD3">
+      <Position>
+        <X>581.98175</X>
+        <Y>197.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="IThis.INIT" dx1="188.8334" />
+      <Connection Source="REQ" Destination="IThis.REQ" dx1="176.9584" />
+      <Connection Source="IThis.INITO" Destination="INITO" dx1="49.25" />
+      <Connection Source="IThis.CNF" Destination="CNF" dx1="109.25" />
+      <Connection Source="INIT" Destination="IThis.REQ" dx1="188.8334" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="BASE_X" Destination="IThis.BASE_X" dx1="40.85422" />
+      <Connection Source="BASE_Y" Destination="IThis.BASE_Y" dx1="40.85422" />
+      <Connection Source="CYL1_X" Destination="IThis.CYL1_X" dx1="47.95837" />
+      <Connection Source="CYL1_Y" Destination="IThis.CYL1_Y" dx1="47.95837" />
+      <Connection Source="CYL2_X" Destination="IThis.CYL2_X" dx1="47.95837" />
+      <Connection Source="CYL2_Y" Destination="IThis.CYL2_Y" dx1="47.95837" />
+      <Connection Source="VCYL_X" Destination="IThis.VCYL_X" dx1="43.22922" />
+      <Connection Source="VCYL_Y" Destination="IThis.VCYL_Y" dx1="43.22922" />
+      <Connection Source="WP_X" Destination="IThis.WP1_X" dx1="45.95837" />
+      <Connection Source="WP_Y" Destination="IThis.WP1_Y" dx1="145.9584" />
+      <Connection Source="WP2_X" Destination="IThis.WP2_X" dx1="122.2292" />
+      <Connection Source="WP2_Y" Destination="IThis.WP2_Y" dx1="122.2292" />
+      <Connection Source="WP3_X" Destination="IThis.WP3_X" dx1="122.2292" />
+      <Connection Source="WP3_Y" Destination="IThis.WP3_Y" dx1="122.2292" />
+      <Connection Source="VACUUM_ON" Destination="IThis.VACUUM_ON" dx1="40" />
+      <Connection Source="QI" Destination="IThis.QI" dx1="40" />
+      <Connection Source="IThis.QO" Destination="QO" dx1="49.25" />
+      <Connection Source="IThis.STATUS" Destination="STATUS" dx1="49.25" />
+      <Connection Source="IThis.ADD1" Destination="ADD1" dx1="49.25" />
+      <Connection Source="IThis.ADD2" Destination="ADD2" dx1="49.25" />
+      <Connection Source="IThis.ADD3" Destination="ADD3" dx1="49.25" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

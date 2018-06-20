@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="F8DB2F06A310711A" Name="PnPVacuum" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/7/2012" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="VacuumOn" />
+        <With Var="VacuumOff" />
+      </Event>
+      <Event Name="CLK" Comment="Clock signal">
+        <With Var="VacuumOn" />
+        <With Var="VacuumOff" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="VacState" />
+      </Event>
+      <Event Name="CHG" Comment="Execution Confirmation">
+        <With Var="VacState" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="VacuumOn" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="VacuumOff" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="VacState" Type="BOOL" Comment="State of vacuum" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="261.1111" y="133.3333" />
+      <ECState Name="INIT" Comment="Initialization" x="922.2222" y="138.8889">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="ON" Comment="Normal execution" x="472.8889" y="826.6666">
+        <ECAction Algorithm="SWITCH_ON" Output="CHG" />
+      </ECState>
+      <ECState Name="OFF" x="1450" y="844.4444">
+        <ECAction Algorithm="SWITCH_OFF" Output="CHG" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="610.819" y="50.57228" />
+      <ECTransition Source="INIT" Destination="OFF" Condition="CLK AND VacuumOff" x="1594.361" y="430.7562">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="407.8349,78.78135,445.3107,128.8806" />
+      </ECTransition>
+      <ECTransition Source="OFF" Destination="ON" Condition="CLK AND VacuumOn" x="1008.171" y="1106.365">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="287.5546,295.1516,223.0072,294.469" />
+      </ECTransition>
+      <ECTransition Source="ON" Destination="OFF" Condition="CLK AND VacuumOff" x="971.5271" y="612.8287">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="210.9612,138.7319,275.794,139.2584" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="ON" Condition="CLK AND VacuumOn" x="441.782" y="455.5337">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="110.0198,87.80422,78.40294,136.3808" />
+      </ECTransition>
+      <ECTransition Source="ON" Destination="INIT" Condition="INIT" x="693.4205" y="407.7777">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="158.5076,120.0033,190.2702,71.38557" />
+      </ECTransition>
+      <ECTransition Source="OFF" Destination="INIT" Condition="INIT" x="1181.529" y="566.6666">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="315.2657,172.9663,277.7899,122.867" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="INIT" Condition="INIT" x="898.8164" y="33.37614">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="256.2501,3.899829,191.1864,3.899829" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="INIT:=FALSE;&#xD;&#xA;IF VacuumOn = TRUE THEN&#xD;&#xA;  VacState := TRUE;&#xD;&#xA;ELSIF VacuumOff = TRUE THEN&#xD;&#xA;  VacState := FALSE;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+    <Algorithm Name="SWITCH_ON">
+      <ST Text="VacState := TRUE;" />
+    </Algorithm>
+    <Algorithm Name="SWITCH_OFF">
+      <ST Text="VacState := FALSE;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

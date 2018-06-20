@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="30CBD72810671B92" Name="RangeSensor" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="12/5/2011" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="Position" />
+        <With Var="Zone" />
+      </Event>
+      <Event Name="CLK" Comment="Clock signal">
+        <With Var="Position" />
+        <With Var="Zone" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="Detected" />
+      </Event>
+      <Event Name="CHG" Comment="Value of DETECTED changed">
+        <With Var="Detected" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="Position" Type="UINT" Comment="The object's position" />
+      <VarDeclaration Name="Zone" Type="UINT" ArraySize="2" Comment="Detection range of the sensor" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="Detected" Type="BOOL" Comment="Whether an object is detected" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="555.5555" y="427.7778" />
+      <ECState Name="INIT" Comment="Initialization" x="1294.444" y="427.7778">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="DETECT" Comment="Detect" x="1294.444" y="933.3333">
+        <ECAction Algorithm="DETECT" Output="CHG" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="943.5219" y="343.0564" />
+      <ECTransition Source="INIT" Destination="DETECT" Condition="CLK" x="1376.461" y="680.5555" />
+      <ECTransition Source="DETECT" Destination="DETECT" Condition="CLK" x="1291.041" y="1327.879">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="431,360,214,361" />
+      </ECTransition>
+      <ECTransition Source="DETECT" Destination="INIT" Condition="INIT" x="1127.542" y="672.6449">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="272.7509,184.2183,272.7509,150.7857" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="INIT" Condition="INIT" x="1282.454" y="67.1163">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="352.2909,-8.927526,287.2272,-8.927526" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="INIT:=FALSE;&#xD;&#xA;IF ((Position &gt;= Zone[0]) AND ( Position &lt;= Zone[1])) THEN&#xD;&#xA;  Detected := TRUE;  &#xD;&#xA;ELSE&#xD;&#xA;  Detected := FALSE;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+    <Algorithm Name="DETECT" Comment="Normally executed algorithm">
+      <ST Text="IF ((Position &gt;= Zone[0]) AND ( Position &lt;= Zone[1])) THEN&#xD;&#xA;  IF (Detected = FALSE) THEN&#xD;&#xA;      Detected := TRUE;&#xD;&#xA;      (*CHG := CHG+1;*)&#xD;&#xA;  END_IF;&#xD;&#xA;ELSE&#xD;&#xA;  IF (Detected = TRUE) THEN&#xD;&#xA;      Detected := FALSE;&#xD;&#xA;      (*CHG := CHG+1;*)&#xD;&#xA;  END_IF;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

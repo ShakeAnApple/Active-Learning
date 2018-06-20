@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="93C635010F271D3E" Name="LogWriter" Comment="Extracted Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="24" />
+  <VersionInfo Author="chivdan" Date="11/2/2016" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization request">
+        <With Var="x1" />
+        <With Var="x2" />
+        <With Var="x3" />
+        <With Var="x4" />
+        <With Var="x5" />
+        <With Var="x6" />
+        <With Var="x7" />
+        <With Var="x8" />
+        <With Var="x9" />
+        <With Var="x10" />
+        <With Var="x11" />
+        <With Var="x12" />
+        <With Var="x13" />
+        <With Var="x14" />
+        <With Var="x15" />
+        <With Var="x16" />
+        <With Var="x17" />
+      </Event>
+      <Event Name="WRITE_INPUT" Comment="Normal Execution Request">
+        <With Var="x1" />
+        <With Var="x2" />
+        <With Var="x3" />
+        <With Var="x4" />
+        <With Var="x5" />
+        <With Var="x6" />
+        <With Var="x7" />
+        <With Var="x8" />
+        <With Var="x9" />
+        <With Var="x10" />
+      </Event>
+      <Event Name="WRITE_OUTPUT">
+        <With Var="x11" />
+        <With Var="x12" />
+        <With Var="x13" />
+        <With Var="x14" />
+        <With Var="x15" />
+        <With Var="x16" />
+        <With Var="x17" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" />
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="x1" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x2" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x3" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x4" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x5" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x6" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x7" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x8" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x9" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x10" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x11" Type="BOOL" />
+      <VarDeclaration Name="x12" Type="BOOL" />
+      <VarDeclaration Name="x13" Type="BOOL" />
+      <VarDeclaration Name="x14" Type="BOOL" />
+      <VarDeclaration Name="x15" Type="BOOL" />
+      <VarDeclaration Name="x16" Type="BOOL" />
+      <VarDeclaration Name="x17" Type="BOOL" />
+    </InputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="23" UID="7" Name="FB2" Type="CSVWRITER_-2120031061" x="3700" y="2940" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="nxtControl.Standard#I:=3;data${I}:STRING,STRING,STRING" />
+      <Parameter Name="QI" Value="TRUE" />
+      <Parameter Name="filePath" Value="." />
+      <Parameter Name="syncMode" Value="TRUE" />
+      <Parameter Name="fileMode" Value="0" />
+      <Parameter Name="fieldDelimiter" Value="" />
+      <Parameter Name="recordDelimiter" Value="\n" />
+      <Parameter Name="stringEncloseChar" Value="" />
+      <Parameter Name="data3" Value="]" />
+    </FB>
+    <FB ID="9" Name="FB3" Type="EventCounter" x="1700" y="2680" Namespace="Main" />
+    <FB ID="21" UID="11" Name="FB1" Type="VALFORMAT_1880659705" x="1300" y="3180" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#I:=10;VALUE${I}:INT,INT,INT,INT,INT,INT,INT,INT,INT,INT" />
+      <Parameter Name="FORMAT" Value="%i%i%i%i%i%i%i%i%i%i" />
+    </FB>
+    <FB ID="22" UID="15" Name="FB4" Type="VALFORMAT_1275891605" x="1380" y="4560" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#I:=7;VALUE${I}:INT,INT,INT,INT,INT,INT,INT" />
+      <Parameter Name="FORMAT" Value="%i%i%i%i%i%i%i" />
+    </FB>
+    <FB ID="24" Name="FB5" Type="IOSelector" x="2220" y="3840" Namespace="Main" />
+    <Input Name="WRITE_INPUT">
+      <Position>
+        <X>55</X>
+        <Y>812.9635</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="INIT">
+      <Position>
+        <X>60</X>
+        <Y>672.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="x1">
+      <Position>
+        <X>25</X>
+        <Y>862.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x2">
+      <Position>
+        <X>25</X>
+        <Y>877.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x3">
+      <Position>
+        <X>25</X>
+        <Y>892.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x4">
+      <Position>
+        <X>25</X>
+        <Y>907.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x5">
+      <Position>
+        <X>25</X>
+        <Y>922.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x6">
+      <Position>
+        <X>25</X>
+        <Y>937.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x7">
+      <Position>
+        <X>25</X>
+        <Y>952.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x8">
+      <Position>
+        <X>25</X>
+        <Y>967.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x9">
+      <Position>
+        <X>25</X>
+        <Y>982.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x10">
+      <Position>
+        <X>25</X>
+        <Y>997.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x11">
+      <Position>
+        <X>40</X>
+        <Y>1217.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x12">
+      <Position>
+        <X>40</X>
+        <Y>1232.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x13">
+      <Position>
+        <X>40</X>
+        <Y>1247.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x14">
+      <Position>
+        <X>40</X>
+        <Y>1262.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x15">
+      <Position>
+        <X>40</X>
+        <Y>1277.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x16">
+      <Position>
+        <X>40</X>
+        <Y>1292.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x17">
+      <Position>
+        <X>40</X>
+        <Y>1307.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WRITE_OUTPUT">
+      <Position>
+        <X>30</X>
+        <Y>1152.9635</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1325</X>
+        <Y>767.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="FB3.REQ" dx1="40.83331" />
+      <Connection Source="WRITE_INPUT" Destination="FB1.REQ" dx1="40" />
+      <Connection Source="WRITE_OUTPUT" Destination="FB4.REQ" dx1="45.02087" />
+      <Connection Source="FB1.CNF" Destination="FB5.WRITE_INPUT" dx1="40" />
+      <Connection Source="FB4.CNF" Destination="FB5.WRITE_OUTPUT" dx1="41.54175" />
+      <Connection Source="FB3.CNF" Destination="FB2.INIT" dx1="69.10425" />
+      <Connection Source="FB5.CNF" Destination="FB2.WRITE" dx1="49.021" />
+      <Connection Source="FB2.INITO" Destination="INITO" dx1="45.3125" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="x1" Destination="FB1.VALUE1" dx1="40" />
+      <Connection Source="x2" Destination="FB1.VALUE2" dx1="40" />
+      <Connection Source="x3" Destination="FB1.VALUE3" dx1="40" />
+      <Connection Source="x4" Destination="FB1.VALUE4" dx1="40" />
+      <Connection Source="x5" Destination="FB1.VALUE5" dx1="40" />
+      <Connection Source="x6" Destination="FB1.VALUE6" dx1="40" />
+      <Connection Source="x7" Destination="FB1.VALUE7" dx1="40" />
+      <Connection Source="x8" Destination="FB1.VALUE8" dx1="40" />
+      <Connection Source="x9" Destination="FB1.VALUE9" dx1="40" />
+      <Connection Source="x10" Destination="FB1.VALUE10" dx1="40" />
+      <Connection Source="x11" Destination="FB4.VALUE1" dx1="40" />
+      <Connection Source="x12" Destination="FB4.VALUE2" dx1="40" />
+      <Connection Source="x13" Destination="FB4.VALUE3" dx1="40" />
+      <Connection Source="x14" Destination="FB4.VALUE4" dx1="40" />
+      <Connection Source="x15" Destination="FB4.VALUE5" dx1="40" />
+      <Connection Source="x16" Destination="FB4.VALUE6" dx1="40" />
+      <Connection Source="x17" Destination="FB4.VALUE7" dx1="40" />
+      <Connection Source="FB1.RESULT" Destination="FB5.input" dx1="40" />
+      <Connection Source="FB4.RESULT" Destination="FB5.output" dx1="70" />
+      <Connection Source="FB3.cnt" Destination="FB2.fileName" dx1="49.10425" />
+      <Connection Source="FB5.prefix" Destination="FB2.data1" dx1="70" />
+      <Connection Source="FB5.data" Destination="FB2.data2" dx1="90" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

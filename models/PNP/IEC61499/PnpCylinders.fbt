@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="PnpCylinders" Comment="Composite Function Block Type" Namespace="Main">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/7/2012" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="LCForwardSpeed" />
+        <With Var="LCBackwardSpeed" />
+        <With Var="LCExtend" />
+        <With Var="LCRetract" />
+        <With Var="LCMovingtDistance" />
+        <With Var="HomeSensorRange" />
+        <With Var="EndSensorRange" />
+        <With Var="InitialPosition" />
+        <With Var="LoadType" />
+        <With Var="Loaded" />
+        <With Var="MidSensorRange" />
+        <With Var="RCForwardSpeed" />
+        <With Var="RCBackwardSpeed" />
+        <With Var="RCExtend" />
+        <With Var="RCRetract" />
+        <With Var="RCMovingtDistance" />
+        <With Var="VCSpeed" />
+        <With Var="VCExtend" />
+        <With Var="VCMovingtDistance" />
+      </Event>
+      <Event Name="CLK">
+        <With Var="Loaded" />
+        <With Var="LoadType" />
+      </Event>
+      <Event Name="FAULT" />
+      <Event Name="RESUME" />
+      <Event Name="CYL_IND">
+        <With Var="LCExtend" />
+        <With Var="LCRetract" />
+        <With Var="RCExtend" />
+        <With Var="RCRetract" />
+        <With Var="VCExtend" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="LCAtHome" />
+        <With Var="LCAtEnd" />
+        <With Var="LCAtMid" />
+        <With Var="RCAtHome" />
+        <With Var="RCAtEnd" />
+        <With Var="RCAtMid" />
+        <With Var="VCAtHome" />
+        <With Var="VCAtEnd" />
+        <With Var="VCAtMid" />
+        <With Var="RCAbsolutePos" />
+        <With Var="LCAbsolutePos" />
+        <With Var="VCAbsolutePos" />
+      </Event>
+      <Event Name="CHG">
+        <With Var="LCAtHome" />
+        <With Var="LCAtEnd" />
+        <With Var="LCAtMid" />
+        <With Var="RCAtHome" />
+        <With Var="RCAtEnd" />
+        <With Var="RCAtMid" />
+        <With Var="VCAtHome" />
+        <With Var="VCAtEnd" />
+        <With Var="VCAtMid" />
+      </Event>
+      <Event Name="OFAULT" />
+      <Event Name="CNF">
+        <With Var="RCAbsolutePos" />
+        <With Var="LCAbsolutePos" />
+        <With Var="VCAbsolutePos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="InitialPosition" Type="REAL" Comment="Initial position" />
+      <VarDeclaration Name="HomeSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of home sensor" />
+      <VarDeclaration Name="MidSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of home sensor" />
+      <VarDeclaration Name="EndSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of end sensor" />
+      <VarDeclaration Name="Loaded" Type="BOOL" />
+      <VarDeclaration Name="LoadType" Type="UINT" />
+      <VarDeclaration Name="LCExtend" Type="BOOL" />
+      <VarDeclaration Name="LCRetract" Type="BOOL" />
+      <VarDeclaration Name="LCMovingtDistance" Type="UINT" Comment="Moving distance" />
+      <VarDeclaration Name="LCForwardSpeed" Type="UINT" Comment="Forward speed" />
+      <VarDeclaration Name="LCBackwardSpeed" Type="UINT" Comment="Backward speed" />
+      <VarDeclaration Name="RCExtend" Type="BOOL" />
+      <VarDeclaration Name="RCRetract" Type="BOOL" />
+      <VarDeclaration Name="RCMovingtDistance" Type="UINT" Comment="Moving distance" />
+      <VarDeclaration Name="RCForwardSpeed" Type="UINT" Comment="Forward speed" />
+      <VarDeclaration Name="RCBackwardSpeed" Type="UINT" Comment="Backward speed" />
+      <VarDeclaration Name="VCExtend" Type="BOOL" />
+      <VarDeclaration Name="VCMovingtDistance" Type="UINT" Comment="Moving distance" />
+      <VarDeclaration Name="VCSpeed" Type="UINT" Comment="Forward speed" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="LCAtHome" Type="BOOL" Comment="Detected at home position" />
+      <VarDeclaration Name="LCAtEnd" Type="BOOL" Comment="Detected at end position" />
+      <VarDeclaration Name="LCAtMid" Type="BOOL" />
+      <VarDeclaration Name="RCAtHome" Type="BOOL" Comment="Detected at home position" />
+      <VarDeclaration Name="RCAtEnd" Type="BOOL" Comment="Detected at end position" />
+      <VarDeclaration Name="RCAtMid" Type="BOOL" />
+      <VarDeclaration Name="VCAtHome" Type="BOOL" Comment="Detected at home position" />
+      <VarDeclaration Name="VCAtEnd" Type="BOOL" Comment="Detected at end position" />
+      <VarDeclaration Name="VCAtMid" Type="BOOL" />
+      <VarDeclaration Name="RCAbsolutePos" Type="UINT" />
+      <VarDeclaration Name="LCAbsolutePos" Type="UINT" />
+      <VarDeclaration Name="VCAbsolutePos" Type="UINT" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB Name="VerticleCylinder" Type="GenericCylinderModelType2" x="3320" y="900" Namespace="Main">
+      <Parameter Name="inputAbsPos" Value="0" />
+    </FB>
+    <FB Name="LeftCylinder" Type="GenericCylinderModelType1" x="1020" y="180" Namespace="Main">
+      <Parameter Name="inputAbsPos" Value="0" />
+    </FB>
+    <FB Name="RightCylinder" Type="GenericCylinderModelType1" x="2260" y="400" Namespace="Main">
+      <Parameter Name="inputAbsPos" Value="0" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CLK">
+      <Position>
+        <X>3</X>
+        <Y>18</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="FAULT">
+      <Position>
+        <X>3</X>
+        <Y>33</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="RESUME">
+      <Position>
+        <X>3</X>
+        <Y>48</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CYL_IND">
+      <Position>
+        <X>3</X>
+        <Y>63</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="InitialPosition">
+      <Position>
+        <X>3</X>
+        <Y>78</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="HomeSensorRange">
+      <Position>
+        <X>3</X>
+        <Y>93</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="MidSensorRange">
+      <Position>
+        <X>3</X>
+        <Y>108</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="EndSensorRange">
+      <Position>
+        <X>3</X>
+        <Y>123</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Loaded">
+      <Position>
+        <X>3</X>
+        <Y>138</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LoadType">
+      <Position>
+        <X>3</X>
+        <Y>153</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCExtend">
+      <Position>
+        <X>3</X>
+        <Y>168</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCRetract">
+      <Position>
+        <X>3</X>
+        <Y>183</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCMovingtDistance">
+      <Position>
+        <X>3</X>
+        <Y>198</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCForwardSpeed">
+      <Position>
+        <X>3</X>
+        <Y>213</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCBackwardSpeed">
+      <Position>
+        <X>3</X>
+        <Y>228</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCExtend">
+      <Position>
+        <X>3</X>
+        <Y>243</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCRetract">
+      <Position>
+        <X>3</X>
+        <Y>258</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCMovingtDistance">
+      <Position>
+        <X>3</X>
+        <Y>273</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCForwardSpeed">
+      <Position>
+        <X>3</X>
+        <Y>288</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCBackwardSpeed">
+      <Position>
+        <X>3</X>
+        <Y>303</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCExtend">
+      <Position>
+        <X>3</X>
+        <Y>318</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCMovingtDistance">
+      <Position>
+        <X>3</X>
+        <Y>333</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCSpeed">
+      <Position>
+        <X>3</X>
+        <Y>348</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1150</X>
+        <Y>132.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CHG">
+      <Position>
+        <X>1155</X>
+        <Y>147.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="OFAULT">
+      <Position>
+        <X>1135</X>
+        <Y>212.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1155</X>
+        <Y>162.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="LCAtHome">
+      <Position>
+        <X>1090</X>
+        <Y>242.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="LCAtEnd">
+      <Position>
+        <X>1100</X>
+        <Y>257.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="LCAtMid">
+      <Position>
+        <X>1100</X>
+        <Y>272.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAtHome">
+      <Position>
+        <X>1090</X>
+        <Y>302.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAtEnd">
+      <Position>
+        <X>1100</X>
+        <Y>317.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAtMid">
+      <Position>
+        <X>1100</X>
+        <Y>332.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAtHome">
+      <Position>
+        <X>1090</X>
+        <Y>362.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAtEnd">
+      <Position>
+        <X>1100</X>
+        <Y>377.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAtMid">
+      <Position>
+        <X>1100</X>
+        <Y>392.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAbsolutePos">
+      <Position>
+        <X>849.8281</X>
+        <Y>182.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="LCAbsolutePos">
+      <Position>
+        <X>664.8282</X>
+        <Y>37.9635429</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAbsolutePos">
+      <Position>
+        <X>1095</X>
+        <Y>422.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="LeftCylinder.INIT" dx1="88.83337" />
+      <Connection Source="CLK" Destination="LeftCylinder.CLK" dx1="86.41669" />
+      <Connection Source="FAULT" Destination="LeftCylinder.FAULT" dx1="234.2917" />
+      <Connection Source="RESUME" Destination="LeftCylinder.RESUME" dx1="286.8751" />
+      <Connection Source="VerticleCylinder.INITO" Destination="INITO" dx1="262.729" />
+      <Connection Source="LeftCylinder.CHG" Destination="CHG" dx1="1275.458" />
+      <Connection Source="RightCylinder.CHG" Destination="CHG" dx1="40" />
+      <Connection Source="VerticleCylinder.CHG" Destination="CHG" dx1="287.729" />
+      <Connection Source="LeftCylinder.OFAULT" Destination="RightCylinder.FAULT" dx1="140" />
+      <Connection Source="RightCylinder.OFAULT" Destination="VerticleCylinder.FAULT" dx1="40" />
+      <Connection Source="VerticleCylinder.OFAULT" Destination="OFAULT" dx1="257.729" />
+      <Connection Source="RESUME" Destination="RightCylinder.RESUME">
+        <Points>
+          <Points>
+            <X>90.7812347</X>
+            <Y>55.0364571</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>55.0364571</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>154.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>154.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RESUME" Destination="VerticleCylinder.RESUME" dx1="1453.438" />
+      <Connection Source="VerticleCylinder.CNF" Destination="CNF" dx1="307.729" />
+      <Connection Source="CLK" Destination="RightCylinder.CLK" dx1="1546.417" />
+      <Connection Source="CLK" Destination="VerticleCylinder.CLK" dx1="1513.208" />
+      <Connection Source="RightCylinder.CNF" Destination="CNF" dx1="40" />
+      <Connection Source="LeftCylinder.CNF" Destination="CNF">
+        <Points>
+          <Points>
+            <X>443.6354</X>
+            <Y>99.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>99.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>762.5</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>762.5</X>
+            <Y>170.000015</Y>
+          </Points>
+          <Points>
+            <X>1155</X>
+            <Y>170.000015</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="LeftCylinder.INITO" Destination="RightCylinder.INIT" dx1="180" />
+      <Connection Source="RightCylinder.INITO" Destination="VerticleCylinder.INIT" dx1="40" />
+      <Connection Source="CYL_IND" Destination="LeftCylinder.CYL_IND" dx1="289.3959" />
+      <Connection Source="CYL_IND" Destination="RightCylinder.CYL_IND">
+        <Points>
+          <Points>
+            <X>90.15103</X>
+            <Y>70.03645</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>70.03645</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>169.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>169.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="CYL_IND" Destination="VerticleCylinder.CYL_IND" dx1="1424.698" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="LCForwardSpeed" Destination="LeftCylinder.ForwardSpeed" dx1="40" />
+      <Connection Source="LCBackwardSpeed" Destination="LeftCylinder.BackwardSpeed" dx1="41.43756" />
+      <Connection Source="InitialPosition" Destination="LeftCylinder.InitialPosition" dx1="82.12506" />
+      <Connection Source="LCMovingtDistance" Destination="LeftCylinder.MovingtDistance" dx1="40" />
+      <Connection Source="HomeSensorRange" Destination="LeftCylinder.HomeSensorRange" dx1="40" />
+      <Connection Source="MidSensorRange" Destination="LeftCylinder.MidSensorRange" dx1="40" />
+      <Connection Source="EndSensorRange" Destination="LeftCylinder.EndSensorRange" dx1="49.85419" />
+      <Connection Source="LCExtend" Destination="LeftCylinder.Extend" dx1="140.2917" />
+      <Connection Source="LCRetract" Destination="LeftCylinder.Retract" dx1="155.6042" />
+      <Connection Source="Loaded" Destination="LeftCylinder.Loaded" dx1="205.2917" />
+      <Connection Source="LoadType" Destination="LeftCylinder.LoadType" dx1="176.9167" dx2="350" dy="529.8541" />
+      <Connection Source="RCForwardSpeed" Destination="RightCylinder.ForwardSpeed">
+        <Points>
+          <Points>
+            <X>161.1979</X>
+            <Y>295.036438</Y>
+          </Points>
+          <Points>
+            <X>172.5</X>
+            <Y>295.036438</Y>
+          </Points>
+          <Points>
+            <X>172.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>219.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>219.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RCBackwardSpeed" Destination="RightCylinder.BackwardSpeed">
+        <Points>
+          <Points>
+            <X>168.911453</X>
+            <Y>310.036438</Y>
+          </Points>
+          <Points>
+            <X>178.911453</X>
+            <Y>310.036438</Y>
+          </Points>
+          <Points>
+            <X>178.911453</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>234.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>234.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="InitialPosition" Destination="RightCylinder.InitialPosition">
+        <Points>
+          <Points>
+            <X>141.968735</X>
+            <Y>85.03645</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>85.03645</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>249.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>249.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RCMovingtDistance" Destination="RightCylinder.MovingtDistance">
+        <Points>
+          <Points>
+            <X>170.208328</X>
+            <Y>280.036438</Y>
+          </Points>
+          <Points>
+            <X>182.5</X>
+            <Y>280.036438</Y>
+          </Points>
+          <Points>
+            <X>182.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>264.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>264.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="HomeSensorRange" Destination="RightCylinder.HomeSensorRange">
+        <Points>
+          <Points>
+            <X>169.5104</X>
+            <Y>100.036453</Y>
+          </Points>
+          <Points>
+            <X>179.5104</X>
+            <Y>100.036453</Y>
+          </Points>
+          <Points>
+            <X>179.5104</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>279.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>279.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="MidSensorRange" Destination="RightCylinder.MidSensorRange">
+        <Points>
+          <Points>
+            <X>158.307281</X>
+            <Y>115.036453</Y>
+          </Points>
+          <Points>
+            <X>168.307281</X>
+            <Y>115.036453</Y>
+          </Points>
+          <Points>
+            <X>168.307281</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>294.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>294.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="EndSensorRange" Destination="RightCylinder.EndSensorRange">
+        <Points>
+          <Points>
+            <X>160.036453</X>
+            <Y>130.036453</Y>
+          </Points>
+          <Points>
+            <X>172.5</X>
+            <Y>130.036453</Y>
+          </Points>
+          <Points>
+            <X>172.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>309.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>309.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RCExtend" Destination="RightCylinder.Extend">
+        <Points>
+          <Points>
+            <X>129.1979</X>
+            <Y>250.036453</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>250.036453</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>324.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>324.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RCRetract" Destination="RightCylinder.Retract">
+        <Points>
+          <Points>
+            <X>130.369781</X>
+            <Y>265.036438</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>265.036438</Y>
+          </Points>
+          <Points>
+            <X>167.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>339.5</Y>
+          </Points>
+          <Points>
+            <X>560</X>
+            <Y>339.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="Loaded" Destination="RightCylinder.Loaded" dx1="205.2917" />
+      <Connection Source="LoadType" Destination="RightCylinder.LoadType" dx1="176.9167" />
+      <Connection Source="VCSpeed" Destination="VerticleCylinder.ForwardSpeed" dx1="1407.021" />
+      <Connection Source="VCSpeed" Destination="VerticleCylinder.BackwardSpeed" dx1="1342.021" />
+      <Connection Source="InitialPosition" Destination="VerticleCylinder.InitialPosition" dx1="1291.063" />
+      <Connection Source="VCMovingtDistance" Destination="VerticleCylinder.MovingtDistance" dx1="1225.76" />
+      <Connection Source="HomeSensorRange" Destination="VerticleCylinder.HomeSensorRange" dx1="1215.979" />
+      <Connection Source="MidSensorRange" Destination="VerticleCylinder.MidSensorRange" dx1="1228.385" />
+      <Connection Source="EndSensorRange" Destination="VerticleCylinder.EndSensorRange" dx1="1214.927" />
+      <Connection Source="VCExtend" Destination="VerticleCylinder.Extend" dx1="1267.781" />
+      <Connection Source="Loaded" Destination="VerticleCylinder.Loaded" dx1="1282.646" />
+      <Connection Source="LoadType" Destination="VerticleCylinder.LoadType" dx1="1258.458" />
+      <Connection Source="LeftCylinder.AtHome" Destination="LCAtHome">
+        <Points>
+          <Points>
+            <X>443.6354</X>
+            <Y>179.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>179.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>250.000015</Y>
+          </Points>
+          <Points>
+            <X>1090</X>
+            <Y>250.000015</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="LeftCylinder.AtMid" Destination="LCAtMid">
+        <Points>
+          <Points>
+            <X>443.6354</X>
+            <Y>209.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>209.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>279.999969</Y>
+          </Points>
+          <Points>
+            <X>1100</X>
+            <Y>279.999969</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RightCylinder.AtHome" Destination="RCAtHome">
+        <Points>
+          <Points>
+            <X>753.635437</X>
+            <Y>234.5</Y>
+          </Points>
+          <Points>
+            <X>763.635437</X>
+            <Y>234.5</Y>
+          </Points>
+          <Points>
+            <X>763.635437</X>
+            <Y>207.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>207.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>309.999969</Y>
+          </Points>
+          <Points>
+            <X>1090</X>
+            <Y>309.999969</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RightCylinder.AtMid" Destination="RCAtMid">
+        <Points>
+          <Points>
+            <X>753.635437</X>
+            <Y>264.5</Y>
+          </Points>
+          <Points>
+            <X>763.635437</X>
+            <Y>264.5</Y>
+          </Points>
+          <Points>
+            <X>763.635437</X>
+            <Y>207.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>207.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>339.999969</Y>
+          </Points>
+          <Points>
+            <X>1100</X>
+            <Y>339.999969</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="LeftCylinder.AtEnd" Destination="LCAtEnd">
+        <Points>
+          <Points>
+            <X>443.6354</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>194.5</Y>
+          </Points>
+          <Points>
+            <X>453.6354</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>82.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>264.999969</Y>
+          </Points>
+          <Points>
+            <X>1100</X>
+            <Y>264.999969</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="RightCylinder.AtEnd" Destination="RCAtEnd">
+        <Points>
+          <Points>
+            <X>753.635437</X>
+            <Y>249.5</Y>
+          </Points>
+          <Points>
+            <X>763.635437</X>
+            <Y>249.5</Y>
+          </Points>
+          <Points>
+            <X>763.635437</X>
+            <Y>207.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>207.5</Y>
+          </Points>
+          <Points>
+            <X>1027.5</X>
+            <Y>324.999969</Y>
+          </Points>
+          <Points>
+            <X>1100</X>
+            <Y>324.999969</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="VerticleCylinder.AtHome" Destination="VCAtHome" dx1="142.729" />
+      <Connection Source="VerticleCylinder.AtEnd" Destination="VCAtEnd" dx1="162.729" />
+      <Connection Source="VerticleCylinder.AtMid" Destination="VCAtMid" dx1="162.729" />
+      <Connection Source="RightCylinder.AbsolutePos" Destination="RCAbsolutePos" dx1="135.4585" />
+      <Connection Source="LeftCylinder.AbsolutePos" Destination="LCAbsolutePos" dx1="135.4584" />
+      <Connection Source="VerticleCylinder.AbsolutePos" Destination="VCAbsolutePos" dx1="100" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

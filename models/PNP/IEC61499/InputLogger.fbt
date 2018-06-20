@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="FA89E179DFE8ADA1" Name="InputLogger" Comment="Extracted Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="10" />
+  <VersionInfo Author="chivdan" Date="11/2/2016" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization request">
+        <With Var="x1" />
+        <With Var="x2" />
+        <With Var="x3" />
+        <With Var="x4" />
+        <With Var="x5" />
+        <With Var="x6" />
+        <With Var="x7" />
+        <With Var="x8" />
+        <With Var="x9" />
+        <With Var="x10" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="x1" />
+        <With Var="x2" />
+        <With Var="x3" />
+        <With Var="x4" />
+        <With Var="x5" />
+        <With Var="x6" />
+        <With Var="x7" />
+        <With Var="x8" />
+        <With Var="x9" />
+        <With Var="x10" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization confirmation event">
+        <With Var="z1" />
+        <With Var="z2" />
+        <With Var="z3" />
+        <With Var="z4" />
+        <With Var="z5" />
+        <With Var="z6" />
+        <With Var="z7" />
+        <With Var="z8" />
+        <With Var="z9" />
+        <With Var="z10" />
+      </Event>
+      <Event Name="CNF">
+        <With Var="z1" />
+        <With Var="z2" />
+        <With Var="z3" />
+        <With Var="z4" />
+        <With Var="z5" />
+        <With Var="z6" />
+        <With Var="z7" />
+        <With Var="z8" />
+        <With Var="z9" />
+        <With Var="z10" />
+      </Event>
+      <Event Name="WRITE_INPUT" Comment="Execution Confirmation">
+        <With Var="z1" />
+        <With Var="z2" />
+        <With Var="z3" />
+        <With Var="z4" />
+        <With Var="z5" />
+        <With Var="z6" />
+        <With Var="z7" />
+        <With Var="z8" />
+        <With Var="z9" />
+        <With Var="z10" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="x1" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x2" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x3" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x4" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x5" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x6" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x7" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x8" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x9" Type="BOOL" Comment="Argument" />
+      <VarDeclaration Name="x10" Type="BOOL" Comment="Argument" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="z1" Type="BOOL" />
+      <VarDeclaration Name="z2" Type="BOOL" />
+      <VarDeclaration Name="z3" Type="BOOL" />
+      <VarDeclaration Name="z4" Type="BOOL" />
+      <VarDeclaration Name="z5" Type="BOOL" />
+      <VarDeclaration Name="z6" Type="BOOL" />
+      <VarDeclaration Name="z7" Type="BOOL" />
+      <VarDeclaration Name="z8" Type="BOOL" />
+      <VarDeclaration Name="z9" Type="BOOL" />
+      <VarDeclaration Name="z10" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="FB5" Type="ANY2ANY_-715679919" x="880" y="1640" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=10;IN${CNT}:BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL,BOOL;OUT${CNT}:INT,INT,INT,INT,INT,INT,INT,INT,INT,INT" />
+    </FB>
+    <FB ID="3" Name="InputLogger" Type="LOGGER_862393804" x="2600" y="1340" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.System#CNT:=10" />
+      <Parameter Name="MESSAGE" Value="in=REQ[${1}${2}${3}${4}${5}${6}${7}${8}${9}${10}]" />
+      <Parameter Name="QI" Value="TRUE" />
+      <Parameter Name="LEVEL" Value="1" />
+      <Parameter Name="DEST" Value="1" />
+    </FB>
+    <FB ID="5" UID="2" Name="FB6" Type="ChangeDetector" x="1580" y="1520" Namespace="Main" />
+    <FB ID="6" Name="FB1" Type="E_MERGE" x="3720" y="1720" Namespace="IEC61499.Standard" />
+    <Input Name="REQ">
+      <Position>
+        <X>74.29167</X>
+        <Y>412.463562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="INIT">
+      <Position>
+        <X>75</X>
+        <Y>382.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="x1">
+      <Position>
+        <X>45.3698044</X>
+        <Y>462.4635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x2">
+      <Position>
+        <X>45.3698044</X>
+        <Y>477.4635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x3">
+      <Position>
+        <X>45.3698044</X>
+        <Y>492.4635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x4">
+      <Position>
+        <X>45.3698044</X>
+        <Y>507.463531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x5">
+      <Position>
+        <X>45.3698044</X>
+        <Y>522.4636</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x6">
+      <Position>
+        <X>45.3698044</X>
+        <Y>537.4636</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x7">
+      <Position>
+        <X>45.3698044</X>
+        <Y>552.4636</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x8">
+      <Position>
+        <X>45.3698044</X>
+        <Y>567.4636</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x9">
+      <Position>
+        <X>45.3698044</X>
+        <Y>582.4636</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="x10">
+      <Position>
+        <X>45</X>
+        <Y>597.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>841.90625</X>
+        <Y>337.463562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1115</X>
+        <Y>462.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="z1">
+      <Position>
+        <X>265</X>
+        <Y>732.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z2">
+      <Position>
+        <X>265</X>
+        <Y>747.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z3">
+      <Position>
+        <X>265</X>
+        <Y>762.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z4">
+      <Position>
+        <X>265</X>
+        <Y>777.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z5">
+      <Position>
+        <X>265</X>
+        <Y>792.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z6">
+      <Position>
+        <X>265</X>
+        <Y>807.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z7">
+      <Position>
+        <X>265</X>
+        <Y>822.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z8">
+      <Position>
+        <X>265</X>
+        <Y>837.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z9">
+      <Position>
+        <X>265</X>
+        <Y>852.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="z10">
+      <Position>
+        <X>265</X>
+        <Y>867.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="WRITE_INPUT">
+      <Position>
+        <X>972.0728</X>
+        <Y>737.9635</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="FB5.CNF" Destination="FB6.REQ" dx1="50" />
+      <Connection Source="FB6.CNF" Destination="InputLogger.REQ" dx1="79.29175" />
+      <Connection Source="REQ" Destination="FB5.REQ" />
+      <Connection Source="InputLogger.INITO" Destination="INITO" />
+      <Connection Source="InputLogger.CNF" Destination="FB1.EI1" dx1="40" />
+      <Connection Source="FB6.SAME" Destination="FB1.EI2">
+        <Points>
+          <Points>
+            <X>487.677063</X>
+            <Y>419.5</Y>
+          </Points>
+          <Points>
+            <X>547.677063</X>
+            <Y>419.5</Y>
+          </Points>
+          <Points>
+            <X>547.677063</X>
+            <Y>627.5</Y>
+          </Points>
+          <Points>
+            <X>787.5</X>
+            <Y>627.5</Y>
+          </Points>
+          <Points>
+            <X>787.5</X>
+            <Y>454.5</Y>
+          </Points>
+          <Points>
+            <X>925</X>
+            <Y>454.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="FB1.EO" Destination="CNF" dx1="41.5415" />
+      <Connection Source="InputLogger.INITO" Destination="FB5.REQ" dx1="60" dx2="50" dy="-108" />
+      <Connection Source="INIT" Destination="FB6.INIT" dx1="40.83337" />
+      <Connection Source="FB6.INITO" Destination="InputLogger.INIT" dx1="59.29175" />
+      <Connection Source="FB6.CNF" Destination="WRITE_INPUT" dx1="269.2917">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="FB5.OUT1" Destination="FB6.x1" />
+      <Connection Source="FB5.OUT2" Destination="FB6.x2" />
+      <Connection Source="FB5.OUT3" Destination="FB6.x3" />
+      <Connection Source="FB5.OUT4" Destination="FB6.x4" />
+      <Connection Source="FB5.OUT5" Destination="FB6.x5" />
+      <Connection Source="FB5.OUT6" Destination="FB6.x6" />
+      <Connection Source="FB5.OUT7" Destination="FB6.x7" />
+      <Connection Source="FB5.OUT8" Destination="FB6.x8" />
+      <Connection Source="FB5.OUT9" Destination="FB6.x9" />
+      <Connection Source="FB5.OUT10" Destination="FB6.x10" />
+      <Connection Source="FB6.z1" Destination="InputLogger.PARAM1" />
+      <Connection Source="FB6.z2" Destination="InputLogger.PARAM2" />
+      <Connection Source="FB6.z3" Destination="InputLogger.PARAM3" />
+      <Connection Source="FB6.z4" Destination="InputLogger.PARAM4" />
+      <Connection Source="FB6.z5" Destination="InputLogger.PARAM5" />
+      <Connection Source="FB6.z6" Destination="InputLogger.PARAM6" />
+      <Connection Source="FB6.z7" Destination="InputLogger.PARAM7" />
+      <Connection Source="FB6.z8" Destination="InputLogger.PARAM8" />
+      <Connection Source="FB6.z9" Destination="InputLogger.PARAM9" />
+      <Connection Source="FB6.z10" Destination="InputLogger.PARAM10" />
+      <Connection Source="x1" Destination="FB5.IN1" dx1="40" />
+      <Connection Source="x2" Destination="FB5.IN2" dx1="40" />
+      <Connection Source="x3" Destination="FB5.IN3" dx1="40" />
+      <Connection Source="x4" Destination="FB5.IN4" />
+      <Connection Source="x5" Destination="FB5.IN5" dx1="40" />
+      <Connection Source="x6" Destination="FB5.IN6" dx1="40" />
+      <Connection Source="x7" Destination="FB5.IN7" dx1="40" />
+      <Connection Source="x8" Destination="FB5.IN8" dx1="40" />
+      <Connection Source="x9" Destination="FB5.IN9" dx1="40" />
+      <Connection Source="x10" Destination="FB5.IN10" dx1="40" />
+      <Connection Source="x1" Destination="z1" dx1="223.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x2" Destination="z2" dx1="203.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x3" Destination="z3" dx1="183.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x4" Destination="z4" dx1="163.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x5" Destination="z5" dx1="143.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x6" Destination="z6" dx1="123.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x7" Destination="z7" dx1="103.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x8" Destination="z8" dx1="83.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x9" Destination="z9" dx1="63.125">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="x10" Destination="z10" dx1="20.875">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+    </DataConnections>
+  </FBNetwork>
+</FBType>

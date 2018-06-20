@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="AA1BFCA3CC88580C" Name="MovingStatusType2" Comment="Protection layer" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="The University of Auckland" Version="1.0" Author="Sandeep Patil" Date="2011-04-20" Remarks="First build." />
+  <CompilerInfo header="package fb.rt.pnp;" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="Extend" />
+      </Event>
+      <Event Name="CLK" Comment="Clock signal">
+        <With Var="Extend" />
+      </Event>
+      <Event Name="FAULT" />
+      <Event Name="RESUME" />
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="C_FWD" />
+        <With Var="C_BWD" />
+      </Event>
+      <Event Name="CHG" Comment="Data outputs changed">
+        <With Var="C_FWD" />
+        <With Var="C_BWD" />
+      </Event>
+      <Event Name="OFAULT" />
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="Extend" Type="BOOL" Comment="Move forwards" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="C_FWD" Type="BOOL" Comment="Confirmed move forwards" />
+      <VarDeclaration Name="C_BWD" Type="BOOL" Comment="Confirmed move backwards" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="1161.111" y="166.6667" />
+      <ECState Name="INIT" Comment="Initialization" x="3222.222" y="166.6667">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="MOVE_FWD" x="1690" y="1046.666">
+        <ECAction Algorithm="FWD" Output="CHG" />
+      </ECState>
+      <ECState Name="MOVE_BWD" x="4540" y="1214.444">
+        <ECAction Algorithm="BWD" Output="CHG" />
+      </ECState>
+      <ECState Name="STOP" x="3222.222" y="1050">
+        <ECAction Algorithm="STOP" Output="CHG" />
+      </ECState>
+      <ECState Name="FAILURE" x="3137.778" y="2066.667">
+        <ECAction Algorithm="STOP" Output="OFAULT" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="2210.188" y="87.85161" />
+      <ECTransition Source="INIT" Destination="MOVE_FWD" Condition="CLK AND Extend" x="2003.851" y="405.5104">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="523.7173,54.17641,410.8827,119.0597" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="MOVE_BWD" Condition="CLK AND NOT Extend" x="4449.485" y="600.7915">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1105.2,104.7724,1204.076,183.3902" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="FAILURE" Condition="FAULT" x="2227.416" y="1755.684">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="492.9861,416.4026,600.5466,491.9896" />
+      </ECTransition>
+      <ECTransition Source="STOP" Destination="FAILURE" Condition="FAULT" x="3608.77" y="1429.321">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="934.0012,309.046,927.5684,385.0002" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="FAILURE" Condition="FAULT" x="4233.219" y="1943.922">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1135.948,477.4568,1033.475,539.5336" />
+      </ECTransition>
+      <ECTransition Source="STOP" Destination="MOVE_FWD" Condition="CLK&amp;Extend" x="2496.972" y="1130.281">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="675.1539,287.2433,573.3629,287.0005" />
+      </ECTransition>
+      <ECTransition Source="STOP" Destination="MOVE_BWD" Condition="CLK AND NOT Extend" x="3866.86" y="655.8801">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="923.4167,123.3942,1007.227,133.8526" />
+      </ECTransition>
+      <ECTransition Source="FAILURE" Destination="STOP" Condition="RESUME" x="2941.074" y="1478.82">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="716.595,401.0685,722.4473,325.0892" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="MOVE_BWD" Condition="CLK AND NOT Extend" x="2958.483" y="734.1501">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="624.68,148.7389,829.988,160.9657" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="MOVE_FWD" Condition="CLK AND Extend" x="2787.224" y="1637.574">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="775.3846,453.3949,570.4547,441.198" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="MOVE_FWD" Condition="CLK AND Extend" x="1490.812" y="1417.822">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="370.9697,381.0367,345.9059,381.0367" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="MOVE_BWD" Condition="CLK AND NOT Extend" x="4352.79" y="1608.532">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1087.194,430.6251,1062.131,430.6251" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="FAILURE" Condition="FAULT" x="3257.105" y="1513.287">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="822.2385,336.5961,814.6192,486.1506" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="INIT" Condition="INIT" x="2453.158" y="529.6405">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="557.7567,158.9847,670.2988,94.34847" />
+      </ECTransition>
+      <ECTransition Source="STOP" Destination="INIT" Condition="INIT" x="3013.805" y="577.054">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="739.8167,174.1139,739.8167,109.1998" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="INIT" Condition="INIT" x="5003.015" y="441.8548">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1386.663,131.1352,1287.786,52.51747" />
+      </ECTransition>
+      <ECTransition Source="FAILURE" Destination="INIT" Condition="INIT" x="145.5536" y="1037.22">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="-209.5165,328.2017,-202.866,178.5653" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="INIT" Condition="INIT" x="3222.222" y="348.7528" />
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="INIT:=FALSE;&#xD;&#xA;C_FWD := FALSE;&#xD;&#xA;C_BWD := FALSE;" />
+    </Algorithm>
+    <Algorithm Name="FWD" Comment="Normally executed algorithm">
+      <ST Text="C_FWD := TRUE;&#xD;&#xA;C_BWD := FALSE;" />
+    </Algorithm>
+    <Algorithm Name="BWD">
+      <ST Text="C_FWD := FALSE;&#xD;&#xA;C_BWD := TRUE;" />
+    </Algorithm>
+    <Algorithm Name="STOP">
+      <ST Text="C_FWD := FALSE;&#xD;&#xA;C_BWD := FALSE;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

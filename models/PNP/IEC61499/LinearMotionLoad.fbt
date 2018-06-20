@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="9BC87C4952DA270F" Name="LinearMotionLoad" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="12/5/2011" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="ForwardSpeed" />
+        <With Var="BackwardSpeed" />
+        <With Var="InitialPosition" />
+        <With Var="MovingDistance" />
+        <With Var="MoveForwards" />
+        <With Var="MoveBackwards" />
+        <With Var="Loaded" />
+        <With Var="LoadType" />
+        <With Var="inputAbsPos" />
+      </Event>
+      <Event Name="CLK" Comment="Clock signal">
+        <With Var="MovingDistance" />
+        <With Var="MoveForwards" />
+        <With Var="MoveBackwards" />
+        <With Var="Loaded" />
+        <With Var="LoadType" />
+        <With Var="inputAbsPos" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="RelativePos" />
+        <With Var="AbsolutePos" />
+      </Event>
+      <Event Name="CHG" Comment="Indicates changes on the data output">
+        <With Var="RelativePos" />
+        <With Var="AbsolutePos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="ForwardSpeed" Type="UINT" Comment="Forward speed" />
+      <VarDeclaration Name="BackwardSpeed" Type="UINT" Comment="Backward speed" />
+      <VarDeclaration Name="InitialPosition" Type="REAL" Comment="Absolute initial position" />
+      <VarDeclaration Name="MovingDistance" Type="UINT" />
+      <VarDeclaration Name="MoveForwards" Type="BOOL" Comment="Move forwards" />
+      <VarDeclaration Name="MoveBackwards" Type="BOOL" Comment="Move backwards" />
+      <VarDeclaration Name="Loaded" Type="BOOL" />
+      <VarDeclaration Name="LoadType" Type="UINT" Comment="With different types of load, the actual moving speed varies" />
+      <VarDeclaration Name="inputAbsPos" Type="UINT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="AbsolutePos" Type="UINT" />
+      <VarDeclaration Name="RelativePos" Type="UINT" Comment="Position in percentation" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Name="percentagePos" Type="REAL" />
+    </InternalVars>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="994.4442" y="177.7778" />
+      <ECState Name="INIT" Comment="Initialization" x="2461.111" y="177.7778">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="MOVE_FWD" x="621.3333" y="1531.333">
+        <ECAction Algorithm="INCR" Output="CHG" />
+      </ECState>
+      <ECState Name="MOVE_BWD" x="4400" y="1538.889">
+        <ECAction Algorithm="DECR" Output="CHG" />
+      </ECState>
+      <ECState Name="STOP" x="2589.048" y="3077.302">
+        <ECAction Output="CHG" />
+      </ECState>
+      <ECState Name="HOME" Comment="At home position" x="2461.111" y="655.5555" />
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="1746.3" y="97.53053" />
+      <ECTransition Source="INIT" Destination="HOME" Condition="1" x="2543.496" y="416.6666" />
+      <ECTransition Source="HOME" Destination="MOVE_FWD" Condition="CLK AND MoveForwards" x="1561.949" y="1157.083">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="457.9815,262.0904,320.5334,327.0575" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="STOP" Condition="CLK AND (NOT MoveForwards) AND (NOT MoveBackwards)" x="1820.77" y="2183.061">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="392.4233,475.5938,545.33,595.7275" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="STOP" Condition="CLK AND (NOT MoveForwards) AND (NOT MoveBackwards)" x="3689.696" y="2462.092">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1005.372,568.2217,864.6967,687.7258" />
+      </ECTransition>
+      <ECTransition Source="STOP" Destination="MOVE_FWD" Condition="CLK AND MoveForwards" x="1316.386" y="2522.126">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="385.438,707.6989,232.5315,587.5653" />
+      </ECTransition>
+      <ECTransition Source="STOP" Destination="MOVE_BWD" Condition="CLK AND MoveBackwards" x="3314.726" y="2153.209">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="747.8553,585.147,888.5302,465.6429" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="HOME" Condition="CLK AND RelativePos=0" x="3231.481" y="1126.532">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="867.2319,316.5325,724.7476,251.6184" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="MOVE_BWD" Condition="CLK AND MoveBackwards" x="2492.927" y="1302.439">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="480.7637,309.6007,762.8681,310.1546" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="MOVE_FWD" Condition="CLK AND MoveForwards" x="2509.923" y="1773.73">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="768.5332,459.8495,486.4288,459.2854" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="MOVE_FWD" Condition="CLK AND MoveForwards AND (RelativePos&lt;100)" x="404.7908" y="2009.489">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="97.65371,537.8699,72.58991,537.8699" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="MOVE_BWD" Condition="CLK AND MoveBackwards AND (RelativePos&gt;0)" x="4439.987" y="2124.431">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1125.564,575.5543,1100.5,575.5543" />
+      </ECTransition>
+      <ECTransition Source="HOME" Destination="MOVE_BWD" Condition="CLK AND MoveBackwards" x="3660.354" y="947.0977">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="859.5969,193.3679,1002.081,258.282" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="HOME" Condition="CLK AND RelativePos=100" x="1155.594" y="798.9568">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="193.5964,209.5961,329.1354,145.7925" />
+      </ECTransition>
+      <ECTransition Source="HOME" Destination="INIT" Condition="INIT" x="2202.371" y="365.1489">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="535.7377,103.3812,535.7377,72.26344" />
+      </ECTransition>
+      <ECTransition Source="MOVE_BWD" Destination="INIT" Condition="INIT" x="4065.842" y="580.0326">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1139.731,176.0792,990.5462,71.3503" />
+      </ECTransition>
+      <ECTransition Source="MOVE_FWD" Destination="INIT" Condition="INIT" x="590.5205" y="597.7283">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="3.154037,181.9803,144.6477,77.88104" />
+      </ECTransition>
+      <ECTransition Source="STOP" Destination="INIT" Condition="INIT" x="6415.308" y="1663.036">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1924.528,535.2928,1914.25,302.3629" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="INIT" Condition="INIT" x="2461.111" y="359.8639" />
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="INIT:=FALSE;&#xD;&#xA;AbsolutePos := REAL_TO_UINT(InitialPosition);&#xD;&#xA;AbsolutePos := inputAbsPos + AbsolutePos;&#xD;&#xA;RelativePos := 0;&#xD;&#xA;percentagePos := 0;" />
+    </Algorithm>
+    <Algorithm Name="INCR" Comment="Increment the position">
+      <ST Text="VAR&#xD;&#xA;    position: REAL;&#xD;&#xA;END_VAR&#xD;&#xA;(* ---------- Check whether the motor is loaded ----------*)&#xD;&#xA;IF (Loaded AND LoadType &gt; 0) THEN&#xD;&#xA;    position := (AbsolutePos + ForwardSpeed * ((1 - LoadType) / 10));&#xD;&#xA;    IF (position &gt; MovingDistance) THEN&#xD;&#xA;        position := MovingDistance;&#xD;&#xA;    END_IF;&#xD;&#xA;    percentagePos := (position / MovingDistance) * 100;&#xD;&#xA;ELSE&#xD;&#xA;    position := AbsolutePos + ForwardSpeed;&#xD;&#xA;    IF (position &gt; MovingDistance) THEN&#xD;&#xA;        position := MovingDistance;&#xD;&#xA;    END_IF;&#xD;&#xA;    percentagePos := (position / MovingDistance) * 100;    &#xD;&#xA;END_IF;&#xD;&#xA;AbsolutePos := REAL_TO_UINT(position);&#xD;&#xA;AbsolutePos := inputAbsPos + AbsolutePos;&#xD;&#xA;RelativePos := REAL_TO_UINT(percentagePos);&#xD;&#xA;" />
+    </Algorithm>
+    <Algorithm Name="DECR" Comment="Decrement the position">
+      <ST Text="VAR&#xD;&#xA;    position: REAL;&#xD;&#xA;END_VAR&#xD;&#xA;(* ---------- Check whether the motor is loaded ----------*)&#xD;&#xA;IF (Loaded AND LoadType &gt; 0) THEN&#xD;&#xA;    position := (AbsolutePos - BackwardSpeed * (1 - LoadType / 10));&#xD;&#xA;    IF (AbsolutePos &gt; 0) THEN&#xD;&#xA;        position := AbsolutePos - BackwardSpeed;&#xD;&#xA;    ELSE&#xD;&#xA;        position := 0;    &#xD;&#xA;    END_IF;&#xD;&#xA;    percentagePos := (position / MovingDistance) * 100;&#xD;&#xA;ELSE&#xD;&#xA;    IF (AbsolutePos &gt; 0) THEN&#xD;&#xA;        position := AbsolutePos - BackwardSpeed;&#xD;&#xA;   ELSE&#xD;&#xA;        position := 0;    &#xD;&#xA;    END_IF;       &#xD;&#xA;    percentagePos := (position / MovingDistance) * 100; &#xD;&#xA;END_IF;&#xD;&#xA;AbsolutePos := REAL_TO_UINT(position);&#xD;&#xA;RelativePos := REAL_TO_UINT(percentagePos);" />
+    </Algorithm>
+  </BasicFB>
+</FBType>
