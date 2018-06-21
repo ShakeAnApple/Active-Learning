@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System SYSTEM "../LibraryElement.dtd">
+<System Name="System">
+  <Device ID="17D0D4607E5A284F" Name="DEV0" Type="NXT_RMTDEV" x="763.0209" y="507.9491" Namespace="nxtControl.Standard">
+    <Parameter Name="WATCH_ID" Value="localhost:61497" />
+    <Parameter Name="HMI_ID" Value="localhost:61498" />
+    <Parameter Name="MGR_ID" Value="localhost:61499" />
+    <Resource ID="F7445AF1E16173ED" Name="RES0" Type="EMB_RES" x="1020" y="1160" Namespace="IEC61499.Management">
+      <FBNetwork>
+        <FB ID="F3BCDA943185066A" Name="FB3" Type="E_CYCLE" x="1160" y="540" Namespace="IEC61499.Standard">
+          <Parameter Name="DT" Value="t#50ms" />
+        </FB>
+        <FB ID="2B0C1C34FE5EA522" Name="View" Type="PnPView" x="3280" y="440" Namespace="Main">
+          <Parameter Name="QI" Value="TRUE" />
+        </FB>
+        <FB ID="259AEFA55051C497" Name="FB1" Type="ProxyControl" x="4680" y="1040" Namespace="Main" />
+        <FB ID="1462493181E85533" Name="FB2" Type="TCPIO" x="1480" y="2840" Namespace="Runtime.IoCommon">
+          <Parameter Name="QI" Value="TRUE" />
+          <Parameter Name="PORT" Value="TCP:127.0.0.1:7600" />
+        </FB>
+        <FB ID="E59E33F02BB17937" Name="FB4" Type="LOGGER_861345228" x="2980" y="3020" Namespace="Main">
+          <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.System#CNT:=1" />
+          <Parameter Name="QI" Value="TRUE" />
+          <Parameter Name="LEVEL" Value="1" />
+          <Parameter Name="DEST" Value="1" />
+          <Parameter Name="MESSAGE" Value="===========restart===========" />
+        </FB>
+        <FB ID="44EDE14C156CB32D" Name="Model" Type="Model" x="1940" y="200" Namespace="Main">
+          <Parameter Name="BASEY" Value="25" />
+          <Parameter Name="BASEX" Value="5" />
+          <Parameter Name="CYL1_SPEED" Value="5" />
+          <Parameter Name="CYL2_SPEED" Value="5" />
+          <Parameter Name="VCYL_SPEED" Value="5" />
+        </FB>
+        <FB ID="A6F532747A34C90E" Name="FB5" Type="AddPermitter" x="5720" y="1240" Namespace="Main" />
+        <EventConnections>
+          <Connection Source="FB3.EO" Destination="Model.CLK" dx1="48.5" />
+          <Connection Source="START.COLD" Destination="Model.INIT" dx1="40" />
+          <Connection Source="Model.INITO" Destination="View.INIT" dx1="42.35425" />
+          <Connection Source="Model.CNF" Destination="View.REQ" dx1="42.35425" />
+          <Connection Source="View.CNF" Destination="Model.ADD_WP" dx1="70" dx2="30" dy="-408" />
+          <Connection Source="View.INITO" Destination="FB1.INIT" dx1="129.25" />
+          <Connection Source="Model.CHG" Destination="FB1.REQ" dx1="1242.354" />
+          <Connection Source="FB1.CNF" Destination="Model.CYL_IND" dx1="70.729" dx2="330" dy="-1008" />
+          <Connection Source="FB1.INITO" Destination="FB3.START" dx1="50.729" dx2="50" dy="-948" />
+          <Connection Source="FB1.INITO" Destination="FB2.INIT" dx1="200" dx2="50" dy="1232" />
+          <Connection Source="FB2.IND" Destination="Model.INIT" dx1="40" dx2="400" dy="-458.146" />
+          <Connection Source="FB2.IND" Destination="FB2.ACK" dx1="40" dx2="40" dy="570" />
+          <Connection Source="FB2.INITO" Destination="FB4.INIT" dx1="431.0833" />
+          <Connection Source="FB2.IND" Destination="FB4.REQ" dx1="406.0833" />
+          <Connection Source="FB1.INITO" Destination="FB5.INIT" dx1="200" />
+          <Connection Source="FB5.CNF" Destination="Model.ADD_WP" dx1="50" dx2="350" dy="-1208" />
+          <Connection Source="Model.CHG" Destination="FB5.REQ" dx1="2562.354" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="Model.BASE_X" Destination="View.BASE_X" dx1="110" />
+          <Connection Source="Model.BASE_Y" Destination="View.BASE_Y" dx1="130" />
+          <Connection Source="Model.CYL1_X" Destination="View.CYL1_X" dx1="150" />
+          <Connection Source="Model.CYL1_Y" Destination="View.CYL1_Y" dx1="170" />
+          <Connection Source="Model.CYL2_X" Destination="View.CYL2_X" dx1="190" />
+          <Connection Source="Model.CYL2_Y" Destination="View.CYL2_Y" dx1="210" />
+          <Connection Source="Model.VCYL_X" Destination="View.VCYL_X" dx1="230" />
+          <Connection Source="Model.VCYL_Y" Destination="View.VCYL_Y" dx1="250" />
+          <Connection Source="Model.WP_X" Destination="View.WP_X" dx1="270" />
+          <Connection Source="Model.WP_Y" Destination="View.WP_Y" dx1="290" />
+          <Connection Source="Model.WP2_X" Destination="View.WP2_X" dx1="310" />
+          <Connection Source="Model.WP2_Y" Destination="View.WP2_Y" dx1="330" />
+          <Connection Source="Model.WP3_X" Destination="View.WP3_X" dx1="350" />
+          <Connection Source="Model.WP3_Y" Destination="View.WP3_Y" dx1="370" />
+          <Connection Source="Model.VACUUM_ON" Destination="View.VACUUM_ON" dx1="390" />
+          <Connection Source="Model.c1home" Destination="FB1.c1Home" />
+          <Connection Source="Model.c1end" Destination="FB1.c1End" dx1="1242.354" />
+          <Connection Source="Model.c2home" Destination="FB1.c2Home" dx1="1242.354" />
+          <Connection Source="Model.c2end" Destination="FB1.c2End" dx1="1242.354" />
+          <Connection Source="Model.vchome" Destination="FB1.vcHome" dx1="1242.354" />
+          <Connection Source="Model.vcend" Destination="FB1.vcEnd" dx1="1242.354" />
+          <Connection Source="Model.pp1" Destination="FB1.pp1" dx1="1242.354" />
+          <Connection Source="Model.pp2" Destination="FB1.pp2" dx1="550" />
+          <Connection Source="Model.pp3" Destination="FB1.pp3" dx1="570" />
+          <Connection Source="Model.VACUUM_ON" Destination="FB1.vac" dx1="222.3542" />
+          <Connection Source="FB1.c1Extend" Destination="Model.cyl1_fwd" dx1="90.729" dx2="210" dy="-1208" />
+          <Connection Source="FB1.c1Retract" Destination="Model.cyl1_back" />
+          <Connection Source="FB1.c2Extend" Destination="Model.cyl2_fwd" />
+          <Connection Source="FB1.c2Retract" Destination="Model.cyl2_back" />
+          <Connection Source="FB1.vcExtend" Destination="Model.vcyl_down" />
+          <Connection Source="FB1.vacuum_on" Destination="Model.vacuum_on" />
+          <Connection Source="FB1.vacuum_off" Destination="Model.vacuum_off" />
+          <Connection Source="Model.pp0" Destination="FB5.pp0" dx1="2562.354" />
+          <Connection Source="Model.VACUUM_ON" Destination="FB5.vacuum_on" />
+          <Connection Source="Model.pp1" Destination="FB5.pp1" dx1="2562.354" />
+          <Connection Source="Model.pp2" Destination="FB5.pp2" dx1="2562.354" />
+          <Connection Source="Model.pp3" Destination="FB5.pp3" dx1="2562.354" />
+          <Connection Source="FB5.permit3" Destination="Model.Add3" dx1="110" dx2="30" dy="672" />
+          <Connection Source="FB5.permit2" Destination="Model.Add2" dx1="90" dx2="50" dy="732" />
+          <Connection Source="FB5.permit1" Destination="Model.Add1" dx1="70" dx2="70" dy="792" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+    <FBNetwork />
+  </Device>
+</System>

@@ -1,53 +1,95 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd" >
-<FBType Name="OutputDecompressor" Namespace="Main" GUID="D99DE73CD8E49F6E" Comment="Basic Function Block Type" >
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="D99DE73CD8E49F6E" Name="OutputDecompressor" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
   <Identification Standard="61499-2" />
   <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Rediska" Date="6/21/2018" Remarks="Template" />
-  <CompilerInfo />
   <InterfaceList>
     <EventInputs>
-      <Event Name="INIT" Comment="Initialization Request" >
+      <Event Name="INIT" Comment="Initialization Request">
         <With Var="QI" />
       </Event>
-      <Event Name="REQ" Comment="Normal Execution Request" >
+      <Event Name="REQ" Comment="Normal Execution Request">
         <With Var="QI" />
+        <With Var="delimiter" />
+        <With Var="input" />
       </Event>
     </EventInputs>
     <EventOutputs>
-      <Event Name="INITO" Comment="Initialization Confirm" >
+      <Event Name="INITO" Comment="Initialization Confirm">
         <With Var="QO" />
+        <With Var="c1_x" />
+        <With Var="c1_y" />
+        <With Var="c2_x" />
+        <With Var="c2_y" />
+        <With Var="vc_x" />
+        <With Var="vc_y" />
+        <With Var="vacuum_on" />
+        <With Var="c1_home" />
+        <With Var="c1_end" />
+        <With Var="c2_home" />
+        <With Var="c2_end" />
+        <With Var="vc_home" />
+        <With Var="vc_end" />
       </Event>
-      <Event Name="CNF" Comment="Execution Confirmation" >
+      <Event Name="CNF" Comment="Execution Confirmation">
         <With Var="QO" />
+        <With Var="c1_x" />
+        <With Var="c1_y" />
+        <With Var="c2_x" />
+        <With Var="c2_y" />
+        <With Var="vc_x" />
+        <With Var="vc_y" />
+        <With Var="vacuum_on" />
+        <With Var="c1_home" />
+        <With Var="c1_end" />
+        <With Var="c2_home" />
+        <With Var="c2_end" />
+        <With Var="vc_home" />
+        <With Var="vc_end" />
       </Event>
     </EventOutputs>
     <InputVars>
       <VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="delimiter" Type="STRING" />
+      <VarDeclaration Name="input" Type="STRING" />
     </InputVars>
     <OutputVars>
       <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="c1_x" Type="UINT" />
+      <VarDeclaration Name="c1_y" Type="UINT" />
+      <VarDeclaration Name="c2_x" Type="UINT" />
+      <VarDeclaration Name="c2_y" Type="UINT" />
+      <VarDeclaration Name="vc_x" Type="UINT" />
+      <VarDeclaration Name="vc_y" Type="UINT" />
+      <VarDeclaration Name="vacuum_on" Type="BOOL" />
+      <VarDeclaration Name="c1_home" Type="BOOL" />
+      <VarDeclaration Name="c1_end" Type="BOOL" />
+      <VarDeclaration Name="c2_home" Type="BOOL" />
+      <VarDeclaration Name="c2_end" Type="BOOL" />
+      <VarDeclaration Name="vc_home" Type="BOOL" />
+      <VarDeclaration Name="vc_end" Type="BOOL" />
     </OutputVars>
   </InterfaceList>
   <BasicFB>
-    <ECC >
-      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" >
-      </ECState>
-      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765" >
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
         <ECAction Algorithm="INIT" Output="INITO" />
       </ECState>
-      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412" >
+      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412">
         <ECAction Algorithm="REQ" Output="CNF" />
       </ECState>
-      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="923.5294" y="429.4117" />
-      <ECTransition Source="INIT" Destination="START" Condition="1" x="552.9412" y="141.1765" />
-      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="552.9412" y="600.0" />
-      <ECTransition Source="REQ" Destination="START" Condition="1" x="217.647" y="429.4117" />
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="447.8488" y="648.3352" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
     </ECC>
-  <Algorithm Name="INIT" Comment="Initialization algorithm" >
-    <ST Text=";" />
-  </Algorithm>
-  <Algorithm Name="REQ" Comment="Normally executed algorithm" >
-    <ST Text=";" />
-  </Algorithm>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="QO := TRUE;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..13] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;c1_x := STRING_TO_UINT(substr[1]);&#xD;&#xA;c1_y := STRING_TO_UINT(substr[2]);&#xD;&#xA;c2_x := STRING_TO_UINT(substr[3]);&#xD;&#xA;&#xD;&#xA;c2_y := STRING_TO_UINT(substr[4]);&#xD;&#xA;vc_x := STRING_TO_UINT(substr[5]);&#xD;&#xA;vc_y := STRING_TO_UINT(substr[6]);&#xD;&#xA;&#xD;&#xA;vacuum_on := STRING_TO_BOOL(substr[7]);&#xD;&#xA;c1_home := STRING_TO_BOOL(substr[8]);&#xD;&#xA;c1_end := STRING_TO_BOOL(substr[9]);&#xD;&#xA;&#xD;&#xA;c2_home := STRING_TO_BOOL(substr[10]);&#xD;&#xA;c2_end := STRING_TO_BOOL(substr[11]);&#xD;&#xA;vc_home := STRING_TO_BOOL(substr[12]);&#xD;&#xA;vc_end := STRING_TO_BOOL(substr[13]);" />
+    </Algorithm>
   </BasicFB>
 </FBType>

@@ -18,11 +18,30 @@
       </Event>
     </EventInputs>
     <EventOutputs>
-      <Event Name="INITO" Comment="Initialization Confirm">
-        <With Var="QO" />
-      </Event>
+      <Event Name="INITO" Comment="Initialization Confirm" />
       <Event Name="CNF" Comment="Execution Confirmation">
-        <With Var="QO" />
+        <With Var="c1extend" />
+        <With Var="c1retract" />
+        <With Var="c2extend" />
+        <With Var="c2retract" />
+        <With Var="vcxtend" />
+        <With Var="vacuumOn" />
+        <With Var="vacuumOff" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetCYL1_X" />
+        <With Var="resetCYL1_Y" />
+        <With Var="resetCYL2_X" />
+        <With Var="resetCYL2_Y" />
+        <With Var="resetVCYL_X" />
+        <With Var="resetVCYL_Y" />
+        <With Var="resetVACUUM_ON" />
+        <With Var="resetC1home" />
+        <With Var="resetC1end" />
+        <With Var="resetC2home" />
+        <With Var="resetC2end" />
+        <With Var="resetVChome" />
+        <With Var="resetVCend" />
       </Event>
     </EventOutputs>
     <InputVars>
@@ -35,17 +54,36 @@
       <VarDeclaration Name="vcyl_down" Type="BOOL" />
     </InputVars>
     <OutputVars>
-      <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="c1extend" Type="BOOL" />
+      <VarDeclaration Name="c1retract" Type="BOOL" />
+      <VarDeclaration Name="c2extend" Type="BOOL" />
+      <VarDeclaration Name="c2retract" Type="BOOL" />
+      <VarDeclaration Name="vcxtend" Type="BOOL" />
+      <VarDeclaration Name="vacuumOn" Type="BOOL" />
+      <VarDeclaration Name="vacuumOff" Type="BOOL" />
+      <VarDeclaration Name="resetCYL1_X" Type="UINT" />
+      <VarDeclaration Name="resetCYL1_Y" Type="UINT" />
+      <VarDeclaration Name="resetCYL2_X" Type="UINT" />
+      <VarDeclaration Name="resetCYL2_Y" Type="UINT" />
+      <VarDeclaration Name="resetVCYL_X" Type="UINT" />
+      <VarDeclaration Name="resetVCYL_Y" Type="UINT" />
+      <VarDeclaration Name="resetVACUUM_ON" Type="BOOL" />
+      <VarDeclaration Name="resetC1home" Type="BOOL" />
+      <VarDeclaration Name="resetC1end" Type="BOOL" />
+      <VarDeclaration Name="resetC2home" Type="BOOL" />
+      <VarDeclaration Name="resetC2end" Type="BOOL" />
+      <VarDeclaration Name="resetVChome" Type="BOOL" />
+      <VarDeclaration Name="resetVCend" Type="BOOL" />
     </OutputVars>
   </InterfaceList>
   <FBNetwork>
     <FB ID="2" Name="FB2" Type="TCPIO" x="2580" y="1180" Namespace="Runtime.IoCommon">
       <Parameter Name="PORT" Value=";127.0.0.1:64999" />
     </FB>
-    <FB ID="1" Name="FB1" Type="InputCompressor" x="1400" y="1160" Namespace="Main">
-      <Parameter Name="delimeter" Value=";" />
-    </FB>
     <FB ID="3" Name="FB3" Type="InputDecompressor" x="4020" y="1140" Namespace="Main">
+      <Parameter Name="delimiter" Value=";" />
+    </FB>
+    <FB ID="1" Name="FB1" Type="InputCompressor" x="1400" y="1160" Namespace="Main">
       <Parameter Name="delimiter" Value=";" />
     </FB>
     <Input Name="INIT">
@@ -125,36 +163,196 @@
       </Position>
       <IsType>Event</IsType>
     </Output>
-    <Output Name="QO">
+    <Output Name="c1extend">
       <Position>
-        <X>505.822937</X>
-        <Y>33</Y>
+        <X>1170</X>
+        <Y>382.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c1retract">
+      <Position>
+        <X>1255</X>
+        <Y>397.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c2extend">
+      <Position>
+        <X>1255</X>
+        <Y>412.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c2retract">
+      <Position>
+        <X>1255</X>
+        <Y>427.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vcxtend">
+      <Position>
+        <X>1260</X>
+        <Y>442.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vacuumOn">
+      <Position>
+        <X>1245</X>
+        <Y>457.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vacuumOff">
+      <Position>
+        <X>1245</X>
+        <Y>472.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RESET">
+      <Position>
+        <X>1325</X>
+        <Y>317.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="resetCYL1_X">
+      <Position>
+        <X>1265</X>
+        <Y>487.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetCYL1_Y">
+      <Position>
+        <X>1300</X>
+        <Y>502.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetCYL2_X">
+      <Position>
+        <X>1300</X>
+        <Y>517.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetCYL2_Y">
+      <Position>
+        <X>1300</X>
+        <Y>532.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetVCYL_X">
+      <Position>
+        <X>1350</X>
+        <Y>547.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetVCYL_Y">
+      <Position>
+        <X>1350</X>
+        <Y>562.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetVACUUM_ON">
+      <Position>
+        <X>1325</X>
+        <Y>577.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetC1home">
+      <Position>
+        <X>1355</X>
+        <Y>592.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetC1end">
+      <Position>
+        <X>1360</X>
+        <Y>607.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetC2home">
+      <Position>
+        <X>1355</X>
+        <Y>622.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetC2end">
+      <Position>
+        <X>1360</X>
+        <Y>637.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetVChome">
+      <Position>
+        <X>1350</X>
+        <Y>652.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetVCend">
+      <Position>
+        <X>1360</X>
+        <Y>667.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <EventConnections>
       <Connection Source="INIT" Destination="FB1.INIT" dx1="40.83337" />
       <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95837" />
-      <Connection Source="FB3.INITO" Destination="INITO" dx1="40" />
-      <Connection Source="FB3.CNF" Destination="CNF" dx1="40" />
-      <Connection Source="FB1.INITO" Destination="FB2.INIT" dx1="81.27087" />
-      <Connection Source="FB1.CNF" Destination="FB2.REQ" dx1="81.27087" />
+      <Connection Source="FB3.INITO" Destination="INITO" dx1="280.729" dx2="690" dy="-108" />
+      <Connection Source="FB3.CNF" Destination="CNF" dx1="280.729" dx2="710" dy="-168" />
+      <Connection Source="FB1.INITO" Destination="FB2.INIT" dx1="41.27087" />
+      <Connection Source="FB1.CNF" Destination="FB2.REQ" dx1="41.27087" />
       <Connection Source="FB2.CNF" Destination="FB2.ACK" dx1="40" dx2="90" dy="-168" />
       <Connection Source="FB2.INITO" Destination="FB3.INIT" dx1="52.16675" />
       <Connection Source="FB2.IND" Destination="FB3.REQ" dx1="92.16675" />
+      <Connection Source="FB3.RESET" Destination="RESET" dx1="260.729" />
     </EventConnections>
     <DataConnections>
       <Connection Source="cyl1_fwd" Destination="FB1.cyl1_fwd" dx1="40" />
       <Connection Source="cyl1_back" Destination="FB1.cyl1_back" dx1="49.87506" />
-      <Connection Source="cyl2_fwd" Destination="FB1.cyl2_fwd" dx1="40" />
+      <Connection Source="cyl2_fwd" Destination="FB1.cyl2_fwd" dx1="39.99994" />
       <Connection Source="cyl2_back" Destination="FB1.cyl2_back" dx1="49.87506" />
       <Connection Source="vacuum_on" Destination="FB1.vacuum_on" dx1="40" />
       <Connection Source="vacuum_off" Destination="FB1.vacuum_off" dx1="40" />
       <Connection Source="vcyl_down" Destination="FB1.vcyl_down" dx1="40.39587" />
       <Connection Source="FB1.RESULT" Destination="FB2.DATAOUT" dx1="41.27087" />
-      <Connection Source="FB1.QO" Destination="FB2.QI" dx1="61.27087" />
+      <Connection Source="FB1.QO" Destination="FB2.QI" dx1="41.27087" />
       <Connection Source="FB2.QO" Destination="FB3.QI" dx1="112.1667" />
       <Connection Source="FB2.DATAIN" Destination="FB3.input" dx1="132.1667" />
+      <Connection Source="FB3.cyl1_back" Destination="c1retract" dx1="140" />
+      <Connection Source="FB3.cyl2_fwd" Destination="c2extend" dx1="120" />
+      <Connection Source="FB3.cyl2_back" Destination="c2retract" dx1="100" />
+      <Connection Source="FB3.vcyl_down" Destination="vcxtend" dx1="190" />
+      <Connection Source="FB3.vacuum_on" Destination="vacuumOn" dx1="80.729" />
+      <Connection Source="FB3.vacuum_off" Destination="vacuumOff" dx1="60.729" />
+      <Connection Source="FB3.resetCYL1_X" Destination="resetCYL1_X" dx1="280.729" />
+      <Connection Source="FB3.resetCYL1_Y" Destination="resetCYL1_Y" dx1="260.729" />
+      <Connection Source="FB3.resetCYL2_X" Destination="resetCYL2_X" dx1="240.729" />
+      <Connection Source="FB3.resetCYL2_Y" Destination="resetCYL2_Y" dx1="220.729" />
+      <Connection Source="FB3.resetVCYL_X" Destination="resetVCYL_X" dx1="200.729" />
+      <Connection Source="FB3.resetVCYL_Y" Destination="resetVCYL_Y" dx1="180.729" />
+      <Connection Source="FB3.resetVACUUM_ON" Destination="resetVACUUM_ON" dx1="160.729" />
+      <Connection Source="FB3.resetC1home" Destination="resetC1home" dx1="140.729" />
+      <Connection Source="FB3.resetC1end" Destination="resetC1end" dx1="120.729" />
+      <Connection Source="FB3.resetC2home" Destination="resetC2home" dx1="100.729" />
+      <Connection Source="FB3.resetC2end" Destination="resetC2end" dx1="80.729" />
+      <Connection Source="FB3.resetVchome" Destination="resetVChome" dx1="60.729" />
+      <Connection Source="FB3.resetVcend" Destination="resetVCend" dx1="40.729" />
     </DataConnections>
   </FBNetwork>
 </FBType>

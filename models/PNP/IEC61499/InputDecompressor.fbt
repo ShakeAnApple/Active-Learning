@@ -21,21 +21,29 @@
       </Event>
       <Event Name="CNF" Comment="Execution Confirmation">
         <With Var="QO" />
-        <With Var="CYL1_X" />
-        <With Var="CYL1_Y" />
-        <With Var="CYL2_X" />
-        <With Var="CYL2_Y" />
-        <With Var="VCYL_X" />
-        <With Var="VCYL_Y" />
-        <With Var="VACUUM_ON" />
-        <With Var="c1home" />
-        <With Var="c1end" />
-        <With Var="c2home" />
-        <With Var="c2end" />
-        <With Var="vchome" />
-        <With Var="vcend" />
+        <With Var="cyl1_fwd" />
+        <With Var="cyl1_back" />
+        <With Var="cyl2_fwd" />
+        <With Var="cyl2_back" />
+        <With Var="vacuum_on" />
+        <With Var="vacuum_off" />
+        <With Var="vcyl_down" />
       </Event>
-      <Event Name="RESET" />
+      <Event Name="RESET">
+        <With Var="resetCYL1_X" />
+        <With Var="resetCYL1_Y" />
+        <With Var="resetCYL2_X" />
+        <With Var="resetCYL2_Y" />
+        <With Var="resetVCYL_X" />
+        <With Var="resetVCYL_Y" />
+        <With Var="resetVACUUM_ON" />
+        <With Var="resetC1home" />
+        <With Var="resetC1end" />
+        <With Var="resetC2home" />
+        <With Var="resetC2end" />
+        <With Var="resetVchome" />
+        <With Var="resetVcend" />
+      </Event>
     </EventOutputs>
     <InputVars>
       <VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier" />
@@ -44,40 +52,83 @@
     </InputVars>
     <OutputVars>
       <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
-      <VarDeclaration Name="CYL1_X" Type="UINT" />
-      <VarDeclaration Name="CYL1_Y" Type="UINT" />
-      <VarDeclaration Name="CYL2_X" Type="UINT" />
-      <VarDeclaration Name="CYL2_Y" Type="UINT" />
-      <VarDeclaration Name="VCYL_X" Type="UINT" />
-      <VarDeclaration Name="VCYL_Y" Type="UINT" />
-      <VarDeclaration Name="VACUUM_ON" Type="BOOL" />
-      <VarDeclaration Name="c1home" Type="BOOL" />
-      <VarDeclaration Name="c1end" Type="BOOL" />
-      <VarDeclaration Name="c2home" Type="BOOL" />
-      <VarDeclaration Name="c2end" Type="BOOL" />
-      <VarDeclaration Name="vchome" Type="BOOL" />
-      <VarDeclaration Name="vcend" Type="BOOL" />
+      <VarDeclaration Name="cyl1_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl1_back" Type="BOOL" />
+      <VarDeclaration Name="cyl2_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl2_back" Type="BOOL" />
+      <VarDeclaration Name="vacuum_on" Type="BOOL" />
+      <VarDeclaration Name="vacuum_off" Type="BOOL" />
+      <VarDeclaration Name="vcyl_down" Type="BOOL" />
+      <VarDeclaration Name="resetCYL1_X" Type="UINT" />
+      <VarDeclaration Name="resetCYL1_Y" Type="UINT" />
+      <VarDeclaration Name="resetCYL2_X" Type="UINT" />
+      <VarDeclaration Name="resetCYL2_Y" Type="UINT" />
+      <VarDeclaration Name="resetVCYL_X" Type="UINT" />
+      <VarDeclaration Name="resetVCYL_Y" Type="UINT" />
+      <VarDeclaration Name="resetVACUUM_ON" Type="BOOL" />
+      <VarDeclaration Name="resetC1home" Type="BOOL" />
+      <VarDeclaration Name="resetC1end" Type="BOOL" />
+      <VarDeclaration Name="resetC2home" Type="BOOL" />
+      <VarDeclaration Name="resetC2end" Type="BOOL" />
+      <VarDeclaration Name="resetVchome" Type="BOOL" />
+      <VarDeclaration Name="resetVcend" Type="BOOL" />
     </OutputVars>
   </InterfaceList>
   <BasicFB>
+    <InternalVars>
+      <VarDeclaration Name="reset" Type="BOOL" />
+      <VarDeclaration Name="subs" Type="STRING" ArraySize="23" />
+    </InternalVars>
     <ECC>
-      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="START" Comment="Initial State" x="660.9412" y="433.4117" />
       <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
         <ECAction Algorithm="INIT" Output="INITO" />
       </ECState>
-      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412">
-        <ECAction Algorithm="REQ" Output="CNF" />
+      <ECState Name="PARSE_IS_RESET" x="1828" y="764">
+        <ECAction Algorithm="PARSE_RESET" />
       </ECState>
-      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
-      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
-      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="447.8488" y="648.3352" />
-      <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
+      <ECState Name="PARSE_RESET_SYMB" x="2468" y="300">
+        <ECAction Algorithm="PARSE_RESET_SYMB" Output="RESET" />
+      </ECState>
+      <ECState Name="PARSE_REQ_SYMB" x="712.0001" y="1088">
+        <ECAction Algorithm="PARSE_REQ_SYMB" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="783.8222" y="207.4284">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="191.025,54.65147,205.0926,38.99559" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="863.1654" y="339.5741">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="223.6884,80.70481,209.6208,96.3607" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="PARSE_IS_RESET" Condition="REQ" x="1247.959" y="514.9713">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="275.5205,113.6093,346.64,133.7551" />
+      </ECTransition>
+      <ECTransition Source="PARSE_IS_RESET" Destination="PARSE_REQ_SYMB" Condition="NOT(reset)" x="1315.908" y="1002.193">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="355.992,246.3572,292.9485,264.6602" />
+      </ECTransition>
+      <ECTransition Source="PARSE_REQ_SYMB" Destination="START" Condition="1" x="685.9437" y="835.7059">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="173.4059,238.1025,169.8294,192.2505" />
+      </ECTransition>
+      <ECTransition Source="PARSE_RESET_SYMB" Destination="START" Condition="1" x="1480.381" y="455.044">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="424.6516,114.2686,312.0399,122.5826" />
+      </ECTransition>
+      <ECTransition Source="PARSE_IS_RESET" Destination="PARSE_RESET_SYMB" Condition="reset" x="2132.208" y="457">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="516.3313,122.9848,557.6687,93.01519" />
+      </ECTransition>
     </ECC>
     <Algorithm Name="INIT" Comment="Initialization algorithm">
-      <ST Text=";" />
+      <ST Text="QO := TRUE;" />
     </Algorithm>
     <Algorithm Name="REQ" Comment="Normally executed algorithm">
       <ST Text=";" />
+    </Algorithm>
+    <Algorithm Name="PARSE_RESET_SYMB">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..14] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;	&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;resetCYL1_X := STRING_TO_UINT(substr[2]);&#xD;&#xA;resetCYL1_Y := STRING_TO_UINT(substr[3]);&#xD;&#xA;resetCYL2_X := STRING_TO_UINT(substr[4]);&#xD;&#xA;&#xD;&#xA;resetCYL2_Y := STRING_TO_UINT(substr[5]);&#xD;&#xA;resetVCYL_X := STRING_TO_UINT(substr[6]);&#xD;&#xA;resetVCYL_Y := STRING_TO_UINT(substr[7]);&#xD;&#xA;&#xD;&#xA;resetVACUUM_ON := STRING_TO_BOOL(substr[8]);&#xD;&#xA;resetC1home := STRING_TO_BOOL(substr[9]);&#xD;&#xA;resetC1end := STRING_TO_BOOL(substr[10]);&#xD;&#xA;&#xD;&#xA;resetC2home := STRING_TO_BOOL(substr[11]);&#xD;&#xA;resetC2end := STRING_TO_BOOL(substr[12]);&#xD;&#xA;resetVchome := STRING_TO_BOOL(substr[13]);&#xD;&#xA;resetVcend := STRING_TO_BOOL(substr[14]);" />
+    </Algorithm>
+    <Algorithm Name="PARSE_REQ_SYMB">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..8] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;cyl1_fwd := STRING_TO_BOOL(substr[2]);&#xD;&#xA;cyl1_back := STRING_TO_BOOL(substr[3]);&#xD;&#xA;cyl2_fwd := STRING_TO_BOOL(substr[4]);&#xD;&#xA;cyl2_back := STRING_TO_BOOL(substr[5]);&#xD;&#xA;vacuum_on := STRING_TO_BOOL(substr[6]);&#xD;&#xA;vacuum_off := STRING_TO_BOOL(substr[7]);&#xD;&#xA;vcyl_down := STRING_TO_BOOL(substr[8]);" />
+    </Algorithm>
+    <Algorithm Name="PARSE_RESET">
+      <ST Text="VAR&#xD;&#xA;	i: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;i := 1;&#xD;&#xA;(*WHILE MID(input, 1, i) &lt;&gt; delimiter DO&#xD;&#xA;	i := i + 1;&#xD;&#xA;END_WHILE;*)&#xD;&#xA;reset := STRING_TO_BOOL(MID(input, i, 1));" />
     </Algorithm>
   </BasicFB>
 </FBType>
