@@ -79,7 +79,16 @@
     <Compile Include="GenericCylinderModelType2.fbt">
       <IEC61499Type>Composite</IEC61499Type>
     </Compile>
+    <Compile Include="InputCompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="InputDecompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
     <Compile Include="InputLogger.fbt">
+      <IEC61499Type>Composite</IEC61499Type>
+    </Compile>
+    <Compile Include="InputSender.fbt">
       <IEC61499Type>Composite</IEC61499Type>
     </Compile>
     <Compile Include="IntToBool.fbt">
@@ -115,7 +124,16 @@
     <Compile Include="MultipleEMerge.fbt">
       <IEC61499Type>Basic</IEC61499Type>
     </Compile>
+    <Compile Include="OutputCompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="OutputDecompressor.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
     <Compile Include="OutputLogger.fbt">
+      <IEC61499Type>Composite</IEC61499Type>
+    </Compile>
+    <Compile Include="OutputSender.fbt">
       <IEC61499Type>Composite</IEC61499Type>
     </Compile>
     <Compile Include="pickup.fbt">

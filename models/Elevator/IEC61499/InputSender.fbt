@@ -74,8 +74,8 @@
     </FB>
     <Input Name="INIT">
       <Position>
-        <X>115</X>
-        <Y>142.963547</Y>
+        <X>45</X>
+        <Y>102.963539</Y>
       </Position>
       <IsType>Event</IsType>
     </Input>
@@ -249,7 +249,7 @@
     </Output>
     <EventConnections>
       <Connection Source="FB4.INITO" Destination="FB2.INIT" />
-      <Connection Source="INIT" Destination="FB4.INIT" dx1="40.83337" dx2="390" dy="-50.00006" />
+      <Connection Source="INIT" Destination="FB4.INIT" dx1="40.83337" />
       <Connection Source="REQ" Destination="FB4.REQ" dx1="48.95837" dx2="390" dy="49.99994" />
       <Connection Source="FB4.CNF" Destination="FB2.REQ" />
       <Connection Source="FB2.CNF" Destination="FB2.ACK" dx1="60" dx2="90" dy="-168" />

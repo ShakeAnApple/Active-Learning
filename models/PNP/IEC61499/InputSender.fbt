@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="579968A98FDC17EF" Name="InputSender" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="3" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Rediska" Date="6/20/2018" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request" />
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="cyl1_fwd" />
+        <With Var="cyl1_back" />
+        <With Var="cyl2_fwd" />
+        <With Var="cyl2_back" />
+        <With Var="vacuum_on" />
+        <With Var="vacuum_off" />
+        <With Var="vcyl_down" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="QO" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="QO" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="cyl1_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl1_back" Type="BOOL" />
+      <VarDeclaration Name="cyl2_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl2_back" Type="BOOL" />
+      <VarDeclaration Name="vacuum_on" Type="BOOL" />
+      <VarDeclaration Name="vacuum_off" Type="BOOL" />
+      <VarDeclaration Name="vcyl_down" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="2" Name="FB2" Type="TCPIO" x="2580" y="1180" Namespace="Runtime.IoCommon">
+      <Parameter Name="PORT" Value=";127.0.0.1:64999" />
+    </FB>
+    <FB ID="1" Name="FB1" Type="InputCompressor" x="1400" y="1160" Namespace="Main">
+      <Parameter Name="delimeter" Value=";" />
+    </FB>
+    <FB ID="3" Name="FB3" Type="InputDecompressor" x="4020" y="1140" Namespace="Main">
+      <Parameter Name="delimiter" Value=";" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>110</X>
+        <Y>282.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>95</X>
+        <Y>312.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="cyl1_fwd">
+      <Position>
+        <X>125</X>
+        <Y>357.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="cyl1_back">
+      <Position>
+        <X>115</X>
+        <Y>377.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="cyl2_fwd">
+      <Position>
+        <X>130</X>
+        <Y>397.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="cyl2_back">
+      <Position>
+        <X>125</X>
+        <Y>422.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vacuum_on">
+      <Position>
+        <X>110</X>
+        <Y>442.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vacuum_off">
+      <Position>
+        <X>125</X>
+        <Y>467.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vcyl_down">
+      <Position>
+        <X>125</X>
+        <Y>507.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1165</X>
+        <Y>282.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1170</X>
+        <Y>307.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="QO">
+      <Position>
+        <X>505.822937</X>
+        <Y>33</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="FB1.INIT" dx1="40.83337" />
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95837" />
+      <Connection Source="FB3.INITO" Destination="INITO" dx1="40" />
+      <Connection Source="FB3.CNF" Destination="CNF" dx1="40" />
+      <Connection Source="FB1.INITO" Destination="FB2.INIT" dx1="81.27087" />
+      <Connection Source="FB1.CNF" Destination="FB2.REQ" dx1="81.27087" />
+      <Connection Source="FB2.CNF" Destination="FB2.ACK" dx1="40" dx2="90" dy="-168" />
+      <Connection Source="FB2.INITO" Destination="FB3.INIT" dx1="52.16675" />
+      <Connection Source="FB2.IND" Destination="FB3.REQ" dx1="92.16675" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="cyl1_fwd" Destination="FB1.cyl1_fwd" dx1="40" />
+      <Connection Source="cyl1_back" Destination="FB1.cyl1_back" dx1="49.87506" />
+      <Connection Source="cyl2_fwd" Destination="FB1.cyl2_fwd" dx1="40" />
+      <Connection Source="cyl2_back" Destination="FB1.cyl2_back" dx1="49.87506" />
+      <Connection Source="vacuum_on" Destination="FB1.vacuum_on" dx1="40" />
+      <Connection Source="vacuum_off" Destination="FB1.vacuum_off" dx1="40" />
+      <Connection Source="vcyl_down" Destination="FB1.vcyl_down" dx1="40.39587" />
+      <Connection Source="FB1.RESULT" Destination="FB2.DATAOUT" dx1="41.27087" />
+      <Connection Source="FB1.QO" Destination="FB2.QI" dx1="61.27087" />
+      <Connection Source="FB2.QO" Destination="FB3.QI" dx1="112.1667" />
+      <Connection Source="FB2.DATAIN" Destination="FB3.input" dx1="132.1667" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>
