@@ -29,12 +29,6 @@
         <With Var="vacuumOff" />
       </Event>
       <Event Name="RESET">
-        <With Var="resetCYL1_X" />
-        <With Var="resetCYL1_Y" />
-        <With Var="resetCYL2_X" />
-        <With Var="resetCYL2_Y" />
-        <With Var="resetVCYL_X" />
-        <With Var="resetVCYL_Y" />
         <With Var="resetVACUUM_ON" />
         <With Var="resetC1home" />
         <With Var="resetC1end" />
@@ -42,6 +36,9 @@
         <With Var="resetC2end" />
         <With Var="resetVChome" />
         <With Var="resetVCend" />
+        <With Var="resetC1AbsPos" />
+        <With Var="resetC2AbsPos" />
+        <With Var="resetVCAbsPos" />
       </Event>
     </EventOutputs>
     <InputVars>
@@ -61,12 +58,6 @@
       <VarDeclaration Name="vcxtend" Type="BOOL" />
       <VarDeclaration Name="vacuumOn" Type="BOOL" />
       <VarDeclaration Name="vacuumOff" Type="BOOL" />
-      <VarDeclaration Name="resetCYL1_X" Type="UINT" />
-      <VarDeclaration Name="resetCYL1_Y" Type="UINT" />
-      <VarDeclaration Name="resetCYL2_X" Type="UINT" />
-      <VarDeclaration Name="resetCYL2_Y" Type="UINT" />
-      <VarDeclaration Name="resetVCYL_X" Type="UINT" />
-      <VarDeclaration Name="resetVCYL_Y" Type="UINT" />
       <VarDeclaration Name="resetVACUUM_ON" Type="BOOL" />
       <VarDeclaration Name="resetC1home" Type="BOOL" />
       <VarDeclaration Name="resetC1end" Type="BOOL" />
@@ -74,6 +65,9 @@
       <VarDeclaration Name="resetC2end" Type="BOOL" />
       <VarDeclaration Name="resetVChome" Type="BOOL" />
       <VarDeclaration Name="resetVCend" Type="BOOL" />
+      <VarDeclaration Name="resetC1AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetC2AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetVCAbsPos" Type="UINT" />
     </OutputVars>
   </InterfaceList>
   <FBNetwork>
@@ -151,15 +145,15 @@
     </Input>
     <Output Name="INITO">
       <Position>
-        <X>1165</X>
-        <Y>282.963531</Y>
+        <X>1325</X>
+        <Y>282.963562</Y>
       </Position>
       <IsType>Event</IsType>
     </Output>
     <Output Name="CNF">
       <Position>
-        <X>1170</X>
-        <Y>307.963531</Y>
+        <X>1330</X>
+        <Y>297.963562</Y>
       </Position>
       <IsType>Event</IsType>
     </Output>
@@ -219,108 +213,87 @@
       </Position>
       <IsType>Event</IsType>
     </Output>
-    <Output Name="resetCYL1_X">
-      <Position>
-        <X>1265</X>
-        <Y>487.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="resetCYL1_Y">
-      <Position>
-        <X>1300</X>
-        <Y>502.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="resetCYL2_X">
-      <Position>
-        <X>1300</X>
-        <Y>517.963562</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="resetCYL2_Y">
-      <Position>
-        <X>1300</X>
-        <Y>532.963562</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="resetVCYL_X">
-      <Position>
-        <X>1350</X>
-        <Y>547.963562</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="resetVCYL_Y">
-      <Position>
-        <X>1350</X>
-        <Y>562.963562</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
     <Output Name="resetVACUUM_ON">
       <Position>
         <X>1325</X>
-        <Y>577.963562</Y>
+        <Y>487.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="resetC1home">
       <Position>
         <X>1355</X>
-        <Y>592.963562</Y>
+        <Y>502.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="resetC1end">
       <Position>
         <X>1360</X>
-        <Y>607.963562</Y>
+        <Y>517.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="resetC2home">
       <Position>
         <X>1355</X>
-        <Y>622.963562</Y>
+        <Y>532.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="resetC2end">
       <Position>
         <X>1360</X>
-        <Y>637.963562</Y>
+        <Y>547.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="resetVChome">
       <Position>
         <X>1350</X>
-        <Y>652.963562</Y>
+        <Y>562.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="resetVCend">
       <Position>
         <X>1360</X>
-        <Y>667.963562</Y>
+        <Y>577.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetC1AbsPos">
+      <Position>
+        <X>1345</X>
+        <Y>607.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetC2AbsPos">
+      <Position>
+        <X>1375</X>
+        <Y>622.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="resetVCAbsPos">
+      <Position>
+        <X>1405</X>
+        <Y>637.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <EventConnections>
       <Connection Source="INIT" Destination="FB1.INIT" dx1="40.83337" />
       <Connection Source="REQ" Destination="FB1.REQ" dx1="48.95837" />
-      <Connection Source="FB3.INITO" Destination="INITO" dx1="280.729" dx2="690" dy="-108" />
-      <Connection Source="FB3.CNF" Destination="CNF" dx1="280.729" dx2="710" dy="-168" />
+      <Connection Source="FB3.INITO" Destination="INITO" dx1="50" />
+      <Connection Source="FB3.CNF" Destination="CNF" dx1="70" />
       <Connection Source="FB1.INITO" Destination="FB2.INIT" dx1="41.27087" />
       <Connection Source="FB1.CNF" Destination="FB2.REQ" dx1="41.27087" />
       <Connection Source="FB2.CNF" Destination="FB2.ACK" dx1="40" dx2="90" dy="-168" />
       <Connection Source="FB2.INITO" Destination="FB3.INIT" dx1="52.16675" />
       <Connection Source="FB2.IND" Destination="FB3.REQ" dx1="92.16675" />
-      <Connection Source="FB3.RESET" Destination="RESET" dx1="260.729" />
+      <Connection Source="FB3.RESET" Destination="RESET" dx1="40" />
     </EventConnections>
     <DataConnections>
       <Connection Source="cyl1_fwd" Destination="FB1.cyl1_fwd" dx1="40" />
@@ -334,18 +307,12 @@
       <Connection Source="FB1.QO" Destination="FB2.QI" dx1="41.27087" />
       <Connection Source="FB2.QO" Destination="FB3.QI" dx1="112.1667" />
       <Connection Source="FB2.DATAIN" Destination="FB3.input" dx1="132.1667" />
-      <Connection Source="FB3.cyl1_back" Destination="c1retract" dx1="140" />
-      <Connection Source="FB3.cyl2_fwd" Destination="c2extend" dx1="120" />
-      <Connection Source="FB3.cyl2_back" Destination="c2retract" dx1="100" />
-      <Connection Source="FB3.vcyl_down" Destination="vcxtend" dx1="190" />
-      <Connection Source="FB3.vacuum_on" Destination="vacuumOn" dx1="80.729" />
-      <Connection Source="FB3.vacuum_off" Destination="vacuumOff" dx1="60.729" />
-      <Connection Source="FB3.resetCYL1_X" Destination="resetCYL1_X" dx1="280.729" />
-      <Connection Source="FB3.resetCYL1_Y" Destination="resetCYL1_Y" dx1="260.729" />
-      <Connection Source="FB3.resetCYL2_X" Destination="resetCYL2_X" dx1="240.729" />
-      <Connection Source="FB3.resetCYL2_Y" Destination="resetCYL2_Y" dx1="220.729" />
-      <Connection Source="FB3.resetVCYL_X" Destination="resetVCYL_X" dx1="200.729" />
-      <Connection Source="FB3.resetVCYL_Y" Destination="resetVCYL_Y" dx1="180.729" />
+      <Connection Source="FB3.cyl1_back" Destination="c1retract" dx1="40" />
+      <Connection Source="FB3.cyl2_fwd" Destination="c2extend" dx1="40" />
+      <Connection Source="FB3.cyl2_back" Destination="c2retract" dx1="40" />
+      <Connection Source="FB3.vcyl_down" Destination="vcxtend" dx1="210" />
+      <Connection Source="FB3.vacuum_on" Destination="vacuumOn" dx1="40.729" />
+      <Connection Source="FB3.vacuum_off" Destination="vacuumOff" dx1="40.729" />
       <Connection Source="FB3.resetVACUUM_ON" Destination="resetVACUUM_ON" dx1="160.729" />
       <Connection Source="FB3.resetC1home" Destination="resetC1home" dx1="140.729" />
       <Connection Source="FB3.resetC1end" Destination="resetC1end" dx1="120.729" />
@@ -353,6 +320,9 @@
       <Connection Source="FB3.resetC2end" Destination="resetC2end" dx1="80.729" />
       <Connection Source="FB3.resetVchome" Destination="resetVChome" dx1="60.729" />
       <Connection Source="FB3.resetVcend" Destination="resetVCend" dx1="40.729" />
+      <Connection Source="FB3.resetC1AbsPos" Destination="resetC1AbsPos" dx1="40.729" />
+      <Connection Source="FB3.resetC2AbsPos" Destination="resetC2AbsPos" dx1="40.729" />
+      <Connection Source="FB3.resetVCAbsPos" Destination="resetVCAbsPos" dx1="40.729" />
     </DataConnections>
   </FBNetwork>
 </FBType>

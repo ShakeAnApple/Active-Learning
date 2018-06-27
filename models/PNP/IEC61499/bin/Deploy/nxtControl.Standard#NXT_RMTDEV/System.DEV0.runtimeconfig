@@ -1,3 +1,12 @@
 
 # Runtime configuration settings
 Configuration.Timezone = ""
+
+# Special Function Block settings
+Configuration.FB.DLL = ""
+
+# CSVWRITER settings
+Configuration.FB.CSVWRITER.MaxRecordSize = "1024000"
+Configuration.FB.CSVWRITER.MaxQueueSize = "1024000"
+Configuration.FB.CSVWRITER.StreamBufferSize = "163840"
+Configuration.FB.CSVWRITER.FlushInterval = "60"

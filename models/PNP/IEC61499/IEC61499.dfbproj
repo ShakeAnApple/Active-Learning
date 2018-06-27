@@ -73,6 +73,9 @@
     <Compile Include="EventCounter.fbt">
       <IEC61499Type>Basic</IEC61499Type>
     </Compile>
+    <Compile Include="EVENTS_PRIOITY_OR.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
     <Compile Include="GenericCylinderModelType1.fbt">
       <IEC61499Type>Composite</IEC61499Type>
     </Compile>

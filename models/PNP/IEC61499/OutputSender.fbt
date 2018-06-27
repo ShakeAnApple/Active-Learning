@@ -8,12 +8,6 @@
     <EventInputs>
       <Event Name="INIT" Comment="Initialization Request" />
       <Event Name="REQ" Comment="Normal Execution Request">
-        <With Var="CYL1_X" />
-        <With Var="CYL1_Y" />
-        <With Var="CYL2_X" />
-        <With Var="CYL2_Y" />
-        <With Var="VCYL_X" />
-        <With Var="VCYL_Y" />
         <With Var="VACUUM_ON" />
         <With Var="c1home" />
         <With Var="c1end" />
@@ -21,16 +15,13 @@
         <With Var="c2end" />
         <With Var="vchome" />
         <With Var="vcend" />
+        <With Var="c1AbsPos" />
+        <With Var="c2AbsPos" />
+        <With Var="vcAncPos" />
       </Event>
     </EventInputs>
     <EventOutputs>
       <Event Name="INITO" Comment="Initialization Confirm">
-        <With Var="c1_x" />
-        <With Var="c1_y" />
-        <With Var="c2_x" />
-        <With Var="c2_y" />
-        <With Var="vc_x" />
-        <With Var="vc_y" />
         <With Var="vacuum_on" />
         <With Var="c1_home" />
         <With Var="c1_end" />
@@ -40,12 +31,6 @@
         <With Var="vc_end" />
       </Event>
       <Event Name="CNF" Comment="Execution Confirmation">
-        <With Var="c1_x" />
-        <With Var="c1_y" />
-        <With Var="c2_x" />
-        <With Var="c2_y" />
-        <With Var="vc_x" />
-        <With Var="vc_y" />
         <With Var="vacuum_on" />
         <With Var="c1_home" />
         <With Var="c1_end" />
@@ -56,12 +41,6 @@
       </Event>
     </EventOutputs>
     <InputVars>
-      <VarDeclaration Name="CYL1_X" Type="UINT" />
-      <VarDeclaration Name="CYL1_Y" Type="UINT" />
-      <VarDeclaration Name="CYL2_X" Type="UINT" />
-      <VarDeclaration Name="CYL2_Y" Type="UINT" />
-      <VarDeclaration Name="VCYL_X" Type="UINT" />
-      <VarDeclaration Name="VCYL_Y" Type="UINT" />
       <VarDeclaration Name="VACUUM_ON" Type="BOOL" />
       <VarDeclaration Name="c1home" Type="BOOL" />
       <VarDeclaration Name="c1end" Type="BOOL" />
@@ -69,14 +48,11 @@
       <VarDeclaration Name="c2end" Type="BOOL" />
       <VarDeclaration Name="vchome" Type="BOOL" />
       <VarDeclaration Name="vcend" Type="BOOL" />
+      <VarDeclaration Name="c1AbsPos" Type="UINT" />
+      <VarDeclaration Name="c2AbsPos" Type="UINT" />
+      <VarDeclaration Name="vcAncPos" Type="UINT" />
     </InputVars>
     <OutputVars>
-      <VarDeclaration Name="c1_x" Type="UINT" />
-      <VarDeclaration Name="c1_y" Type="UINT" />
-      <VarDeclaration Name="c2_x" Type="UINT" />
-      <VarDeclaration Name="c2_y" Type="UINT" />
-      <VarDeclaration Name="vc_x" Type="UINT" />
-      <VarDeclaration Name="vc_y" Type="UINT" />
       <VarDeclaration Name="vacuum_on" Type="BOOL" />
       <VarDeclaration Name="c1_home" Type="BOOL" />
       <VarDeclaration Name="c1_end" Type="BOOL" />
@@ -90,12 +66,12 @@
     <FB ID="2" Name="FB2" Type="TCPIO" x="2340" y="1300" Namespace="Runtime.IoCommon">
       <Parameter Name="PORT" Value=";127.0.0.1:64998" />
     </FB>
+    <FB ID="3" Name="FB3" Type="OutputDecompressor" x="3520" y="1200" Namespace="Main">
+      <Parameter Name="delimiter" Value=";" />
+    </FB>
     <FB ID="1" Name="FB1" Type="OutputCompressor" x="1360" y="1100" Namespace="Main">
       <Parameter Name="delimiter" Value=";" />
       <Parameter Name="QI" Value="TRUE" />
-    </FB>
-    <FB ID="3" Name="FB3" Type="OutputDecompressor" x="3520" y="1200" Namespace="Main">
-      <Parameter Name="delimiter" Value=";" />
     </FB>
     <Input Name="INIT">
       <Position>
@@ -111,94 +87,73 @@
       </Position>
       <IsType>Event</IsType>
     </Input>
-    <Input Name="CYL1_X">
-      <Position>
-        <X>130</X>
-        <Y>372.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Input>
-    <Input Name="CYL1_Y">
-      <Position>
-        <X>130</X>
-        <Y>387.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Input>
-    <Input Name="CYL2_X">
-      <Position>
-        <X>130</X>
-        <Y>402.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Input>
-    <Input Name="CYL2_Y">
-      <Position>
-        <X>130</X>
-        <Y>417.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Input>
-    <Input Name="VCYL_X">
-      <Position>
-        <X>130</X>
-        <Y>432.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Input>
-    <Input Name="VCYL_Y">
-      <Position>
-        <X>130</X>
-        <Y>447.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Input>
     <Input Name="VACUUM_ON">
       <Position>
         <X>130</X>
-        <Y>462.963531</Y>
+        <Y>372.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Input>
     <Input Name="c1home">
       <Position>
         <X>130</X>
-        <Y>477.963531</Y>
+        <Y>387.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Input>
     <Input Name="c1end">
       <Position>
         <X>130</X>
-        <Y>492.963531</Y>
+        <Y>402.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Input>
     <Input Name="c2home">
       <Position>
         <X>130</X>
-        <Y>507.963531</Y>
+        <Y>417.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Input>
     <Input Name="c2end">
       <Position>
         <X>130</X>
-        <Y>522.963562</Y>
+        <Y>432.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Input>
     <Input Name="vchome">
       <Position>
         <X>130</X>
-        <Y>537.963562</Y>
+        <Y>447.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Input>
     <Input Name="vcend">
       <Position>
         <X>130</X>
-        <Y>552.963562</Y>
+        <Y>462.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="c1AbsPos">
+      <Position>
+        <X>130</X>
+        <Y>477.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="c2AbsPos">
+      <Position>
+        <X>130</X>
+        <Y>492.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vcAncPos">
+      <Position>
+        <X>130</X>
+        <Y>507.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Input>
@@ -216,177 +171,88 @@
       </Position>
       <IsType>Event</IsType>
     </Output>
-    <Output Name="c1_x">
-      <Position>
-        <X>1155</X>
-        <Y>382.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="c1_y">
-      <Position>
-        <X>1155</X>
-        <Y>397.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="c2_x">
-      <Position>
-        <X>1155</X>
-        <Y>412.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="c2_y">
-      <Position>
-        <X>1155</X>
-        <Y>427.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="vc_x">
-      <Position>
-        <X>1155</X>
-        <Y>442.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
-    <Output Name="vc_y">
-      <Position>
-        <X>1155</X>
-        <Y>457.963531</Y>
-      </Position>
-      <IsType>Data</IsType>
-    </Output>
     <Output Name="vacuum_on">
       <Position>
         <X>1120</X>
-        <Y>472.963531</Y>
+        <Y>382.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c1_home">
       <Position>
         <X>1135</X>
-        <Y>487.963531</Y>
+        <Y>397.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c1_end">
       <Position>
         <X>1145</X>
-        <Y>502.963531</Y>
+        <Y>412.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c2_home">
       <Position>
         <X>1135</X>
-        <Y>517.963562</Y>
+        <Y>427.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c2_end">
       <Position>
         <X>1145</X>
-        <Y>532.963562</Y>
+        <Y>442.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="vc_home">
       <Position>
         <X>1135</X>
-        <Y>547.963562</Y>
+        <Y>457.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="vc_end">
       <Position>
         <X>1145</X>
-        <Y>562.963562</Y>
+        <Y>472.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <EventConnections>
-      <Connection Source="INIT" Destination="FB1.INIT">
-        <Points>
-          <Points>
-            <X>257.291656</X>
-            <Y>285</Y>
-          </Points>
-          <Points>
-            <X>252.5</X>
-            <Y>285</Y>
-          </Points>
-          <Points>
-            <X>252.5</X>
-            <Y>284.5</Y>
-          </Points>
-          <Points>
-            <X>335</X>
-            <Y>284.5</Y>
-          </Points>
-        </Points>
-      </Connection>
-      <Connection Source="REQ" Destination="FB1.REQ">
-        <Points>
-          <Points>
-            <X>260.2604</X>
-            <Y>300</Y>
-          </Points>
-          <Points>
-            <X>257.5</X>
-            <Y>300</Y>
-          </Points>
-          <Points>
-            <X>257.5</X>
-            <Y>299.5</Y>
-          </Points>
-          <Points>
-            <X>335</X>
-            <Y>299.5</Y>
-          </Points>
-        </Points>
-      </Connection>
-      <Connection Source="FB1.INITO" Destination="FB2.INIT" dx1="80" />
-      <Connection Source="FB1.CNF" Destination="FB2.REQ" dx1="80" />
+      <Connection Source="INIT" Destination="FB1.INIT" dx1="40" />
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="40" />
+      <Connection Source="FB1.INITO" Destination="FB2.INIT" dx1="46.50012" />
+      <Connection Source="FB1.CNF" Destination="FB2.REQ" dx1="46.50012" />
       <Connection Source="FB2.CNF" Destination="FB2.ACK" dx1="40" dx2="90" dy="-168" />
       <Connection Source="FB2.INITO" Destination="FB3.INIT" dx1="52.16675" />
       <Connection Source="FB2.IND" Destination="FB3.REQ" dx1="92.16675" />
-      <Connection Source="FB3.INITO" Destination="INITO" dx1="60" />
+      <Connection Source="FB3.INITO" Destination="INITO" dx1="40" />
       <Connection Source="FB3.CNF" Destination="CNF" dx1="40" />
     </EventConnections>
     <DataConnections>
-      <Connection Source="CYL1_X" Destination="FB1.c1_x" dx1="40" />
-      <Connection Source="CYL1_Y" Destination="FB1.c1_y" dx1="40" />
-      <Connection Source="CYL2_X" Destination="FB1.c2_x" dx1="40" />
-      <Connection Source="CYL2_Y" Destination="FB1.c2_y" dx1="40" />
-      <Connection Source="VCYL_X" Destination="FB1.vc_x" dx1="40" />
-      <Connection Source="VCYL_Y" Destination="FB1.vc_y" dx1="40" />
-      <Connection Source="VACUUM_ON" Destination="FB1.vacuum_on" dx1="47.22925" />
-      <Connection Source="c1home" Destination="FB1.c1_home" dx1="47.87506" />
-      <Connection Source="c1end" Destination="FB1.c1_end" dx1="43.41675" />
-      <Connection Source="c2home" Destination="FB1.c2_home" dx1="47.87506" />
-      <Connection Source="c2end" Destination="FB1.c2_end" dx1="43.41675" />
+      <Connection Source="VACUUM_ON" Destination="FB1.vacuum_on" dx1="27.22925" />
+      <Connection Source="c1home" Destination="FB1.c1_home" dx1="47.875" />
+      <Connection Source="c1end" Destination="FB1.c1_end" dx1="43.41669" />
+      <Connection Source="c2home" Destination="FB1.c2_home" dx1="47.875" />
+      <Connection Source="c2end" Destination="FB1.c2_end" dx1="43.41669" />
       <Connection Source="vchome" Destination="FB1.vc_home" dx1="40" />
       <Connection Source="vcend" Destination="FB1.vc_end" dx1="45.8125" />
-      <Connection Source="FB1.QO" Destination="FB2.QI" dx1="40" />
-      <Connection Source="FB1.result" Destination="FB2.DATAOUT" dx1="40" />
+      <Connection Source="FB1.QO" Destination="FB2.QI" dx1="46.50012" />
+      <Connection Source="FB1.result" Destination="FB2.DATAOUT" dx1="46.50012" />
       <Connection Source="FB2.QO" Destination="FB3.QI" dx1="112.1667" />
       <Connection Source="FB2.DATAIN" Destination="FB3.input" dx1="132.1667" />
-      <Connection Source="FB3.c1_x" Destination="c1_x" dx1="280" />
-      <Connection Source="FB3.c1_y" Destination="c1_y" dx1="260" />
-      <Connection Source="FB3.c2_x" Destination="c2_x" dx1="240" />
-      <Connection Source="FB3.c2_y" Destination="c2_y" dx1="220" />
-      <Connection Source="FB3.vc_x" Destination="vc_x" dx1="200" />
-      <Connection Source="FB3.vc_y" Destination="vc_y" dx1="180" />
-      <Connection Source="FB3.vacuum_on" Destination="vacuum_on" dx1="160" />
-      <Connection Source="FB3.c1_home" Destination="c1_home" dx1="140" />
+      <Connection Source="FB3.vacuum_on" Destination="vacuum_on" dx1="167.625" />
+      <Connection Source="FB3.c1_home" Destination="c1_home" dx1="147.625" />
       <Connection Source="FB3.c1_end" Destination="c1_end" dx1="120" />
-      <Connection Source="FB3.c2_home" Destination="c2_home" dx1="100" />
-      <Connection Source="FB3.c2_end" Destination="c2_end" dx1="80" />
-      <Connection Source="FB3.vc_home" Destination="vc_home" dx1="60" />
-      <Connection Source="FB3.vc_end" Destination="vc_end" dx1="40" />
+      <Connection Source="FB3.c2_home" Destination="c2_home" dx1="107.625" />
+      <Connection Source="FB3.c2_end" Destination="c2_end" dx1="87.625" />
+      <Connection Source="FB3.vc_home" Destination="vc_home" dx1="67.625" />
+      <Connection Source="FB3.vc_end" Destination="vc_end" dx1="47.625" />
+      <Connection Source="c1AbsPos" Destination="FB1.c1_abs_pos" dx1="46.58337" />
+      <Connection Source="c2AbsPos" Destination="FB1.c2_abs_pos" dx1="46.58337" />
+      <Connection Source="vcAncPos" Destination="FB1.vc_abs_pos" dx1="48.97925" />
     </DataConnections>
   </FBNetwork>
 </FBType>

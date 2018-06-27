@@ -30,12 +30,6 @@
         <With Var="vcyl_down" />
       </Event>
       <Event Name="RESET">
-        <With Var="resetCYL1_X" />
-        <With Var="resetCYL1_Y" />
-        <With Var="resetCYL2_X" />
-        <With Var="resetCYL2_Y" />
-        <With Var="resetVCYL_X" />
-        <With Var="resetVCYL_Y" />
         <With Var="resetVACUUM_ON" />
         <With Var="resetC1home" />
         <With Var="resetC1end" />
@@ -43,6 +37,9 @@
         <With Var="resetC2end" />
         <With Var="resetVchome" />
         <With Var="resetVcend" />
+        <With Var="resetC1AbsPos" />
+        <With Var="resetC2AbsPos" />
+        <With Var="resetVCAbsPos" />
       </Event>
     </EventOutputs>
     <InputVars>
@@ -59,12 +56,6 @@
       <VarDeclaration Name="vacuum_on" Type="BOOL" />
       <VarDeclaration Name="vacuum_off" Type="BOOL" />
       <VarDeclaration Name="vcyl_down" Type="BOOL" />
-      <VarDeclaration Name="resetCYL1_X" Type="UINT" />
-      <VarDeclaration Name="resetCYL1_Y" Type="UINT" />
-      <VarDeclaration Name="resetCYL2_X" Type="UINT" />
-      <VarDeclaration Name="resetCYL2_Y" Type="UINT" />
-      <VarDeclaration Name="resetVCYL_X" Type="UINT" />
-      <VarDeclaration Name="resetVCYL_Y" Type="UINT" />
       <VarDeclaration Name="resetVACUUM_ON" Type="BOOL" />
       <VarDeclaration Name="resetC1home" Type="BOOL" />
       <VarDeclaration Name="resetC1end" Type="BOOL" />
@@ -72,6 +63,9 @@
       <VarDeclaration Name="resetC2end" Type="BOOL" />
       <VarDeclaration Name="resetVchome" Type="BOOL" />
       <VarDeclaration Name="resetVcend" Type="BOOL" />
+      <VarDeclaration Name="resetC1AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetC2AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetVCAbsPos" Type="UINT" />
     </OutputVars>
   </InterfaceList>
   <BasicFB>
@@ -122,7 +116,7 @@
       <ST Text=";" />
     </Algorithm>
     <Algorithm Name="PARSE_RESET_SYMB">
-      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..14] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;	&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;resetCYL1_X := STRING_TO_UINT(substr[2]);&#xD;&#xA;resetCYL1_Y := STRING_TO_UINT(substr[3]);&#xD;&#xA;resetCYL2_X := STRING_TO_UINT(substr[4]);&#xD;&#xA;&#xD;&#xA;resetCYL2_Y := STRING_TO_UINT(substr[5]);&#xD;&#xA;resetVCYL_X := STRING_TO_UINT(substr[6]);&#xD;&#xA;resetVCYL_Y := STRING_TO_UINT(substr[7]);&#xD;&#xA;&#xD;&#xA;resetVACUUM_ON := STRING_TO_BOOL(substr[8]);&#xD;&#xA;resetC1home := STRING_TO_BOOL(substr[9]);&#xD;&#xA;resetC1end := STRING_TO_BOOL(substr[10]);&#xD;&#xA;&#xD;&#xA;resetC2home := STRING_TO_BOOL(substr[11]);&#xD;&#xA;resetC2end := STRING_TO_BOOL(substr[12]);&#xD;&#xA;resetVchome := STRING_TO_BOOL(substr[13]);&#xD;&#xA;resetVcend := STRING_TO_BOOL(substr[14]);" />
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..11] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;	&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;resetVACUUM_ON := STRING_TO_BOOL(substr[2]);&#xD;&#xA;resetC1home := STRING_TO_BOOL(substr[3]);&#xD;&#xA;resetC1end := STRING_TO_BOOL(substr[4]);&#xD;&#xA;&#xD;&#xA;resetC2home := STRING_TO_BOOL(substr[5]);&#xD;&#xA;resetC2end := STRING_TO_BOOL(substr[6]);&#xD;&#xA;resetVchome := STRING_TO_BOOL(substr[7]);&#xD;&#xA;resetVcend := STRING_TO_BOOL(substr[8]);&#xD;&#xA;&#xD;&#xA;resetC1AbsPos := STRING_TO_UINT(substr[9]);&#xD;&#xA;resetC2AbsPos := STRING_TO_UINT(substr[10]);&#xD;&#xA;resetVCAbsPos := STRING_TO_UINT(substr[11]);" />
     </Algorithm>
     <Algorithm Name="PARSE_REQ_SYMB">
       <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..8] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;cyl1_fwd := STRING_TO_BOOL(substr[2]);&#xD;&#xA;cyl1_back := STRING_TO_BOOL(substr[3]);&#xD;&#xA;cyl2_fwd := STRING_TO_BOOL(substr[4]);&#xD;&#xA;cyl2_back := STRING_TO_BOOL(substr[5]);&#xD;&#xA;vacuum_on := STRING_TO_BOOL(substr[6]);&#xD;&#xA;vacuum_off := STRING_TO_BOOL(substr[7]);&#xD;&#xA;vcyl_down := STRING_TO_BOOL(substr[8]);" />

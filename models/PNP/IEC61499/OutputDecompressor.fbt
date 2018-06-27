@@ -18,12 +18,6 @@
     <EventOutputs>
       <Event Name="INITO" Comment="Initialization Confirm">
         <With Var="QO" />
-        <With Var="c1_x" />
-        <With Var="c1_y" />
-        <With Var="c2_x" />
-        <With Var="c2_y" />
-        <With Var="vc_x" />
-        <With Var="vc_y" />
         <With Var="vacuum_on" />
         <With Var="c1_home" />
         <With Var="c1_end" />
@@ -34,12 +28,6 @@
       </Event>
       <Event Name="CNF" Comment="Execution Confirmation">
         <With Var="QO" />
-        <With Var="c1_x" />
-        <With Var="c1_y" />
-        <With Var="c2_x" />
-        <With Var="c2_y" />
-        <With Var="vc_x" />
-        <With Var="vc_y" />
         <With Var="vacuum_on" />
         <With Var="c1_home" />
         <With Var="c1_end" />
@@ -56,12 +44,6 @@
     </InputVars>
     <OutputVars>
       <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
-      <VarDeclaration Name="c1_x" Type="UINT" />
-      <VarDeclaration Name="c1_y" Type="UINT" />
-      <VarDeclaration Name="c2_x" Type="UINT" />
-      <VarDeclaration Name="c2_y" Type="UINT" />
-      <VarDeclaration Name="vc_x" Type="UINT" />
-      <VarDeclaration Name="vc_y" Type="UINT" />
       <VarDeclaration Name="vacuum_on" Type="BOOL" />
       <VarDeclaration Name="c1_home" Type="BOOL" />
       <VarDeclaration Name="c1_end" Type="BOOL" />
@@ -89,7 +71,7 @@
       <ST Text="QO := TRUE;" />
     </Algorithm>
     <Algorithm Name="REQ" Comment="Normally executed algorithm">
-      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..13] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;c1_x := STRING_TO_UINT(substr[1]);&#xD;&#xA;c1_y := STRING_TO_UINT(substr[2]);&#xD;&#xA;c2_x := STRING_TO_UINT(substr[3]);&#xD;&#xA;&#xD;&#xA;c2_y := STRING_TO_UINT(substr[4]);&#xD;&#xA;vc_x := STRING_TO_UINT(substr[5]);&#xD;&#xA;vc_y := STRING_TO_UINT(substr[6]);&#xD;&#xA;&#xD;&#xA;vacuum_on := STRING_TO_BOOL(substr[7]);&#xD;&#xA;c1_home := STRING_TO_BOOL(substr[8]);&#xD;&#xA;c1_end := STRING_TO_BOOL(substr[9]);&#xD;&#xA;&#xD;&#xA;c2_home := STRING_TO_BOOL(substr[10]);&#xD;&#xA;c2_end := STRING_TO_BOOL(substr[11]);&#xD;&#xA;vc_home := STRING_TO_BOOL(substr[12]);&#xD;&#xA;vc_end := STRING_TO_BOOL(substr[13]);" />
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..7] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;vacuum_on := STRING_TO_BOOL(substr[1]);&#xD;&#xA;c1_home := STRING_TO_BOOL(substr[2]);&#xD;&#xA;c1_end := STRING_TO_BOOL(substr[3]);&#xD;&#xA;&#xD;&#xA;c2_home := STRING_TO_BOOL(substr[4]);&#xD;&#xA;c2_end := STRING_TO_BOOL(substr[5]);&#xD;&#xA;vc_home := STRING_TO_BOOL(substr[6]);&#xD;&#xA;vc_end := STRING_TO_BOOL(substr[7]);" />
     </Algorithm>
   </BasicFB>
 </FBType>

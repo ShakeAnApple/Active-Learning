@@ -12,12 +12,6 @@
       <Event Name="REQ" Comment="Normal Execution Request">
         <With Var="QI" />
         <With Var="delimiter" />
-        <With Var="c1_x" />
-        <With Var="c1_y" />
-        <With Var="c2_x" />
-        <With Var="c2_y" />
-        <With Var="vc_x" />
-        <With Var="vc_y" />
         <With Var="vacuum_on" />
         <With Var="c1_home" />
         <With Var="c1_end" />
@@ -25,6 +19,9 @@
         <With Var="c2_end" />
         <With Var="vc_home" />
         <With Var="vc_end" />
+        <With Var="c1_abs_pos" />
+        <With Var="c2_abs_pos" />
+        <With Var="vc_abs_pos" />
       </Event>
     </EventInputs>
     <EventOutputs>
@@ -39,12 +36,6 @@
     <InputVars>
       <VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier" />
       <VarDeclaration Name="delimiter" Type="STRING" />
-      <VarDeclaration Name="c1_x" Type="UINT" />
-      <VarDeclaration Name="c1_y" Type="UINT" />
-      <VarDeclaration Name="c2_x" Type="UINT" />
-      <VarDeclaration Name="c2_y" Type="UINT" />
-      <VarDeclaration Name="vc_x" Type="UINT" />
-      <VarDeclaration Name="vc_y" Type="UINT" />
       <VarDeclaration Name="vacuum_on" Type="BOOL" />
       <VarDeclaration Name="c1_home" Type="BOOL" />
       <VarDeclaration Name="c1_end" Type="BOOL" />
@@ -52,6 +43,9 @@
       <VarDeclaration Name="c2_end" Type="BOOL" />
       <VarDeclaration Name="vc_home" Type="BOOL" />
       <VarDeclaration Name="vc_end" Type="BOOL" />
+      <VarDeclaration Name="c1_abs_pos" Type="UINT" />
+      <VarDeclaration Name="c2_abs_pos" Type="UINT" />
+      <VarDeclaration Name="vc_abs_pos" Type="UINT" />
     </InputVars>
     <OutputVars>
       <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
@@ -73,10 +67,10 @@
       <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
     </ECC>
     <Algorithm Name="INIT" Comment="Initialization algorithm">
-      <ST Text=";" />
+      <ST Text="QO:=TRUE;" />
     </Algorithm>
     <Algorithm Name="REQ" Comment="Normally executed algorithm">
-      <ST Text="result :=&#xD;&#xA;CONCAT(&#xD;&#xA;  CONCAT(&#xD;&#xA;    UINT_TO_STRING(c1_x), delimiter,&#xD;&#xA;    UINT_TO_STRING(c1_y), delimiter,&#xD;&#xA;    UINT_TO_STRING(c2_x), delimiter&#xD;&#xA;  ),&#xD;&#xA;  CONCAT(&#xD;&#xA;    UINT_TO_STRING(c2_y), delimiter,&#xD;&#xA;    UINT_TO_STRING(vc_x), delimiter,&#xD;&#xA;    UINT_TO_STRING(vc_y), delimiter&#xD;&#xA;  ),&#xD;&#xA;  CONCAT(&#xD;&#xA;    BOOL_TO_STRING(vacuum_on), delimiter,&#xD;&#xA;    BOOL_TO_STRING(c1_home), delimiter,&#xD;&#xA;    BOOL_TO_STRING(c1_end), delimiter&#xD;&#xA;  ),&#xD;&#xA;  CONCAT(&#xD;&#xA;    BOOL_TO_STRING(c2_home), delimiter,&#xD;&#xA;    BOOL_TO_STRING(c2_end), delimiter,&#xD;&#xA;    BOOL_TO_STRING(vc_home), delimiter,&#xD;&#xA;    BOOL_TO_STRING(vc_end), delimiter&#xD;&#xA;  ),&#xD;&#xA;  &quot;$N&quot;&#xD;&#xA;);" />
+      <ST Text="result :=&#xD;&#xA;CONCAT(&#xD;&#xA;  CONCAT(&#xD;&#xA;    BOOL_TO_STRING(vacuum_on), delimiter,&#xD;&#xA;    BOOL_TO_STRING(c1_home), delimiter,&#xD;&#xA;    BOOL_TO_STRING(c1_end), delimiter&#xD;&#xA;  ),&#xD;&#xA;  CONCAT(&#xD;&#xA;    BOOL_TO_STRING(c2_home), delimiter,&#xD;&#xA;    BOOL_TO_STRING(c2_end), delimiter,&#xD;&#xA;    BOOL_TO_STRING(vc_home), delimiter,&#xD;&#xA;    BOOL_TO_STRING(vc_end), delimiter&#xD;&#xA;  ),&#xD;&#xA;  CONCAT(&#xD;&#xA;    UINT_TO_STRING(c1_abs_pos), delimiter,&#xD;&#xA;    UINT_TO_STRING(c2_abs_pos), delimiter,&#xD;&#xA;    UINT_TO_STRING(vc_abs_pos), delimiter&#xD;&#xA;  ),&#xD;&#xA;  &quot;$N&quot;&#xD;&#xA;);" />
     </Algorithm>
   </BasicFB>
 </FBType>

@@ -145,6 +145,11 @@
     </OutputVars>
   </InterfaceList>
   <FBNetwork>
+    <FB ID="3" Name="WPSensors" Type="WP_Sensor" x="7500" y="1100" Namespace="Main" />
+    <FB ID="4" Name="ViewControl" Type="PnpXYCalculator" x="5160" y="1340" Namespace="Main" />
+    <FB ID="2" Name="SuctionUnit" Type="PnPVacuum" x="4280" y="560" Namespace="Main" />
+    <FB ID="6" Name="FB2" Type="OutputSender" x="7040" y="3080" Namespace="Main" />
+    <FB ID="5" Name="FB1" Type="InputSender" x="780" y="2700" Namespace="Main" />
     <FB ID="1" Name="Cylinder" Type="PnpCylinders" x="3180" y="2500" Namespace="Main">
       <Parameter Name="InitialPosition" Value="0.0" />
       <Parameter Name="HomeSensorRange" Value="[0,0]" />
@@ -156,11 +161,6 @@
       <Parameter Name="RCMovingtDistance" Value="150" />
       <Parameter Name="VCMovingtDistance" Value="75" />
     </FB>
-    <FB ID="2" Name="SuctionUnit" Type="PnPVacuum" x="4280" y="560" Namespace="Main" />
-    <FB ID="3" Name="WPSensors" Type="WP_Sensor" x="7500" y="1100" Namespace="Main" />
-    <FB ID="4" Name="ViewControl" Type="PnpXYCalculator" x="5160" y="1340" Namespace="Main" />
-    <FB ID="5" Name="FB1" Type="InputSender" x="780" y="2700" Namespace="Main" />
-    <FB ID="6" Name="FB2" Type="OutputSender" x="7040" y="3080" Namespace="Main" />
     <Input Name="INIT">
       <Position>
         <X>3</X>
@@ -380,43 +380,43 @@
     </Output>
     <Output Name="CYL1_X">
       <Position>
-        <X>2005</X>
-        <Y>837.963562</Y>
+        <X>2060</X>
+        <Y>492.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="CYL1_Y">
       <Position>
-        <X>2005</X>
-        <Y>852.963562</Y>
+        <X>2060</X>
+        <Y>507.963531</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="CYL2_X">
       <Position>
-        <X>2005</X>
-        <Y>867.963562</Y>
+        <X>2060</X>
+        <Y>522.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="CYL2_Y">
       <Position>
-        <X>2005</X>
-        <Y>882.963562</Y>
+        <X>2060</X>
+        <Y>537.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="VCYL_X">
       <Position>
-        <X>2005</X>
-        <Y>897.963562</Y>
+        <X>2060</X>
+        <Y>552.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="VCYL_Y">
       <Position>
-        <X>2005</X>
-        <Y>912.963562</Y>
+        <X>2060</X>
+        <Y>567.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
@@ -465,49 +465,49 @@
     <Output Name="VACUUM_ON">
       <Position>
         <X>2005</X>
-        <Y>927.9635</Y>
+        <Y>837.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c1home">
       <Position>
         <X>2005</X>
-        <Y>942.9635</Y>
+        <Y>852.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c1end">
       <Position>
         <X>2005</X>
-        <Y>957.9635</Y>
+        <Y>867.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c2home">
       <Position>
         <X>2005</X>
-        <Y>972.9635</Y>
+        <Y>882.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="c2end">
       <Position>
         <X>2005</X>
-        <Y>987.9635</Y>
+        <Y>897.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="vchome">
       <Position>
         <X>2005</X>
-        <Y>1002.9635</Y>
+        <Y>912.9635</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
     <Output Name="vcend">
       <Position>
         <X>2005</X>
-        <Y>1017.9635</Y>
+        <Y>927.963562</Y>
       </Position>
       <IsType>Data</IsType>
     </Output>
@@ -540,7 +540,6 @@
       <IsType>Data</IsType>
     </Output>
     <EventConnections>
-      <Connection Source="INIT" Destination="Cylinder.INIT" dx1="1528.833" />
       <Connection Source="ADD_WP" Destination="ViewControl.ADD_WP" dx1="1737.063">
         <AvoidsNodes>false</AvoidsNodes>
       </Connection>
@@ -578,28 +577,71 @@
           </Points>
         </Points>
       </Connection>
-      <Connection Source="ViewControl.WP_REMOVED" Destination="WP_REMOVED" dx1="324.8125" />
-      <Connection Source="Cylinder.INITO" Destination="SuctionUnit.INIT" dx1="51.04175" />
-      <Connection Source="SuctionUnit.INITO" Destination="ViewControl.INIT" dx1="83.41699" />
-      <Connection Source="CLK" Destination="Cylinder.CLK" dx1="1526.417" />
-      <Connection Source="CYL_IND" Destination="Cylinder.CYL_IND" dx1="1429.396" />
-      <Connection Source="CYL_IND" Destination="SuctionUnit.CLK" dx1="189.3959" />
-      <Connection Source="SuctionUnit.CHG" Destination="ViewControl.CLK" dx1="63.41699" />
-      <Connection Source="ViewControl.INITO" Destination="WPSensors.INIT" dx1="50" />
+      <Connection Source="ViewControl.WP_REMOVED" Destination="WP_REMOVED" dx1="44.8125" />
+      <Connection Source="Cylinder.INITO" Destination="SuctionUnit.INIT" dx1="40" />
+      <Connection Source="SuctionUnit.INITO" Destination="ViewControl.INIT" dx1="41.104" />
+      <Connection Source="CYL_IND" Destination="Cylinder.CYL_IND" dx1="1189.396" />
+      <Connection Source="SuctionUnit.CHG" Destination="ViewControl.CLK" dx1="41.104" />
+      <Connection Source="ViewControl.INITO" Destination="WPSensors.INIT" dx1="44.8125" />
       <Connection Source="WPSensors.CNF" Destination="CHG" dx1="71.771" />
       <Connection Source="WPSensors.INITO" Destination="INITO" dx1="51.771" />
       <Connection Source="ViewControl.CNF" Destination="WPSensors.REQ" dx1="70" />
       <Connection Source="Cylinder.CNF" Destination="ViewControl.CLK" dx1="91.04175" />
-      <Connection Source="Cylinder.CHG" Destination="CHG" dx1="851.0417" />
-      <Connection Source="SuctionUnit.CHG" Destination="CHG" dx1="63.41699" />
+      <Connection Source="Cylinder.CHG" Destination="CHG" dx1="1031.042" />
+      <Connection Source="SuctionUnit.CHG" Destination="CHG" dx1="41.104" />
       <Connection Source="ViewControl.CNF" Destination="CNF" dx1="70" />
-      <Connection Source="CYL_IND" Destination="ViewControl.REQ" dx1="1469.396" />
+      <Connection Source="CYL_IND" Destination="ViewControl.REQ" dx1="209.3959" />
+      <Connection Source="FB1.RESET" Destination="Cylinder.RESET" dx1="90" />
+      <Connection Source="FB1.RESET" Destination="SuctionUnit.RESET" dx1="90" />
+      <Connection Source="Cylinder.INITO" Destination="FB2.INIT" dx1="40" />
+      <Connection Source="INIT" Destination="FB1.INIT" dx1="308.8334" />
+      <Connection Source="FB1.INITO" Destination="Cylinder.INIT" dx1="50" />
+      <Connection Source="Cylinder.CHG" Destination="FB2.REQ" dx1="40" />
+      <Connection Source="FB2.CNF" Destination="FB1.REQ">
+        <Points>
+          <Points>
+            <X>1918.20825</X>
+            <Y>794.5</Y>
+          </Points>
+          <Points>
+            <X>1932.5</X>
+            <Y>794.5</Y>
+          </Points>
+          <Points>
+            <X>1932.5</X>
+            <Y>752.5</Y>
+          </Points>
+          <Points>
+            <X>1277.5</X>
+            <Y>752.5</Y>
+          </Points>
+          <Points>
+            <X>1277.5</X>
+            <Y>607.5</Y>
+          </Points>
+          <Points>
+            <X>182.5</X>
+            <Y>607.5</Y>
+          </Points>
+          <Points>
+            <X>182.5</X>
+            <Y>699.5</Y>
+          </Points>
+          <Points>
+            <X>190</X>
+            <Y>699.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="FB1.CNF" Destination="Cylinder.CLK" dx1="70" />
+      <Connection Source="FB1.CNF" Destination="SuctionUnit.CLK" dx1="70" />
+      <Connection Source="REQ" Destination="FB1.REQ" dx1="296.9584" />
     </EventConnections>
     <DataConnections>
-      <Connection Source="ViewControl.BASE_X" Destination="BASE_X" dx1="304.8125" />
-      <Connection Source="ViewControl.BASE_Y" Destination="BASE_Y" dx1="284.8125" />
-      <Connection Source="ViewControl.WP_X" Destination="WP_X" dx1="2044.813" />
-      <Connection Source="ViewControl.WP_Y" Destination="WP_Y" dx1="2044.813" />
+      <Connection Source="ViewControl.BASE_X" Destination="BASE_X" dx1="130" />
+      <Connection Source="ViewControl.BASE_Y" Destination="BASE_Y" dx1="150" />
+      <Connection Source="ViewControl.WP_X" Destination="WP_X" dx1="1182.406" />
+      <Connection Source="ViewControl.WP_Y" Destination="WP_Y" dx1="1192.406" />
       <Connection Source="ViewControl.WP2_X" Destination="WP2_X" dx1="330" />
       <Connection Source="ViewControl.WP2_Y" Destination="WP2_Y" dx1="350" />
       <Connection Source="ViewControl.WP3_X" Destination="WP3_X" dx1="370" />
@@ -610,155 +652,20 @@
       <Connection Source="BASEY" Destination="ViewControl.BASEY" dx1="1814.396">
         <AvoidsNodes>false</AvoidsNodes>
       </Connection>
-      <Connection Source="Add1" Destination="ViewControl.Add1">
-        <Points>
-          <Points>
-            <X>105.494781</X>
-            <Y>295.036438</Y>
-          </Points>
-          <Points>
-            <X>132.5</X>
-            <Y>295.036438</Y>
-          </Points>
-          <Points>
-            <X>132.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>529.5</Y>
-          </Points>
-          <Points>
-            <X>1285</X>
-            <Y>529.5</Y>
-          </Points>
-        </Points>
-      </Connection>
-      <Connection Source="Add2" Destination="ViewControl.Add2">
-        <Points>
-          <Points>
-            <X>105.494781</X>
-            <Y>310.036438</Y>
-          </Points>
-          <Points>
-            <X>132.5</X>
-            <Y>310.036438</Y>
-          </Points>
-          <Points>
-            <X>132.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>544.5</Y>
-          </Points>
-          <Points>
-            <X>1285</X>
-            <Y>544.5</Y>
-          </Points>
-        </Points>
-      </Connection>
-      <Connection Source="Add3" Destination="ViewControl.Add3">
-        <Points>
-          <Points>
-            <X>105.494781</X>
-            <Y>325.036438</Y>
-          </Points>
-          <Points>
-            <X>132.5</X>
-            <Y>325.036438</Y>
-          </Points>
-          <Points>
-            <X>132.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>559.5</Y>
-          </Points>
-          <Points>
-            <X>1285</X>
-            <Y>559.5</Y>
-          </Points>
-        </Points>
-      </Connection>
-      <Connection Source="AddedWP_X" Destination="ViewControl.AddedWP_X">
-        <Points>
-          <Points>
-            <X>136.854156</X>
-            <Y>340.036438</Y>
-          </Points>
-          <Points>
-            <X>147.5</X>
-            <Y>340.036438</Y>
-          </Points>
-          <Points>
-            <X>147.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>574.5</Y>
-          </Points>
-          <Points>
-            <X>1285</X>
-            <Y>574.5</Y>
-          </Points>
-        </Points>
-      </Connection>
-      <Connection Source="AddedWP_Y" Destination="ViewControl.AddedWP_Y">
-        <Points>
-          <Points>
-            <X>136.854156</X>
-            <Y>355.036438</Y>
-          </Points>
-          <Points>
-            <X>147.5</X>
-            <Y>355.036438</Y>
-          </Points>
-          <Points>
-            <X>147.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>607.5</Y>
-          </Points>
-          <Points>
-            <X>457.5</X>
-            <Y>589.5</Y>
-          </Points>
-          <Points>
-            <X>1285</X>
-            <Y>589.5</Y>
-          </Points>
-        </Points>
-      </Connection>
+      <Connection Source="Add1" Destination="ViewControl.Add1" dx1="108.0209" />
+      <Connection Source="Add2" Destination="ViewControl.Add2" dx1="108.0209" />
+      <Connection Source="Add3" Destination="ViewControl.Add3" dx1="108.0209" />
+      <Connection Source="AddedWP_X" Destination="ViewControl.AddedWP_X" dx1="42.58337" />
+      <Connection Source="AddedWP_Y" Destination="ViewControl.AddedWP_Y" dx1="42.58337" />
       <Connection Source="Cylinder.LCAbsolutePos" Destination="ViewControl.LCPos" dx1="251.0417" />
-      <Connection Source="CYL1_SPEED" Destination="Cylinder.LCForwardSpeed" dx1="1211.771" />
-      <Connection Source="CYL1_SPEED" Destination="Cylinder.LCBackwardSpeed" dx1="1211.771" />
-      <Connection Source="CYL2_SPEED" Destination="Cylinder.RCForwardSpeed" dx1="1211.771" />
-      <Connection Source="CYL2_SPEED" Destination="Cylinder.RCBackwardSpeed" dx1="1211.771" />
-      <Connection Source="VCYL_SPEED" Destination="Cylinder.VCSpeed" dx1="1207.042" />
+      <Connection Source="CYL1_SPEED" Destination="Cylinder.LCForwardSpeed" dx1="971.7709" />
+      <Connection Source="CYL1_SPEED" Destination="Cylinder.LCBackwardSpeed" dx1="971.7709" />
+      <Connection Source="CYL2_SPEED" Destination="Cylinder.RCForwardSpeed" dx1="971.7709" />
+      <Connection Source="CYL2_SPEED" Destination="Cylinder.RCBackwardSpeed" dx1="971.7709" />
+      <Connection Source="VCYL_SPEED" Destination="Cylinder.VCSpeed" dx1="47.04169" />
       <Connection Source="Cylinder.RCAbsolutePos" Destination="ViewControl.RCPos" dx1="231.0417" />
       <Connection Source="Cylinder.VCAbsolutePos" Destination="ViewControl.VCPos" dx1="271.0417" />
-      <Connection Source="SuctionUnit.VacState" Destination="ViewControl.vacuumon" dx1="43.41699" dx2="410" dy="152" />
+      <Connection Source="SuctionUnit.VacState" Destination="ViewControl.vacuumon" dx1="41.104" dx2="430" dy="212" />
       <Connection Source="ViewControl.WP_X" Destination="WPSensors.WP1_X" dx1="290" />
       <Connection Source="ViewControl.WP_Y" Destination="WPSensors.WP1_Y" dx1="310" />
       <Connection Source="ViewControl.WP2_X" Destination="WPSensors.WP2_X" dx1="330" />
@@ -770,47 +677,54 @@
       <Connection Source="WPSensors.wp13" Destination="pp2" dx1="111.771" />
       <Connection Source="WPSensors.wp12" Destination="pp1" dx1="91.771" />
       <Connection Source="cyl1_fwd" Destination="FB1.cyl1_fwd" dx1="41.60422" />
-      <Connection Source="FB1.c1extend" Destination="Cylinder.LCExtend" dx1="162.3125" />
+      <Connection Source="FB1.c1extend" Destination="Cylinder.LCExtend" dx1="362.3126" />
       <Connection Source="cyl1_back" Destination="FB1.cyl1_back" dx1="40" />
-      <Connection Source="FB1.c1retract" Destination="Cylinder.LCRetract" dx1="142.3125" />
+      <Connection Source="FB1.c1retract" Destination="Cylinder.LCRetract" dx1="342.3126" />
       <Connection Source="cyl2_fwd" Destination="FB1.cyl2_fwd" dx1="41.60422" />
-      <Connection Source="FB1.c2extend" Destination="Cylinder.RCExtend" dx1="122.3125" />
+      <Connection Source="FB1.c2extend" Destination="Cylinder.RCExtend" dx1="322.3126" />
       <Connection Source="cyl2_back" Destination="FB1.cyl2_back" dx1="40" />
-      <Connection Source="FB1.c2retract" Destination="Cylinder.RCRetract" dx1="102.3125" />
+      <Connection Source="FB1.c2retract" Destination="Cylinder.RCRetract" dx1="302.3126" />
       <Connection Source="vacuum_on" Destination="FB1.vacuum_on" dx1="47.27087" />
-      <Connection Source="FB1.vacuumOn" Destination="SuctionUnit.VacuumOn" dx1="150" />
-      <Connection Source="FB1.vacuumOn" Destination="ViewControl.vacuum_on" dx1="150" />
-      <Connection Source="vacuum_off" Destination="FB1.vacuum_off" dx1="47.29169" />
-      <Connection Source="FB1.vacuumOff" Destination="SuctionUnit.VacuumOff" dx1="170" />
-      <Connection Source="FB1.vacuumOff" Destination="ViewControl.vacuum_off" dx1="170" />
-      <Connection Source="vcyl_down" Destination="FB1.vcyl_down" dx1="48.39587" />
-      <Connection Source="FB1.vcxtend" Destination="Cylinder.VCExtend" dx1="82.3125" />
-      <Connection Source="ViewControl.CYL1_X" Destination="FB2.CYL1_X" dx1="264.8125" />
-      <Connection Source="FB2.c1_x" Destination="CYL1_X" dx1="280" />
-      <Connection Source="ViewControl.CYL1_Y" Destination="FB2.CYL1_Y" dx1="244.8125" />
-      <Connection Source="FB2.c1_y" Destination="CYL1_Y" dx1="260" />
-      <Connection Source="ViewControl.CYL2_X" Destination="FB2.CYL2_X" dx1="224.8125" />
-      <Connection Source="FB2.c2_x" Destination="CYL2_X" dx1="240" />
-      <Connection Source="ViewControl.CYL2_Y" Destination="FB2.CYL2_Y" dx1="204.8125" />
-      <Connection Source="FB2.c2_y" Destination="CYL2_Y" dx1="220" />
-      <Connection Source="ViewControl.VCYL_X" Destination="FB2.VCYL_X" dx1="184.8125" />
-      <Connection Source="FB2.vc_x" Destination="VCYL_X" dx1="200" />
-      <Connection Source="ViewControl.VCYL_Y" Destination="FB2.VCYL_Y" dx1="164.8125" />
-      <Connection Source="FB2.vc_y" Destination="VCYL_Y" dx1="180" />
-      <Connection Source="SuctionUnit.VacState" Destination="FB2.VACUUM_ON" dx1="43.41699" />
+      <Connection Source="FB1.vacuumOn" Destination="SuctionUnit.VacuumOn" dx1="210" />
+      <Connection Source="FB1.vacuumOn" Destination="ViewControl.vacuum_on" dx1="210" />
+      <Connection Source="vacuum_off" Destination="FB1.vacuum_off" dx1="27.29169" />
+      <Connection Source="FB1.vacuumOff" Destination="SuctionUnit.VacuumOff" dx1="230" />
+      <Connection Source="FB1.vacuumOff" Destination="ViewControl.vacuum_off" dx1="230" />
+      <Connection Source="vcyl_down" Destination="FB1.vcyl_down" dx1="28.39587" />
+      <Connection Source="FB1.vcxtend" Destination="Cylinder.VCExtend" dx1="282.3126" />
+      <Connection Source="SuctionUnit.VacState" Destination="FB2.VACUUM_ON" dx1="41.10449" />
       <Connection Source="FB2.vacuum_on" Destination="VACUUM_ON" dx1="160" />
-      <Connection Source="Cylinder.LCAtHome" Destination="FB2.c1home" dx1="199.9998" />
+      <Connection Source="Cylinder.LCAtHome" Destination="FB2.c1home" dx1="40" />
       <Connection Source="FB2.c1_home" Destination="c1home" dx1="140" />
-      <Connection Source="Cylinder.LCAtEnd" Destination="FB2.c1end" dx1="179.9998" />
+      <Connection Source="Cylinder.LCAtEnd" Destination="FB2.c1end" dx1="40" />
       <Connection Source="FB2.c1_end" Destination="c1end" dx1="120" />
-      <Connection Source="Cylinder.RCAtHome" Destination="FB2.c2home" dx1="159.9998" />
+      <Connection Source="Cylinder.RCAtHome" Destination="FB2.c2home" dx1="40" />
       <Connection Source="FB2.c2_home" Destination="c2home" dx1="100" />
-      <Connection Source="Cylinder.RCAtEnd" Destination="FB2.c2end" dx1="139.9998" />
+      <Connection Source="Cylinder.RCAtEnd" Destination="FB2.c2end" dx1="40" />
       <Connection Source="FB2.c2_end" Destination="c2end" dx1="80" />
-      <Connection Source="Cylinder.VCAtHome" Destination="FB2.vchome" dx1="119.9998" />
+      <Connection Source="Cylinder.VCAtHome" Destination="FB2.vchome" dx1="40" />
       <Connection Source="FB2.vc_home" Destination="vchome" dx1="60" />
-      <Connection Source="Cylinder.VCAtEnd" Destination="FB2.vcend" dx1="99.99976" />
+      <Connection Source="Cylinder.VCAtEnd" Destination="FB2.vcend" dx1="40" />
       <Connection Source="FB2.vc_end" Destination="vcend" dx1="40" />
+      <Connection Source="FB1.resetVACUUM_ON" Destination="SuctionUnit.resetVacuumOn" dx1="250" />
+      <Connection Source="FB1.resetC1home" Destination="Cylinder.resetLCAtHome" dx1="202.3126" />
+      <Connection Source="FB1.resetC1end" Destination="Cylinder.resetLCAtEnd" dx1="182.3126" />
+      <Connection Source="FB1.resetC2home" Destination="Cylinder.resetRCAtHome" dx1="162.3126" />
+      <Connection Source="FB1.resetC2end" Destination="Cylinder.resetRCAtEnd" dx1="142.3126" />
+      <Connection Source="FB1.resetVChome" Destination="Cylinder.resetVCAtHome" dx1="122.3126" />
+      <Connection Source="FB1.resetVCend" Destination="Cylinder.resetVCAtEnd" dx1="102.3126" />
+      <Connection Source="ViewControl.CYL1_X" Destination="CYL1_X" dx1="264.8125" />
+      <Connection Source="ViewControl.CYL1_Y" Destination="CYL1_Y" dx1="244.8125" />
+      <Connection Source="ViewControl.CYL2_X" Destination="CYL2_X" dx1="224.8125" />
+      <Connection Source="ViewControl.CYL2_Y" Destination="CYL2_Y" dx1="204.8125" />
+      <Connection Source="ViewControl.VCYL_X" Destination="VCYL_X" dx1="184.8125" />
+      <Connection Source="ViewControl.VCYL_Y" Destination="VCYL_Y" dx1="164.8125" />
+      <Connection Source="Cylinder.RCAbsolutePos" Destination="FB2.c2AbsPos" dx1="40" />
+      <Connection Source="Cylinder.LCAbsolutePos" Destination="FB2.c1AbsPos" dx1="40" />
+      <Connection Source="Cylinder.VCAbsolutePos" Destination="FB2.vcAncPos" dx1="40" />
+      <Connection Source="FB1.resetC1AbsPos" Destination="Cylinder.resetC1AbsPos" dx1="82.31262" />
+      <Connection Source="FB1.resetC2AbsPos" Destination="Cylinder.resetC2AbsPos" dx1="62.31262" />
+      <Connection Source="FB1.resetVCAbsPos" Destination="Cylinder.resetVCAbsPos" dx1="42.31262" />
     </DataConnections>
   </FBNetwork>
 </FBType>

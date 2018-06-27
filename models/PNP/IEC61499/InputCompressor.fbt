@@ -57,7 +57,7 @@
       <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
     </ECC>
     <Algorithm Name="INIT" Comment="Initialization algorithm">
-      <ST Text=";" />
+      <ST Text="QO:=TRUE;" />
     </Algorithm>
     <Algorithm Name="REQ" Comment="Normally executed algorithm">
       <ST Text="RESULT :=&#xD;&#xA;CONCAT(&#xD;&#xA;  CONCAT(&#xD;&#xA;    BOOL_TO_STRING(cyl1_fwd), delimiter,&#xD;&#xA;    BOOL_TO_STRING(cyl1_back), delimiter,&#xD;&#xA;    BOOL_TO_STRING(cyl2_fwd), delimiter&#xD;&#xA;  ),&#xD;&#xA;  CONCAT(&#xD;&#xA;    BOOL_TO_STRING(cyl2_back), delimiter,&#xD;&#xA;    BOOL_TO_STRING(vcyl_down), delimiter,&#xD;&#xA;    BOOL_TO_STRING(vacuum_on), delimiter,&#xD;&#xA;    BOOL_TO_STRING(vacuum_off), delimiter&#xD;&#xA;  ),&#xD;&#xA;  &quot;$N&quot;);" />
