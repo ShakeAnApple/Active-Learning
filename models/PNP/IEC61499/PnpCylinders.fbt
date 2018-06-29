@@ -30,6 +30,19 @@
       <Event Name="CLK">
         <With Var="Loaded" />
         <With Var="LoadType" />
+        <With Var="LCExtend" />
+        <With Var="LCRetract" />
+        <With Var="LCMovingtDistance" />
+        <With Var="LCForwardSpeed" />
+        <With Var="LCBackwardSpeed" />
+        <With Var="RCExtend" />
+        <With Var="RCRetract" />
+        <With Var="RCMovingtDistance" />
+        <With Var="RCForwardSpeed" />
+        <With Var="RCBackwardSpeed" />
+        <With Var="VCExtend" />
+        <With Var="VCMovingtDistance" />
+        <With Var="VCSpeed" />
       </Event>
       <Event Name="FAULT" />
       <Event Name="RESUME" />
@@ -84,6 +97,7 @@
         <With Var="LCAbsolutePos" />
         <With Var="VCAbsolutePos" />
       </Event>
+      <Event Name="CHG_RESET" />
     </EventOutputs>
     <InputVars>
       <VarDeclaration Name="InitialPosition" Type="REAL" Comment="Initial position" />
@@ -490,33 +504,39 @@
       </Position>
       <IsType>Data</IsType>
     </Output>
+    <Output Name="CHG_RESET">
+      <Position>
+        <X>1635</X>
+        <Y>857.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
     <EventConnections>
       <Connection Source="INIT" Destination="LeftCylinder.INIT" dx1="88.83337" />
-      <Connection Source="CLK" Destination="LeftCylinder.CLK" dx1="306.4167" />
-      <Connection Source="FAULT" Destination="LeftCylinder.FAULT" dx1="254.2917" />
-      <Connection Source="RESUME" Destination="LeftCylinder.RESUME" dx1="226.8751" />
+      <Connection Source="CLK" Destination="LeftCylinder.CLK" dx1="86.41669" />
+      <Connection Source="FAULT" Destination="LeftCylinder.FAULT" dx1="40" />
+      <Connection Source="RESUME" Destination="LeftCylinder.RESUME" dx1="46.87506" />
       <Connection Source="VerticleCylinder.INITO" Destination="INITO" dx1="40" />
-      <Connection Source="LeftCylinder.CHG" Destination="CHG" dx1="794.6667" />
-      <Connection Source="RightCylinder.CHG" Destination="CHG" dx1="74.6665" />
       <Connection Source="VerticleCylinder.CHG" Destination="CHG" dx1="74.6665" />
-      <Connection Source="LeftCylinder.OFAULT" Destination="RightCylinder.FAULT" dx1="140" />
-      <Connection Source="RightCylinder.OFAULT" Destination="VerticleCylinder.FAULT" dx1="140" />
+      <Connection Source="LeftCylinder.OFAULT" Destination="RightCylinder.FAULT" dx1="160" />
+      <Connection Source="RightCylinder.OFAULT" Destination="VerticleCylinder.FAULT" dx1="160" />
       <Connection Source="VerticleCylinder.OFAULT" Destination="OFAULT" dx1="40" />
-      <Connection Source="RESUME" Destination="RightCylinder.RESUME" dx1="326.8751" />
+      <Connection Source="RESUME" Destination="RightCylinder.RESUME" dx1="666.8751" />
       <Connection Source="RESUME" Destination="VerticleCylinder.RESUME" dx1="666.8751" />
       <Connection Source="VerticleCylinder.CNF" Destination="CNF" dx1="114.6665" />
-      <Connection Source="CLK" Destination="RightCylinder.CLK" dx1="426.4167" />
-      <Connection Source="CLK" Destination="VerticleCylinder.CLK" dx1="766.4167" />
       <Connection Source="RightCylinder.CNF" Destination="CNF" dx1="114.6665" />
       <Connection Source="LeftCylinder.CNF" Destination="CNF" dx1="40" />
-      <Connection Source="LeftCylinder.INITO" Destination="RightCylinder.INIT" dx1="180" />
-      <Connection Source="RightCylinder.INITO" Destination="VerticleCylinder.INIT" dx1="180" />
-      <Connection Source="CYL_IND" Destination="LeftCylinder.CYL_IND" dx1="229.3959" />
-      <Connection Source="CYL_IND" Destination="RightCylinder.CYL_IND" dx1="329.3959" />
+      <Connection Source="LeftCylinder.INITO" Destination="RightCylinder.INIT" dx1="200" />
+      <Connection Source="RightCylinder.INITO" Destination="VerticleCylinder.INIT" dx1="200" />
+      <Connection Source="CYL_IND" Destination="LeftCylinder.CYL_IND" dx1="49.39587" />
+      <Connection Source="CYL_IND" Destination="RightCylinder.CYL_IND" dx1="669.3959" />
       <Connection Source="CYL_IND" Destination="VerticleCylinder.CYL_IND" dx1="669.3959" />
-      <Connection Source="RESET" Destination="RightCylinder.RESET" dx1="359.1667" />
-      <Connection Source="RESET" Destination="VerticleCylinder.RESET" dx1="699.1667" />
       <Connection Source="RESET" Destination="LeftCylinder.RESET" dx1="359.1667" />
+      <Connection Source="LeftCylinder.CHG_RESET" Destination="RightCylinder.RESET" dx1="120" />
+      <Connection Source="RightCylinder.CHG_RESET" Destination="VerticleCylinder.RESET" dx1="120" />
+      <Connection Source="VerticleCylinder.CHG_RESET" Destination="CHG_RESET" dx1="40" />
+      <Connection Source="LeftCylinder.CHG" Destination="RightCylinder.CLK" dx1="180" />
+      <Connection Source="RightCylinder.CHG" Destination="VerticleCylinder.CLK" dx1="180" />
     </EventConnections>
     <DataConnections>
       <Connection Source="LCForwardSpeed" Destination="LeftCylinder.ForwardSpeed" dx1="234.2917">
@@ -534,15 +554,15 @@
       <Connection Source="LoadType" Destination="LeftCylinder.LoadType" dx1="148.9167" />
       <Connection Source="RCForwardSpeed" Destination="RightCylinder.ForwardSpeed" dx1="40" />
       <Connection Source="RCBackwardSpeed" Destination="RightCylinder.BackwardSpeed" dx1="46.354" />
-      <Connection Source="InitialPosition" Destination="RightCylinder.InitialPosition" dx1="74.12506" />
+      <Connection Source="InitialPosition" Destination="RightCylinder.InitialPosition" dx1="434.1251" />
       <Connection Source="RCMovingtDistance" Destination="RightCylinder.MovingtDistance" dx1="41.1665" />
-      <Connection Source="HomeSensorRange" Destination="RightCylinder.HomeSensorRange" dx1="43.95837" />
-      <Connection Source="MidSensorRange" Destination="RightCylinder.MidSensorRange" dx1="48.77087" />
-      <Connection Source="EndSensorRange" Destination="RightCylinder.EndSensorRange" dx1="41.85419" />
+      <Connection Source="HomeSensorRange" Destination="RightCylinder.HomeSensorRange" dx1="323.9584" />
+      <Connection Source="MidSensorRange" Destination="RightCylinder.MidSensorRange" dx1="348.7709" />
+      <Connection Source="EndSensorRange" Destination="RightCylinder.EndSensorRange" dx1="361.8542" />
       <Connection Source="RCExtend" Destination="RightCylinder.Extend" dx1="45.20825" />
       <Connection Source="RCRetract" Destination="RightCylinder.Retract" dx1="40.52075" />
-      <Connection Source="Loaded" Destination="RightCylinder.Loaded" dx1="177.2917" />
-      <Connection Source="LoadType" Destination="RightCylinder.LoadType" dx1="148.9167" />
+      <Connection Source="Loaded" Destination="RightCylinder.Loaded" dx1="537.2917" />
+      <Connection Source="LoadType" Destination="RightCylinder.LoadType" dx1="508.9167" />
       <Connection Source="VCSpeed" Destination="VerticleCylinder.ForwardSpeed" dx1="40" />
       <Connection Source="VCSpeed" Destination="VerticleCylinder.BackwardSpeed" dx1="40" />
       <Connection Source="InitialPosition" Destination="VerticleCylinder.InitialPosition" dx1="434.1251" />

@@ -31,23 +31,27 @@
   <BasicFB>
     <ECC>
       <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
-      <ECState Name="s1" Comment="Normal execution" x="569.647" y="956.9412">
+      <ECState Name="s1" Comment="Normal execution" x="925.647" y="1068.941">
         <ECAction Output="O1" />
       </ECState>
-      <ECState Name="s2" x="1612" y="420">
+      <ECState Name="s2" x="1752" y="580">
         <ECAction Output="O2" />
       </ECState>
-      <ECTransition Source="START" Destination="s1" Condition="I1" x="643.0128" y="690.8025">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="164.7526,154.8709,165.8694,190.1347" />
+      <ECState Name="INIT" x="915.9999" y="620" />
+      <ECTransition Source="INIT" Destination="s1" Condition="I1" x="1010.594" y="842.8121">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="256.8977,196.2072,257.5188,224.9224" />
       </ECTransition>
-      <ECTransition Source="s1" Destination="START" Condition="1" x="429.0123" y="691.8433">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="100.4284,190.4816,99.31165,155.2178" />
+      <ECTransition Source="s1" Destination="INIT" Condition="1" x="780.4507" y="843.032">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="188.0343,224.9954,187.4312,196.2809" />
       </ECTransition>
-      <ECTransition Source="START" Destination="s2" Condition="I2 AND NOT I1" x="1112.093" y="343.0942">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="242.2113,81.42891,313.8352,80.7924" />
+      <ECTransition Source="INIT" Destination="s2" Condition="I2 AND NOT I1" x="1342.688" y="517.4486">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="307.4301,126.2932,363.5117,123.114" />
       </ECTransition>
-      <ECTransition Source="s2" Destination="START" Condition="1" x="1112.76" y="505.7878">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="314.0573,130.7931,242.4335,131.4273" />
+      <ECTransition Source="s2" Destination="INIT" Condition="1" x="1347.669" y="682.9855">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="365.21,174.364,309.0528,176.4458" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="INIT" Condition="1" x="826.7717" y="444.6642">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="200.1871,101.0937,218.7599,113.1928" />
       </ECTransition>
     </ECC>
   </BasicFB>

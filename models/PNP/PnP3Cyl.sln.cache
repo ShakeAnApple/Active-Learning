@@ -40,11 +40,11 @@
     <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
   </PropertyGroup>
   <PropertyGroup>
-    <SolutionDir>E:\pnp-various\pnp3central-random-inputs\better-tests\</SolutionDir>
+    <SolutionDir>C:\Users\contest\Documents\GitHub\active-learning\models\PNP\</SolutionDir>
     <SolutionExt>.sln</SolutionExt>
     <SolutionFileName>PnP3Cyl.sln</SolutionFileName>
     <SolutionName>PnP3Cyl</SolutionName>
-    <SolutionPath>E:\pnp-various\pnp3central-random-inputs\better-tests\PnP3Cyl.sln</SolutionPath>
+    <SolutionPath>C:\Users\contest\Documents\GitHub\active-learning\models\PNP\PnP3Cyl.sln</SolutionPath>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>

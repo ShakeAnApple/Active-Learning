@@ -73,21 +73,22 @@
       <ECTransition Source="INIT" Destination="INIT" Condition="INIT" x="898.8164" y="33.37614">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="256.2501,3.899829,191.1864,3.899829" />
       </ECTransition>
-      <ECTransition Source="OFF" Destination="RESET" Condition="RESET" x="1298.536" y="1408.814">
+      <ECTransition Source="OFF" Destination="RESET" Condition="RESET" x="1298.557" y="1408.814">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="344.7728,314.7458,312.5549,394.7599" />
       </ECTransition>
-      <ECTransition Source="ON" Destination="RESET" Condition="RESET" x="823.7328" y="1343.495">
+      <ECTransition Source="ON" Destination="RESET" Condition="RESET" x="823.6925" y="1343.495">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="190.4763,292.7592,231.3013,374.6817" />
       </ECTransition>
-      <ECTransition Source="INIT" Destination="RESET" Condition="RESET" x="1043.207" y="1025.148">
+      <ECTransition Source="INIT" Destination="RESET" Condition="RESET" x="1043.202" y="1025.148">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="262.2603,186.6575,269.723,325.8671" />
       </ECTransition>
-      <ECTransition Source="RESET" Destination="OFF" Condition="(CLK AND VacuumOff)" x="1169.102" y="1358.758">
+      <ECTransition Source="RESET" Destination="OFF" Condition="(CLK AND VacuumOff)" x="1169.115" y="1358.758">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="272.1404,378.1848,303.3615,297.95" />
       </ECTransition>
-      <ECTransition Source="RESET" Destination="ON" Condition="(CLK AND VacuumOn)" x="675.1484" y="1399.246">
+      <ECTransition Source="RESET" Destination="ON" Condition="(CLK AND VacuumOn)" x="675.0994" y="1399.246">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="184.8204,393.0838,143.1178,311.525" />
       </ECTransition>
+      <ECTransition Source="RESET" Destination="RESET" Condition="RESET" x="1024" y="2094.086" />
     </ECC>
     <Algorithm Name="INIT" Comment="Initialization algorithm">
       <ST Text="INIT:=FALSE;&#xD;&#xA;IF VacuumOn = TRUE THEN&#xD;&#xA;  VacState := TRUE;&#xD;&#xA;ELSIF VacuumOff = TRUE THEN&#xD;&#xA;  VacState := FALSE;&#xD;&#xA;END_IF;" />
@@ -99,7 +100,7 @@
       <ST Text="VacState := FALSE;" />
     </Algorithm>
     <Algorithm Name="RESET">
-      <ST Text="VacState:=resetVacuumOn;" />
+      <ST Text="RESET:=FALSE;&#xD;&#xA;VacState:=resetVacuumOn;" />
     </Algorithm>
   </BasicFB>
 </FBType>

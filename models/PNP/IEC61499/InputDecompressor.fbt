@@ -74,7 +74,7 @@
       <VarDeclaration Name="subs" Type="STRING" ArraySize="23" />
     </InternalVars>
     <ECC>
-      <ECState Name="START" Comment="Initial State" x="660.9412" y="433.4117" />
+      <ECState Name="START" Comment="Initial State" x="304.9412" y="285.4117" />
       <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
         <ECAction Algorithm="INIT" Output="INITO" />
       </ECState>
@@ -87,30 +87,35 @@
       <ECState Name="PARSE_REQ_SYMB" x="712.0001" y="1088">
         <ECAction Algorithm="PARSE_REQ_SYMB" Output="CNF" />
       </ECState>
-      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="783.8222" y="207.4284">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="191.025,54.65147,205.0926,38.99559" />
+      <ECState Name="HOME" x="1062.742" y="520.0001" />
+      <ECTransition Source="START" Destination="INIT" Condition="1" x="724.4212" y="131.4831">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="172.9342,32.64599,204.5536,26.38236" />
       </ECTransition>
-      <ECTransition Source="INIT" Destination="START" Condition="1" x="863.1654" y="339.5741">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="223.6884,80.70481,209.6208,96.3607" />
-      </ECTransition>
-      <ECTransition Source="START" Destination="PARSE_IS_RESET" Condition="REQ" x="1247.959" y="514.9713">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="275.5205,113.6093,346.64,133.7551" />
+      <ECTransition Source="HOME" Destination="PARSE_IS_RESET" Condition="REQ" x="1472.424" y="556.2721">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="346.5228,127.0818,389.9919,141.4222" />
       </ECTransition>
       <ECTransition Source="PARSE_IS_RESET" Destination="PARSE_REQ_SYMB" Condition="NOT(reset)" x="1315.908" y="1002.193">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="355.992,246.3572,292.9485,264.6602" />
       </ECTransition>
-      <ECTransition Source="PARSE_REQ_SYMB" Destination="START" Condition="1" x="685.9437" y="835.7059">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="173.4059,238.1025,169.8294,192.2505" />
+      <ECTransition Source="PARSE_REQ_SYMB" Destination="HOME" Condition="1" x="841.7344" y="864.8235">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="194.9172,240.6366,218.8506,201.9124" />
       </ECTransition>
-      <ECTransition Source="PARSE_RESET_SYMB" Destination="START" Condition="1" x="1480.381" y="455.044">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="424.6516,114.2686,312.0399,122.5826" />
+      <ECTransition Source="PARSE_RESET_SYMB" Destination="HOME" Condition="1" x="1662.985" y="336.6038">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="455.7805,73.76331,375.6738,86.43723" />
       </ECTransition>
       <ECTransition Source="PARSE_IS_RESET" Destination="PARSE_RESET_SYMB" Condition="reset" x="2132.208" y="457">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="516.3313,122.9848,557.6687,93.01519" />
       </ECTransition>
+      <ECTransition Source="INIT" Destination="INIT" Condition="INIT" x="923.5294" y="323.2626" />
+      <ECTransition Source="INIT" Destination="HOME" Condition="1" x="1053.902" y="292.4341">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="260.9651,58.54356,270.2665,81.31448" />
+      </ECTransition>
+      <ECTransition Source="HOME" Destination="INIT" Condition="INIT" x="790.2172" y="335.1293">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="192.5635,95.71931,183.5212,72.60215" />
+      </ECTransition>
     </ECC>
     <Algorithm Name="INIT" Comment="Initialization algorithm">
-      <ST Text="QO := TRUE;" />
+      <ST Text="QO := TRUE;&#xD;&#xA;INIT:=FALSE;" />
     </Algorithm>
     <Algorithm Name="REQ" Comment="Normally executed algorithm">
       <ST Text=";" />
@@ -122,7 +127,7 @@
       <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..8] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;cyl1_fwd := STRING_TO_BOOL(substr[2]);&#xD;&#xA;cyl1_back := STRING_TO_BOOL(substr[3]);&#xD;&#xA;cyl2_fwd := STRING_TO_BOOL(substr[4]);&#xD;&#xA;cyl2_back := STRING_TO_BOOL(substr[5]);&#xD;&#xA;vacuum_on := STRING_TO_BOOL(substr[6]);&#xD;&#xA;vacuum_off := STRING_TO_BOOL(substr[7]);&#xD;&#xA;vcyl_down := STRING_TO_BOOL(substr[8]);" />
     </Algorithm>
     <Algorithm Name="PARSE_RESET">
-      <ST Text="VAR&#xD;&#xA;	i: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;i := 1;&#xD;&#xA;(*WHILE MID(input, 1, i) &lt;&gt; delimiter DO&#xD;&#xA;	i := i + 1;&#xD;&#xA;END_WHILE;*)&#xD;&#xA;reset := STRING_TO_BOOL(MID(input, i, 1));" />
+      <ST Text="VAR&#xD;&#xA;	i: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;i := 1;&#xD;&#xA;(*WHILE MID(input, 1, i) &lt;&gt; delimiter DO&#xD;&#xA;	i := i + 1;&#xD;&#xA;END_WHILE;*)&#xD;&#xA;INIT:=FALSE;&#xD;&#xA;reset := STRING_TO_BOOL(MID(input, i, 1));" />
     </Algorithm>
   </BasicFB>
 </FBType>

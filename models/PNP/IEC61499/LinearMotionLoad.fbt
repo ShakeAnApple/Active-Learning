@@ -40,7 +40,9 @@
         <With Var="RelativePos" />
         <With Var="AbsolutePos" />
       </Event>
-      <Event Name="CHG_RESET" />
+      <Event Name="CHG_RESET">
+        <With Var="AbsolutePos" />
+      </Event>
     </EventOutputs>
     <InputVars>
       <VarDeclaration Name="ForwardSpeed" Type="UINT" Comment="Forward speed" />
@@ -143,14 +145,18 @@
       <ECTransition Source="MOVE_FWD" Destination="RESET" Condition="RESET" x="3131.008" y="777.0576">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="583.9885,241.6154,978.6467,135.6577" />
       </ECTransition>
-      <ECTransition Source="RESET" Destination="MOVE_BWD" Condition="CLK AND MoveBackwards" x="5078.218" y="914.5076">
-        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1320.983,180.881,1224.666,285.3119" />
+      <ECTransition Source="RESET" Destination="MOVE_BWD" Condition="CLK AND MoveBackwards" x="5082.384" y="910.3409">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="1322.372,179.4921,1226.055,283.923" />
       </ECTransition>
       <ECTransition Source="RESET" Destination="MOVE_FWD" Condition="CLK AND MoveForwards" x="3186.005" y="924.0422">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="993.9022,183.9585,602.2673,289.0396" />
       </ECTransition>
       <ECTransition Source="RESET" Destination="HOME" Condition="CLK AND (RelativePos=0 OR RelativePos=100)" x="4060.321" y="498.2513">
         <Attribute Name="Configuration.Transaction.BezierPoints" Value="1138.179,111.9976,893.7166,148.2323" />
+      </ECTransition>
+      <ECTransition Source="RESET" Destination="RESET" Condition="RESET" x="5647.619" y="364.9433" />
+      <ECTransition Source="HOME" Destination="STOP" Condition="CLK AND NOT MoveBackwards AND NOT MoveForwards" x="2601.559" y="1862.472">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="651.1341,368.7307,661.3361,561.8459" />
       </ECTransition>
     </ECC>
     <Algorithm Name="INIT" Comment="Initialization algorithm">
@@ -163,7 +169,7 @@
       <ST Text="VAR&#xD;&#xA;    position: REAL;&#xD;&#xA;END_VAR&#xD;&#xA;(* ---------- Check whether the motor is loaded ----------*)&#xD;&#xA;IF (Loaded AND LoadType &gt; 0) THEN&#xD;&#xA;    position := (AbsolutePos - BackwardSpeed * (1 - LoadType / 10));&#xD;&#xA;    IF (AbsolutePos &gt; 0) THEN&#xD;&#xA;        position := AbsolutePos - BackwardSpeed;&#xD;&#xA;    ELSE&#xD;&#xA;        position := 0;    &#xD;&#xA;    END_IF;&#xD;&#xA;    percentagePos := (position / MovingDistance) * 100;&#xD;&#xA;ELSE&#xD;&#xA;    IF (AbsolutePos &gt; 0) THEN&#xD;&#xA;        position := AbsolutePos - BackwardSpeed;&#xD;&#xA;   ELSE&#xD;&#xA;        position := 0;    &#xD;&#xA;    END_IF;       &#xD;&#xA;    percentagePos := (position / MovingDistance) * 100; &#xD;&#xA;END_IF;&#xD;&#xA;AbsolutePos := REAL_TO_UINT(position);&#xD;&#xA;RelativePos := REAL_TO_UINT(percentagePos);" />
     </Algorithm>
     <Algorithm Name="RESET">
-      <ST Text="IF (resetAtEnd=TRUE OR resetAtHome=FALSE) THEN&#xD;&#xA;	AbsolutePos := inputAbsPos + 100;&#xD;&#xA;ELSIF (resetAtEnd=FALSE OR resetAtHome=TRUE) THEN&#xD;&#xA;	AbsolutePos := inputAbsPos;&#xD;&#xA;ELSE&#xD;&#xA;	AbsolutePos := resetAbsPos;&#xD;&#xA;END_IF;&#xD;&#xA;RelativePos := (AbsolutePos / MovingDistance) * 100;" />
+      <ST Text="RESET:=FALSE;&#xD;&#xA;IF (resetAtEnd=TRUE AND resetAtHome=FALSE) THEN&#xD;&#xA;	AbsolutePos := inputAbsPos + 100;&#xD;&#xA;ELSIF (resetAtEnd=FALSE AND resetAtHome=TRUE) THEN&#xD;&#xA;	AbsolutePos := inputAbsPos;&#xD;&#xA;ELSIF (resetAtEnd=FALSE AND resetAtHome=FALSE) THEN&#xD;&#xA;	AbsolutePos := resetAbsPos;&#xD;&#xA;END_IF;&#xD;&#xA;RelativePos := (AbsolutePos / MovingDistance) * 100;" />
     </Algorithm>
   </BasicFB>
 </FBType>
