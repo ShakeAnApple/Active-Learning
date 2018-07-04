@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="F62EA3EA82C5F43D" Name="GenericCylinderModelType1" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="6" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="12/5/2011" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="ForwardSpeed" />
+        <With Var="BackwardSpeed" />
+        <With Var="Extend" />
+        <With Var="Retract" />
+        <With Var="HomeSensorRange" />
+        <With Var="EndSensorRange" />
+        <With Var="InitialPosition" />
+        <With Var="LoadType" />
+        <With Var="MovingtDistance" />
+        <With Var="Loaded" />
+        <With Var="MidSensorRange" />
+        <With Var="inputAbsPos" />
+      </Event>
+      <Event Name="CLK" Comment="Clock signal">
+        <With Var="Extend" />
+        <With Var="Retract" />
+        <With Var="Loaded" />
+        <With Var="LoadType" />
+        <With Var="inputAbsPos" />
+      </Event>
+      <Event Name="FAULT" />
+      <Event Name="RESUME" />
+      <Event Name="CYL_IND">
+        <With Var="Extend" />
+        <With Var="Retract" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetAtHome" />
+        <With Var="resetAtEnd" />
+        <With Var="resetAbsPos" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="AbsolutePos" />
+        <With Var="AtHome" />
+        <With Var="AtEnd" />
+        <With Var="AtMid" />
+      </Event>
+      <Event Name="CHG" Comment="Indicate data outputs changed">
+        <With Var="AtHome" />
+        <With Var="AtEnd" />
+        <With Var="AtMid" />
+        <With Var="RelativePos" />
+      </Event>
+      <Event Name="OFAULT" />
+      <Event Name="CNF">
+        <With Var="AbsolutePos" />
+      </Event>
+      <Event Name="CHG_RESET">
+        <With Var="AbsolutePos" />
+        <With Var="AtHome" />
+        <With Var="AtEnd" />
+        <With Var="RelativePos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="ForwardSpeed" Type="UINT" Comment="Forward speed" />
+      <VarDeclaration Name="BackwardSpeed" Type="UINT" Comment="Backward speed" />
+      <VarDeclaration Name="InitialPosition" Type="REAL" Comment="Initial position" />
+      <VarDeclaration Name="MovingtDistance" Type="UINT" Comment="Moving distance" />
+      <VarDeclaration Name="HomeSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of home sensor" />
+      <VarDeclaration Name="MidSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of home sensor" />
+      <VarDeclaration Name="EndSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of end sensor" />
+      <VarDeclaration Name="Extend" Type="BOOL" />
+      <VarDeclaration Name="Retract" Type="BOOL" />
+      <VarDeclaration Name="Loaded" Type="BOOL" />
+      <VarDeclaration Name="LoadType" Type="UINT" />
+      <VarDeclaration Name="inputAbsPos" Type="UINT" />
+      <VarDeclaration Name="resetAtHome" Type="BOOL" />
+      <VarDeclaration Name="resetAtEnd" Type="BOOL" />
+      <VarDeclaration Name="resetAbsPos" Type="UINT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="AbsolutePos" Type="UINT" Comment="Current position" />
+      <VarDeclaration Name="AtHome" Type="BOOL" Comment="Detected at home position" />
+      <VarDeclaration Name="AtEnd" Type="BOOL" Comment="Detected at end position" />
+      <VarDeclaration Name="AtMid" Type="BOOL" />
+      <VarDeclaration Name="RelativePos" Type="UINT" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="2" Name="Home" Type="RangeSensor" x="4320" y="600" Namespace="Main" />
+    <FB ID="3" Name="Middle" Type="RangeSensor" x="4320" y="1260" Namespace="Main" />
+    <FB ID="4" Name="End" Type="RangeSensor" x="4320" y="1860" Namespace="Main" />
+    <FB ID="1" Name="MoveStatus" Type="MovingStatus" x="820" y="840" Namespace="Main" />
+    <FB ID="5" Name="Position" Type="LinearMotionLoad" x="2540" y="760" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>15</X>
+        <Y>212.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CLK">
+      <Position>
+        <X>85</X>
+        <Y>227.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="FAULT">
+      <Position>
+        <X>15</X>
+        <Y>242.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="RESUME">
+      <Position>
+        <X>10</X>
+        <Y>257.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CYL_IND">
+      <Position>
+        <X>15</X>
+        <Y>122.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="ForwardSpeed">
+      <Position>
+        <X>440</X>
+        <Y>272.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="BackwardSpeed">
+      <Position>
+        <X>440</X>
+        <Y>287.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="InitialPosition">
+      <Position>
+        <X>440</X>
+        <Y>302.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="MovingtDistance">
+      <Position>
+        <X>440</X>
+        <Y>317.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="HomeSensorRange">
+      <Position>
+        <X>880</X>
+        <Y>232.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="MidSensorRange">
+      <Position>
+        <X>890</X>
+        <Y>397.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="EndSensorRange">
+      <Position>
+        <X>890</X>
+        <Y>547.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Extend">
+      <Position>
+        <X>10</X>
+        <Y>307.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Retract">
+      <Position>
+        <X>10</X>
+        <Y>322.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Loaded">
+      <Position>
+        <X>435</X>
+        <Y>362.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LoadType">
+      <Position>
+        <X>435</X>
+        <Y>377.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="inputAbsPos">
+      <Position>
+        <X>435</X>
+        <Y>392.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>5</X>
+        <Y>147.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="resetAtHome">
+      <Position>
+        <X>435</X>
+        <Y>407.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetAtEnd">
+      <Position>
+        <X>435</X>
+        <Y>422.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetAbsPos">
+      <Position>
+        <X>435</X>
+        <Y>437.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1285</X>
+        <Y>467.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CHG">
+      <Position>
+        <X>1430</X>
+        <Y>487.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="OFAULT">
+      <Position>
+        <X>345</X>
+        <Y>242.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>870</X>
+        <Y>202.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="AbsolutePos">
+      <Position>
+        <X>840</X>
+        <Y>257.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="AtHome">
+      <Position>
+        <X>1255</X>
+        <Y>217.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="AtEnd">
+      <Position>
+        <X>1225</X>
+        <Y>532.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="AtMid">
+      <Position>
+        <X>1225</X>
+        <Y>382.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="CHG_RESET">
+      <Position>
+        <X>1435</X>
+        <Y>512.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="RelativePos">
+      <Position>
+        <X>875</X>
+        <Y>322.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="MoveStatus.INIT" dx1="40.83334" />
+      <Connection Source="FAULT" Destination="MoveStatus.FAULT" dx1="46.29169" />
+      <Connection Source="RESUME" Destination="MoveStatus.RESUME" dx1="40" />
+      <Connection Source="MoveStatus.INITO" Destination="Position.INIT" dx1="59.14587" />
+      <Connection Source="Position.INITO" Destination="Home.INIT" dx1="40" />
+      <Connection Source="Home.INITO" Destination="Middle.INIT" dx1="86.9375" dx2="50" dy="412" />
+      <Connection Source="Middle.INITO" Destination="End.INIT" dx1="66.9375" dx2="50" dy="412" />
+      <Connection Source="End.INITO" Destination="INITO" dx1="66.9375" />
+      <Connection Source="Position.CHG" Destination="CNF" dx1="70" />
+      <Connection Source="MoveStatus.OFAULT" Destination="OFAULT" dx1="40" dx2="40" dy="1" />
+      <Connection Source="Position.CHG" Destination="Home.CLK" dx1="76.39575" />
+      <Connection Source="RESET" Destination="Position.RESET" dx1="1929.167">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="Middle.CHG" Destination="End.CLK" dx1="60" dx2="70" dy="412" />
+      <Connection Source="Home.CHG" Destination="Middle.CLK" dx1="60" dx2="70" dy="412" />
+      <Connection Source="End.CHG" Destination="CHG" dx1="60" />
+      <Connection Source="End.CHG_RESET" Destination="CHG_RESET" dx1="60" />
+      <Connection Source="Middle.CHG_RESET" Destination="End.RESET" dx1="60" dx2="90" dy="352" />
+      <Connection Source="Home.CHG_RESET" Destination="Middle.RESET" dx1="60" dx2="90" dy="352" />
+      <Connection Source="Position.CHG_RESET" Destination="Home.RESET" dx1="96.39575" />
+      <Connection Source="CLK" Destination="MoveStatus.CLK" dx1="40" />
+      <Connection Source="MoveStatus.CHG" Destination="Position.CLK" dx1="79.14587" />
+      <Connection Source="MoveStatus.OFAULT" Destination="Position.CLK" dx1="99.14587" />
+      <Connection Source="RESET" Destination="MoveStatus.RESET" dx1="239.1667" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="MoveStatus.C_FWD" Destination="Position.MoveForwards" dx1="60" />
+      <Connection Source="MoveStatus.C_BWD" Destination="Position.MoveBackwards" dx1="40" />
+      <Connection Source="Loaded" Destination="Position.Loaded" dx1="40" />
+      <Connection Source="LoadType" Destination="Position.LoadType" dx1="48.91675" />
+      <Connection Source="Retract" Destination="MoveStatus.Retract" dx1="42.14587" />
+      <Connection Source="Extend" Destination="MoveStatus.Extend" dx1="46.83337" />
+      <Connection Source="EndSensorRange" Destination="End.Zone" dx1="41.854" />
+      <Connection Source="HomeSensorRange" Destination="Home.Zone" dx1="43.95801" />
+      <Connection Source="Position.RelativePos" Destination="Middle.Position" dx1="916.3958" />
+      <Connection Source="Position.RelativePos" Destination="End.Position" dx1="916.3958" />
+      <Connection Source="Home.Detected" Destination="AtHome" dx1="46.9375" />
+      <Connection Source="Middle.Detected" Destination="AtMid" dx1="90" dx2="40" dy="-29" />
+      <Connection Source="End.Detected" Destination="AtEnd" dx1="90" dx2="40" dy="-29">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="ForwardSpeed" Destination="Position.ForwardSpeed" dx1="40" />
+      <Connection Source="BackwardSpeed" Destination="Position.BackwardSpeed" dx1="40" />
+      <Connection Source="InitialPosition" Destination="Position.InitialPosition" dx1="40" />
+      <Connection Source="MovingtDistance" Destination="Position.MovingDistance" dx1="42.79175" />
+      <Connection Source="Position.AbsolutePos" Destination="AbsolutePos" dx1="76.39575" />
+      <Connection Source="Position.RelativePos" Destination="Home.Position" dx1="916.3958" />
+      <Connection Source="MidSensorRange" Destination="Middle.Zone" dx1="48.77051" />
+      <Connection Source="inputAbsPos" Destination="Position.inputAbsPos" dx1="40" />
+      <Connection Source="resetAtHome" Destination="Position.resetAtHome" dx1="40" />
+      <Connection Source="resetAtEnd" Destination="Position.resetAtEnd" dx1="40" />
+      <Connection Source="resetAbsPos" Destination="Position.resetAbsPos" dx1="40" />
+      <Connection Source="Position.RelativePos" Destination="RelativePos" dx1="40" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="B04CF479418ECD64" Name="EVENTS_PRIOITY_OR" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Eskimos" Date="6/26/2018" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="I1" Comment="Higher Priority">
+        <With Var="QI" />
+      </Event>
+      <Event Name="I2" Comment="Lower priority">
+        <With Var="QI" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="O1" Comment="Higher Prioity">
+        <With Var="QO" />
+      </Event>
+      <Event Name="O2" Comment="Lower priority">
+        <With Var="QO" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="s1" Comment="Normal execution" x="925.647" y="1068.941">
+        <ECAction Output="O1" />
+      </ECState>
+      <ECState Name="s2" x="1752" y="580">
+        <ECAction Output="O2" />
+      </ECState>
+      <ECState Name="INIT" x="915.9999" y="620" />
+      <ECTransition Source="INIT" Destination="s1" Condition="I1" x="1010.594" y="842.8121">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="256.8977,196.2072,257.5188,224.9224" />
+      </ECTransition>
+      <ECTransition Source="s1" Destination="INIT" Condition="1" x="780.4507" y="843.032">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="188.0343,224.9954,187.4312,196.2809" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="s2" Condition="I2 AND NOT I1" x="1342.688" y="517.4486">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="307.4301,126.2932,363.5117,123.114" />
+      </ECTransition>
+      <ECTransition Source="s2" Destination="INIT" Condition="1" x="1347.669" y="682.9855">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="365.21,174.364,309.0528,176.4458" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="INIT" Condition="1" x="826.7717" y="444.6642">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="200.1871,101.0937,218.7599,113.1928" />
+      </ECTransition>
+    </ECC>
+  </BasicFB>
+</FBType>

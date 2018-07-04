@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="BAB567BEBAD629F4" Name="ProxyControl" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="15" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="chivdan" Date="11/2/2016" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="c1Home" />
+        <With Var="c1End" />
+        <With Var="c2Home" />
+        <With Var="c2End" />
+        <With Var="vcHome" />
+        <With Var="vcEnd" />
+        <With Var="pp1" />
+        <With Var="pp2" />
+        <With Var="pp3" />
+        <With Var="vac" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="c1Home" />
+        <With Var="c1End" />
+        <With Var="c2Home" />
+        <With Var="c2End" />
+        <With Var="vcHome" />
+        <With Var="vcEnd" />
+        <With Var="pp1" />
+        <With Var="pp2" />
+        <With Var="pp3" />
+        <With Var="vac" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="c1Extend" />
+        <With Var="c1Retract" />
+        <With Var="c2Extend" />
+        <With Var="c2Retract" />
+        <With Var="vcExtend" />
+        <With Var="vacuum_on" />
+        <With Var="vacuum_off" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="c1Extend" />
+        <With Var="c1Retract" />
+        <With Var="c2Extend" />
+        <With Var="c2Retract" />
+        <With Var="vcExtend" />
+        <With Var="vacuum_on" />
+        <With Var="vacuum_off" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="c1Home" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="c1End" Type="BOOL" />
+      <VarDeclaration Name="c2Home" Type="BOOL" />
+      <VarDeclaration Name="vcEnd" Type="BOOL" />
+      <VarDeclaration Name="c2End" Type="BOOL" />
+      <VarDeclaration Name="vcHome" Type="BOOL" />
+      <VarDeclaration Name="pp1" Type="BOOL" />
+      <VarDeclaration Name="pp2" Type="BOOL" />
+      <VarDeclaration Name="pp3" Type="BOOL" />
+      <VarDeclaration Name="vac" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="c1Extend" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="c1Retract" Type="BOOL" />
+      <VarDeclaration Name="c2Extend" Type="BOOL" />
+      <VarDeclaration Name="c2Retract" Type="BOOL" />
+      <VarDeclaration Name="vcExtend" Type="BOOL" />
+      <VarDeclaration Name="vacuum_on" Type="BOOL" />
+      <VarDeclaration Name="vacuum_off" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="1" Name="FB1" Type="CentralController" x="2420" y="220" Namespace="Main" />
+    <FB ID="10" Name="FB2" Type="InputLogger" x="1220" y="220" Namespace="Main" />
+    <FB ID="12" Name="FB3" Type="OutputLogger" x="3520" y="220" Namespace="Main" />
+    <FB ID="15" Name="FB4" Type="LogWriter" x="2460" y="1460" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>5</X>
+        <Y>57.9635429</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>5</X>
+        <Y>72.96355</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="c1Home">
+      <Position>
+        <X>5</X>
+        <Y>122.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="c1End">
+      <Position>
+        <X>5</X>
+        <Y>137.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="c2Home">
+      <Position>
+        <X>5</X>
+        <Y>152.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="c2End">
+      <Position>
+        <X>5</X>
+        <Y>167.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vcHome">
+      <Position>
+        <X>5</X>
+        <Y>182.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vcEnd">
+      <Position>
+        <X>5</X>
+        <Y>197.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="pp1">
+      <Position>
+        <X>5</X>
+        <Y>212.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="pp2">
+      <Position>
+        <X>5</X>
+        <Y>227.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="pp3">
+      <Position>
+        <X>5</X>
+        <Y>242.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="vac">
+      <Position>
+        <X>5</X>
+        <Y>257.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1070</X>
+        <Y>57.9635468</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1070</X>
+        <Y>72.96355</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="c1Extend">
+      <Position>
+        <X>1070</X>
+        <Y>122.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c1Retract">
+      <Position>
+        <X>1070</X>
+        <Y>137.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c2Extend">
+      <Position>
+        <X>1070</X>
+        <Y>152.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="c2Retract">
+      <Position>
+        <X>1070</X>
+        <Y>167.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vcExtend">
+      <Position>
+        <X>1070</X>
+        <Y>182.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vacuum_on">
+      <Position>
+        <X>1070</X>
+        <Y>197.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="vacuum_off">
+      <Position>
+        <X>1070</X>
+        <Y>212.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="FB2.CNF" Destination="FB1.REQ">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB2.INITO" Destination="FB1.INIT" />
+      <Connection Source="FB1.INITO" Destination="FB3.INIT" />
+      <Connection Source="FB3.INITO" Destination="INITO" dx1="95.57275" />
+      <Connection Source="FB1.CNF" Destination="FB3.REQ" />
+      <Connection Source="FB3.CNF" Destination="CNF" dx1="180" />
+      <Connection Source="REQ" Destination="FB2.REQ" dx1="48.95837" />
+      <Connection Source="INIT" Destination="FB4.INIT" dx1="200.8334" />
+      <Connection Source="FB4.INITO" Destination="FB2.INIT" dx1="40" dx2="250" dy="-108" />
+      <Connection Source="FB2.WRITE_INPUT" Destination="FB4.WRITE_INPUT" dx1="248.5417" />
+      <Connection Source="FB3.WRITE_OUTPUT" Destination="FB4.WRITE_OUTPUT" dx1="181.146" dx2="90" dy="772" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="c1Home" Destination="FB2.x1" dx1="40.79172" />
+      <Connection Source="c1End" Destination="FB2.x2" dx1="40" />
+      <Connection Source="c2Home" Destination="FB2.x3" dx1="40.79172" />
+      <Connection Source="c2End" Destination="FB2.x4" dx1="40" />
+      <Connection Source="vcHome" Destination="FB2.x5" dx1="43.18756" />
+      <Connection Source="vcEnd" Destination="FB2.x6" dx1="41.08337" />
+      <Connection Source="pp1" Destination="FB2.x7" dx1="48.47919" />
+      <Connection Source="pp2" Destination="FB2.x8" dx1="48.47919" />
+      <Connection Source="pp3" Destination="FB2.x9" dx1="48.47919" />
+      <Connection Source="vac" Destination="FB2.x10" dx1="40" />
+      <Connection Source="FB2.z1" Destination="FB1.c1Home" dx1="354.2708" />
+      <Connection Source="FB2.z2" Destination="FB1.c1End" dx1="364.2708" />
+      <Connection Source="FB2.z3" Destination="FB1.c2Home" dx1="374.2708" />
+      <Connection Source="FB2.z4" Destination="FB1.c2End" dx1="384.2708" />
+      <Connection Source="FB2.z5" Destination="FB1.vcHome" dx1="394.2708" />
+      <Connection Source="FB2.z6" Destination="FB1.vcEnd" dx1="404.2708" />
+      <Connection Source="FB2.z7" Destination="FB1.pp1" dx1="414.2708" />
+      <Connection Source="FB2.z8" Destination="FB1.pp2" dx1="424.2708" />
+      <Connection Source="FB2.z9" Destination="FB1.pp3" dx1="434.2708" />
+      <Connection Source="FB1.c1Extend" Destination="FB3.x1" dx1="255.3645" />
+      <Connection Source="FB1.c1Retract" Destination="FB3.x2" dx1="245.3645" />
+      <Connection Source="FB1.c2Extend" Destination="FB3.x3" dx1="235.3645" />
+      <Connection Source="FB1.c2Retract" Destination="FB3.x4" dx1="225.3645" />
+      <Connection Source="FB1.vcExtend" Destination="FB3.x5" dx1="215.3645" />
+      <Connection Source="FB1.vacuum_on" Destination="FB3.x6" dx1="205.3645" />
+      <Connection Source="FB1.vacuum_off" Destination="FB3.x7" dx1="195.3645" />
+      <Connection Source="FB3.z1" Destination="c1Extend" dx1="163.771" />
+      <Connection Source="FB3.z2" Destination="c1Retract" dx1="143.771" />
+      <Connection Source="FB3.z3" Destination="c2Extend" dx1="123.771" />
+      <Connection Source="FB3.z4" Destination="c2Retract" dx1="103.771" />
+      <Connection Source="FB3.z5" Destination="vcExtend" dx1="83.771" />
+      <Connection Source="FB3.z6" Destination="vacuum_on" dx1="63.771" />
+      <Connection Source="FB3.z7" Destination="vacuum_off" dx1="43.771" />
+      <Connection Source="FB2.z10" Destination="FB1.vac" dx1="444.2708" />
+      <Connection Source="FB2.z1" Destination="FB4.x1" dx1="228.5417" />
+      <Connection Source="FB2.z2" Destination="FB4.x2" dx1="208.5417" />
+      <Connection Source="FB2.z3" Destination="FB4.x3" dx1="188.5417" />
+      <Connection Source="FB2.z4" Destination="FB4.x4" dx1="168.5417" />
+      <Connection Source="FB2.z5" Destination="FB4.x5" dx1="148.5417" />
+      <Connection Source="FB2.z6" Destination="FB4.x6" dx1="128.5417" />
+      <Connection Source="FB2.z7" Destination="FB4.x7" dx1="108.5417" />
+      <Connection Source="FB2.z8" Destination="FB4.x8" dx1="88.54175" />
+      <Connection Source="FB2.z9" Destination="FB4.x9" dx1="68.54175" />
+      <Connection Source="FB2.z10" Destination="FB4.x10" dx1="48.54175" />
+      <Connection Source="FB3.z1" Destination="FB4.x11" dx1="161.146" dx2="310" dy="572" />
+      <Connection Source="FB3.z2" Destination="FB4.x12" dx1="141.146" dx2="330" dy="512" />
+      <Connection Source="FB3.z3" Destination="FB4.x13" dx1="121.146" dx2="350" dy="452" />
+      <Connection Source="FB3.z4" Destination="FB4.x14" dx1="101.146" dx2="370" dy="392" />
+      <Connection Source="FB3.z5" Destination="FB4.x15" dx1="81.146" dx2="390" dy="332" />
+      <Connection Source="FB3.z6" Destination="FB4.x16" dx1="61.146" dx2="410" dy="272" />
+      <Connection Source="FB3.z7" Destination="FB4.x17" dx1="41.146" dx2="430" dy="212" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

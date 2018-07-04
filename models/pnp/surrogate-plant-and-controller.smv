@@ -1,0 +1,245 @@
+MODULE main()
+
+VAR _state : {s_0000000, s_10x0xx0, s_1010xx0, s_x010xx0, s_xxxx1xx, s_xxxxx1x, s_xxxxx01, s_xxxx0xx, s_01010xx};
+VAR REQ : boolean;
+VAR c1Home : boolean;
+VAR c1End : boolean;
+VAR c2Home : boolean;
+VAR c2End : boolean;
+VAR vcHome : boolean;
+VAR vcEnd : boolean;
+VAR pp1 : boolean;
+VAR pp2 : boolean;
+VAR pp3 : boolean;
+VAR vac : boolean;
+VAR CNF : boolean;
+VAR c1Extend : boolean;
+VAR c1Retract : boolean;
+VAR c2Extend : boolean;
+VAR c2Retract : boolean;
+VAR vcExtend : boolean;
+VAR vacuum_on : boolean;
+VAR vacuum_off : boolean;
+VAR vs : boolean;
+VAR p1 : boolean;
+VAR p2 : boolean;
+VAR p3 : boolean;
+VAR st1 : { st1_1, st1_2, st1_3, st1_4, st1_5, st1_6};
+VAR st2 : { st2_1, st2_2, st2_3, st2_4, st2_5, st2_6};
+VAR st3 : { st3_1, st3_2, st3_3, st3_4, st3_5, st3_6};
+VAR lifted : boolean;
+
+DEFINE vp1 := c1End & c2Home & vcEnd & vs & pp1;
+DEFINE vp2 := c1Home & c2End & vcEnd & vs & pp2;
+DEFINE vp3 := c1End & c2End & vcEnd & vs & pp3;
+DEFINE dropped := lifted & c1Home & c2Home & vcEnd & !vacuum_on & vacuum_off;
+
+ASSIGN
+
+init(_state) := s_0000000;
+
+next(_state) := case
+    _state = s_0000000 & REQ & pp1 : s_10x0xx0;
+    _state = s_0000000 & REQ & pp3 : s_1010xx0;
+    _state = s_0000000 & REQ & pp2 : s_x010xx0;
+    _state = s_10x0xx0 & REQ & c1End : s_xxxx1xx;
+    _state = s_1010xx0 & REQ & c2End : s_xxxx1xx;
+    _state = s_x010xx0 & REQ & c2End : s_xxxx1xx;
+    _state = s_xxxx1xx & REQ & vcEnd & !vac : s_xxxxx1x;
+    _state = s_xxxx1xx & REQ & vcEnd : s_xxxxx01;
+    _state = s_xxxxx1x & REQ & vac : s_xxxx0xx;
+    _state = s_xxxxx01 & REQ & !vac : s_01010xx;
+    _state = s_xxxx0xx & REQ & vcHome : s_01010xx;
+    _state = s_01010xx & REQ & !vcEnd & pp1 & !vac : s_10x0xx0;
+    _state = s_01010xx & REQ & pp3 : s_1010xx0;
+    _state = s_01010xx & REQ & pp2 : s_x010xx0;
+    _state = s_01010xx & REQ & c1Home & c2Home & vac : s_xxxx1xx;
+    TRUE : _state;
+esac;
+
+init(CNF) := FALSE;
+
+next(CNF) := case
+    _state = s_0000000 & REQ & next(_state) = s_10x0xx0 & pp1 : TRUE;
+    _state = s_0000000 & REQ & next(_state) = s_1010xx0 & pp3 : TRUE;
+    _state = s_0000000 & REQ & next(_state) = s_x010xx0 & pp2 : TRUE;
+    _state = s_10x0xx0 & REQ & next(_state) = s_xxxx1xx & c1End : TRUE;
+    _state = s_1010xx0 & REQ & next(_state) = s_xxxx1xx & c2End : TRUE;
+    _state = s_x010xx0 & REQ & next(_state) = s_xxxx1xx & c2End : TRUE;
+    _state = s_xxxx1xx & REQ & next(_state) = s_xxxxx1x & vcEnd & !vac : TRUE;
+    _state = s_xxxx1xx & REQ & next(_state) = s_xxxxx01 & vcEnd : TRUE;
+    _state = s_xxxxx1x & REQ & next(_state) = s_xxxx0xx & vac : TRUE;
+    _state = s_xxxxx01 & REQ & next(_state) = s_01010xx & !vac : TRUE;
+    _state = s_xxxx0xx & REQ & next(_state) = s_01010xx & vcHome : TRUE;
+    _state = s_01010xx & REQ & next(_state) = s_10x0xx0 & !vcEnd & pp1 & !vac : TRUE;
+    _state = s_01010xx & REQ & next(_state) = s_1010xx0 & pp3 : TRUE;
+    _state = s_01010xx & REQ & next(_state) = s_x010xx0 & pp2 : TRUE;
+    _state = s_01010xx & REQ & next(_state) = s_xxxx1xx & c1Home & c2Home & vac : TRUE;
+    TRUE : FALSE;
+esac;
+
+init(c1Extend) := FALSE;
+
+next(c1Extend) := case
+    FALSE | next(_state) = s_10x0xx0 | next(_state) = s_1010xx0 : TRUE;
+    FALSE | next(_state) = s_0000000 | next(_state) = s_01010xx : FALSE;
+    TRUE : c1Extend;
+esac;
+
+init(c1Retract) := FALSE;
+
+next(c1Retract) := case
+    FALSE | next(_state) = s_01010xx : TRUE;
+    FALSE | next(_state) = s_0000000 | next(_state) = s_10x0xx0 | next(_state) = s_1010xx0 | next(_state) = s_x010xx0 : FALSE;
+    TRUE : c1Retract;
+esac;
+
+init(c2Extend) := FALSE;
+
+next(c2Extend) := case
+    FALSE | next(_state) = s_1010xx0 | next(_state) = s_x010xx0 : TRUE;
+    FALSE | next(_state) = s_0000000 | next(_state) = s_01010xx : FALSE;
+    TRUE : c2Extend;
+esac;
+
+init(c2Retract) := FALSE;
+
+next(c2Retract) := case
+    FALSE | next(_state) = s_01010xx : TRUE;
+    FALSE | next(_state) = s_0000000 | next(_state) = s_10x0xx0 | next(_state) = s_1010xx0 | next(_state) = s_x010xx0 : FALSE;
+    TRUE : c2Retract;
+esac;
+
+init(vcExtend) := FALSE;
+
+next(vcExtend) := case
+    FALSE | next(_state) = s_xxxx1xx : TRUE;
+    FALSE | next(_state) = s_0000000 | next(_state) = s_xxxx0xx | next(_state) = s_01010xx : FALSE;
+    TRUE : vcExtend;
+esac;
+
+init(vacuum_on) := FALSE;
+
+next(vacuum_on) := case
+    FALSE | next(_state) = s_xxxxx1x : TRUE;
+    FALSE | next(_state) = s_0000000 | next(_state) = s_xxxxx01 : FALSE;
+    TRUE : vacuum_on;
+esac;
+
+init(vacuum_off) := FALSE;
+
+next(vacuum_off) := case
+    FALSE | next(_state) = s_xxxxx01 : TRUE;
+    FALSE | next(_state) = s_0000000 | next(_state) = s_10x0xx0 | next(_state) = s_1010xx0 | next(_state) = s_x010xx0 : FALSE;
+    TRUE : vacuum_off;
+esac;
+
+REQ := TRUE;
+--p1 := FALSE;
+p2 := FALSE;
+p3 := FALSE;
+
+init(st1) := st1_1;
+next(st1) := case
+    st1 = st1_1 & next(CNF & c1Extend) : st1_2;
+    st1 = st1_2 & next(CNF & c1Retract) : st1_1;
+    st1 = st1_2 & next(c1Extend) : st1_3;
+    st1 = st1_3 & next(CNF & c1Retract) : st1_4;
+    st1 = st1_4 & next(CNF & c1Extend) : st1_3;
+    st1 = st1_4 & next(c1Retract) : st1_1;
+    TRUE : st1;
+esac;
+
+c1Home := st1 = st1_1;
+c1End := st1 = st1_3;
+
+
+init(st2) := st2_1;
+next(st2) := case
+    st2 = st2_1 & next(CNF & c2Extend) : st2_2;
+    st2 = st2_2 & next(CNF & c2Retract) : st2_1;
+    st2 = st2_2 & next(c2Extend) : st2_3;
+    st2 = st2_3 & next(CNF & c2Retract) : st2_4;
+    st2 = st2_4 & next(CNF & c2Extend) : st2_3;
+    st2 = st2_4 & next(c2Retract) : st2_1;
+    TRUE : st2;
+esac;
+
+c2Home := st2 = st2_1;
+c2End := st2 = st2_3;
+
+
+init(st3) := st3_1;
+next(st3) := case
+    next(CNF & vcExtend) & st3 = st3_1 : st3_2;
+    next(vcExtend) & st3 = st3_2 : st3_5;
+    next(vcExtend) & st3 = st3_5 : st3_4;
+    next(CNF & vcExtend) & st3 = st3_3 : st3_4;
+    next(CNF & !vcExtend) & st3 = st3_2 : st3_1;
+    next(!vcExtend) & st3 = st3_3 : st3_6;
+    next(!vcExtend) & st3 = st3_6 : st3_1;
+    next(CNF & !vcExtend) & st3 = st3_4 : st3_3;
+    TRUE : st3;
+esac;
+
+vcHome := st3 = st3_1 | st3 = st3_2;
+vcEnd := st3 = st3_3 | st3 = st3_4;
+
+
+init(vs) := FALSE;
+next(vs) := case
+	next(CNF) & next(vacuum_on) : TRUE;
+	next(CNF) & next(vacuum_off) : FALSE;
+	next(CNF) & !next(vacuum_on) : FALSE;
+	TRUE : vs;
+esac;
+
+init(vac) := FALSE;
+next(vac) := case
+	next(vp1) | next(vp2) | next(vp3) : TRUE;
+	!next(vs) : FALSE;
+	TRUE : vac;
+esac;
+
+init(pp1) := FALSE;
+next(pp1) := case
+    vp1 : FALSE;
+    pp1 : TRUE;
+    TRUE : p1;
+esac;
+
+init(pp2) := FALSE;
+next(pp2) := case
+    vp2 : FALSE;
+    pp2 : TRUE;
+    TRUE : p2;
+esac;
+
+init(pp3) := FALSE;
+next(pp3) := case
+    vp3 : FALSE;
+    pp3 : TRUE;
+    TRUE : p3;
+esac;
+
+init(lifted) := FALSE;
+next(lifted) := case
+    vp1 : TRUE;
+    dropped : FALSE;
+    TRUE : lifted;
+esac;
+
+
+
+LTLSPEC G(!(c1Extend & c1Retract))
+LTLSPEC G(!(c2Extend & c2Retract))
+LTLSPEC G(!(vacuum_on & vacuum_off))
+
+LTLSPEC G(!vcHome & !vcEnd -> c1Home | c1End)
+LTLSPEC G(!c1Home & !c1End -> vcHome | vcEnd)
+
+LTLSPEC G(c1Home & c2Home & vcHome & !pp1 & !lifted -> X(!c1Extend & !c2Extend & !vcExtend))
+
+LTLSPEC G(pp1 -> F(vp1))
+LTLSPEC G(!(!c1Home & !c1End & !vcHome & !vcEnd))
+LTLSPEC G(lifted -> F(dropped))

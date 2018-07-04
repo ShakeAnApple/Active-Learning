@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="8DD4B8B184688215" Name="AddPermitter" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="18" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="chivdan" Date="10/19/2017" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="vacuum_on" />
+        <With Var="pp0" />
+        <With Var="pp1" />
+        <With Var="pp2" />
+        <With Var="pp3" />
+      </Event>
+      <Event Name="REQ">
+        <With Var="vacuum_on" />
+        <With Var="pp0" />
+        <With Var="pp1" />
+        <With Var="pp2" />
+        <With Var="pp3" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="permit1" />
+        <With Var="permit2" />
+        <With Var="permit3" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="permit1" />
+        <With Var="permit2" />
+        <With Var="permit3" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="vacuum_on" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="pp0" Type="BOOL" />
+      <VarDeclaration Name="pp1" Type="BOOL" />
+      <VarDeclaration Name="pp2" Type="BOOL" />
+      <VarDeclaration Name="pp3" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="permit1" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="permit2" Type="BOOL" />
+      <VarDeclaration Name="permit3" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="4" Name="WP1" Type="pickup" x="1540" y="100" Namespace="Main" />
+    <FB ID="5" Name="WP2" Type="pickup" x="1560" y="720" Namespace="Main" />
+    <FB ID="6" Name="WP3" Type="pickup" x="1560" y="1360" Namespace="Main" />
+    <FB ID="10" Name="FB1" Type="RandomAddSupplier" x="2960" y="960" Namespace="Main" />
+    <FB ID="11" Name="FB2" Type="AND_EVENTS" x="4220" y="100" Namespace="Main" />
+    <FB ID="12" Name="FB3" Type="AND_-2118623424" x="4820" y="100" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=2;OUT:BOOL" />
+    </FB>
+    <FB ID="13" Name="FB4" Type="AND_EVENTS" x="4220" y="760" Namespace="Main" />
+    <FB ID="14" Name="FB5" Type="AND_-2118623424" x="4820" y="760" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=2;OUT:BOOL" />
+    </FB>
+    <FB ID="15" Name="FB6" Type="AND_EVENTS" x="4220" y="1380" Namespace="Main" />
+    <FB ID="16" Name="FB7" Type="AND_-2118623424" x="4820" y="1380" Namespace="Main">
+      <Attribute Name="Configuration.GenericFBType.InterfaceParams" Value="Runtime.Standard#CNT:=2;OUT:BOOL" />
+    </FB>
+    <FB ID="17" Name="FB8" Type="E_MERGE" x="6000" y="1240" Namespace="IEC61499.Standard" />
+    <FB ID="18" Name="FB9" Type="E_MERGE" x="6540" y="1600" Namespace="IEC61499.Standard" />
+    <Input Name="INIT">
+      <Position>
+        <X>20</X>
+        <Y>82.96354</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="vacuum_on">
+      <Position>
+        <X>20</X>
+        <Y>112.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="pp0">
+      <Position>
+        <X>20</X>
+        <Y>127.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="pp1">
+      <Position>
+        <X>20</X>
+        <Y>142.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="pp2">
+      <Position>
+        <X>20</X>
+        <Y>157.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="pp3">
+      <Position>
+        <X>20</X>
+        <Y>172.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>625</X>
+        <Y>547.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1870</X>
+        <Y>332.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="permit1">
+      <Position>
+        <X>1560</X>
+        <Y>162.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="permit2">
+      <Position>
+        <X>1560</X>
+        <Y>177.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="permit3">
+      <Position>
+        <X>1560</X>
+        <Y>192.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="WP1.INIT" dx1="40.83337" />
+      <Connection Source="WP1.INITO" Destination="WP2.INIT" dx1="40" dx2="30" dy="472" />
+      <Connection Source="WP2.INITO" Destination="WP3.INIT" dx1="40" dx2="30" dy="472" />
+      <Connection Source="WP3.INITO" Destination="INITO">
+        <Points>
+          <Points>
+            <X>509.796875</X>
+            <Y>349.5</Y>
+          </Points>
+          <Points>
+            <X>626.255249</X>
+            <Y>349.5</Y>
+          </Points>
+          <Points>
+            <X>626.255249</X>
+            <Y>555.000061</Y>
+          </Points>
+          <Points>
+            <X>625</X>
+            <Y>555.000061</Y>
+          </Points>
+        </Points>
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="INIT" Destination="FB1.INIT">
+        <Points>
+          <Points>
+            <X>82.2916641</X>
+            <Y>89.99999</Y>
+          </Points>
+          <Points>
+            <X>92.5</X>
+            <Y>89.99999</Y>
+          </Points>
+          <Points>
+            <X>92.5</X>
+            <Y>92.5</Y>
+          </Points>
+          <Points>
+            <X>147.5</X>
+            <Y>92.5</Y>
+          </Points>
+          <Points>
+            <X>147.5</X>
+            <Y>152.5</Y>
+          </Points>
+          <Points>
+            <X>517.5</X>
+            <Y>152.5</Y>
+          </Points>
+          <Points>
+            <X>517.5</X>
+            <Y>249.5</Y>
+          </Points>
+          <Points>
+            <X>735</X>
+            <Y>249.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="FB2.CNF" Destination="FB3.REQ" />
+      <Connection Source="WP1.CNF" Destination="FB2.MODEL" dx1="70.8125" />
+      <Connection Source="FB1.CNF" Destination="FB2.ADDER" dx1="5.770996">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="FB1.CNF" Destination="FB4.ADDER" dx1="55.771" />
+      <Connection Source="FB1.CNF" Destination="FB6.ADDER" dx1="100" />
+      <Connection Source="WP2.CNF" Destination="FB4.MODEL" dx1="70.8125" />
+      <Connection Source="WP3.CNF" Destination="FB6.MODEL">
+        <Points>
+          <Points>
+            <X>509.796875</X>
+            <Y>364.5</Y>
+          </Points>
+          <Points>
+            <X>527.5</X>
+            <Y>364.5</Y>
+          </Points>
+          <Points>
+            <X>527.5</X>
+            <Y>367.5</Y>
+          </Points>
+          <Points>
+            <X>862.5</X>
+            <Y>367.5</Y>
+          </Points>
+          <Points>
+            <X>862.5</X>
+            <Y>354.5</Y>
+          </Points>
+          <Points>
+            <X>1050</X>
+            <Y>354.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="FB4.CNF" Destination="FB5.REQ" />
+      <Connection Source="FB6.CNF" Destination="FB7.REQ" />
+      <Connection Source="FB3.CNF" Destination="FB8.EI1" dx1="67.479" />
+      <Connection Source="FB5.CNF" Destination="FB8.EI2" dx1="67.479" />
+      <Connection Source="FB8.EO" Destination="FB9.EI1" dx1="41.5415" />
+      <Connection Source="FB7.CNF" Destination="FB9.EI2" dx1="67.479" />
+      <Connection Source="FB9.EO" Destination="CNF" dx1="41.5415" />
+      <Connection Source="REQ" Destination="WP1.REQ" dx1="40" />
+      <Connection Source="REQ" Destination="WP2.REQ" dx1="316.9584" />
+      <Connection Source="REQ" Destination="WP3.REQ" dx1="316.9584" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="vacuum_on" Destination="WP1.vacuum_on" dx1="40" />
+      <Connection Source="pp1" Destination="WP1.pp" dx1="128.4792" />
+      <Connection Source="pp2" Destination="WP2.pp" dx1="48.47919" />
+      <Connection Source="pp3" Destination="WP3.pp" dx1="48.47919" />
+      <Connection Source="pp0" Destination="WP1.pp0" dx1="128.4792" />
+      <Connection Source="pp0" Destination="WP2.pp0" dx1="48.47919" />
+      <Connection Source="pp0" Destination="WP3.pp0" dx1="48.47919" />
+      <Connection Source="vacuum_on" Destination="WP2.vacuum_on" dx1="40" />
+      <Connection Source="vacuum_on" Destination="WP3.vacuum_on" dx1="40" />
+      <Connection Source="WP1.permit" Destination="FB2.permit" />
+      <Connection Source="FB1.add1" Destination="FB2.do_add" dx1="40" />
+      <Connection Source="FB2.z1" Destination="FB3.IN1" dx1="70" />
+      <Connection Source="FB2.z2" Destination="FB3.IN2" dx1="90" />
+      <Connection Source="FB3.OUT" Destination="permit1" dx1="807.479" />
+      <Connection Source="WP2.permit" Destination="FB4.permit">
+        <Points>
+          <Points>
+            <X>509.796875</X>
+            <Y>254.5</Y>
+          </Points>
+          <Points>
+            <X>519.7969</X>
+            <Y>254.5</Y>
+          </Points>
+          <Points>
+            <X>519.7969</X>
+            <Y>222.5</Y>
+          </Points>
+          <Points>
+            <X>862.5</X>
+            <Y>222.5</Y>
+          </Points>
+          <Points>
+            <X>862.5</X>
+            <Y>264.5</Y>
+          </Points>
+          <Points>
+            <X>1050</X>
+            <Y>264.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="FB1.add2" Destination="FB4.do_add" dx1="95.771" />
+      <Connection Source="WP3.permit" Destination="FB6.permit" dx1="40" />
+      <Connection Source="FB1.add3" Destination="FB6.do_add" dx1="40" />
+      <Connection Source="FB4.z1" Destination="FB5.IN1" dx1="70" />
+      <Connection Source="FB4.z2" Destination="FB5.IN2" dx1="90" />
+      <Connection Source="FB6.z1" Destination="FB7.IN1" dx1="70" />
+      <Connection Source="FB6.z2" Destination="FB7.IN2" dx1="90" />
+      <Connection Source="FB5.OUT" Destination="permit2" dx1="47.479" />
+      <Connection Source="FB7.OUT" Destination="permit3" dx1="47.479" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

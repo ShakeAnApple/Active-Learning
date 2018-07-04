@@ -1,0 +1,30 @@
+<Mapping>
+  <EventInputs>
+    <Event Name="REQ" Map="REQ_1">BASE_X;BASE_Y;CYL1_X;CYL1_Y;CYL2_X;CYL2_Y;VCYL_X;VCYL_Y;WP1_X;WP1_Y;WP2_X;WP2_Y;WP3_X;WP3_Y;VACUUM_ON</Event>
+  </EventInputs>
+  <EventOutputs>
+    <Event Name="CNF" Map="IND_1">ADD1;ADD2;ADD3</Event>
+  </EventOutputs>
+  <Inputs>
+    <Input Name="BASE_X" Type="UINT" Map="SD_1" />
+    <Input Name="BASE_Y" Type="UINT" Map="SD_2" />
+    <Input Name="CYL1_X" Type="UINT" Map="SD_3" />
+    <Input Name="CYL1_Y" Type="UINT" Map="SD_4" />
+    <Input Name="CYL2_X" Type="UINT" Map="SD_5" />
+    <Input Name="CYL2_Y" Type="UINT" Map="SD_6" />
+    <Input Name="VCYL_X" Type="UINT" Map="SD_7" />
+    <Input Name="VCYL_Y" Type="UINT" Map="SD_8" />
+    <Input Name="WP1_X" Type="UINT" Map="SD_9" />
+    <Input Name="WP1_Y" Type="UINT" Map="SD_10" />
+    <Input Name="WP2_X" Type="UINT" Map="SD_11" />
+    <Input Name="WP2_Y" Type="UINT" Map="SD_12" />
+    <Input Name="WP3_X" Type="UINT" Map="SD_13" />
+    <Input Name="WP3_Y" Type="UINT" Map="SD_14" />
+    <Input Name="VACUUM_ON" Type="BOOL" Map="SD_15" />
+  </Inputs>
+  <Outputs>
+    <Output Name="ADD1" Type="BOOL" Map="RD_1" />
+    <Output Name="ADD2" Type="BOOL" Map="RD_2" />
+    <Output Name="ADD3" Type="BOOL" Map="RD_3" />
+  </Outputs>
+</Mapping>

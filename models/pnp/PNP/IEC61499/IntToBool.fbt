@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="5A5A6C9098C3B7B2" Name="IntToBool" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="chivdan" Date="11/21/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" />
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="id" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="add1" />
+        <With Var="add2" />
+        <With Var="add3" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="id" Type="INT" Comment="Input event qualifier" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="add1" Type="BOOL" />
+      <VarDeclaration Name="add2" Type="BOOL" />
+      <VarDeclaration Name="add3" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="984.9412" y="181.4117" />
+      <ECState Name="REQ1" Comment="Normal execution" x="481.647" y="832.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECState Name="INIT" x="1956" y="196">
+        <ECAction Algorithm="INIT" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="REQ1" Condition="REQ" x="800.1874" y="553.0258">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="220.7195,119.2787,185.4966,164.8758" />
+      </ECTransition>
+      <ECTransition Source="REQ1" Destination="START" Condition="1" x="728.0438" y="432.1765">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="165.7121,124.5927,200.935,78.99557" />
+      </ECTransition>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="1490.119" y="106.3531">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="341.4035,21.77956,403.8439,22.71829" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="1488.993" y="271.6249">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="403.4684,72.71505,341.028,71.777" />
+      </ECTransition>
+      <ECTransition Source="REQ1" Destination="INIT" Condition="INIT" x="1829.718" y="935.0766">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="450.0065,288.2987,555.6208,242.6719" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="add1:=FALSE;&#xD;&#xA;add2:=FALSE;&#xD;&#xA;add3:=FALSE;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text=";&#xD;&#xA;IF id = 1 THEN&#xD;&#xA;	add1:=TRUE;&#xD;&#xA;	add2:=FALSE;&#xD;&#xA;	add3:=FALSE;&#xD;&#xA;ELSIF id = 2 THEN&#xD;&#xA;	add1:=FALSE;&#xD;&#xA;	add2:=TRUE;&#xD;&#xA;	add3:=FALSE;&#xD;&#xA;ELSIF id = 3 THEN&#xD;&#xA;	add1:=FALSE;&#xD;&#xA;	add2:=FALSE;&#xD;&#xA;	add3:=TRUE;&#xD;&#xA;ELSE&#xD;&#xA;	add1:=FALSE;&#xD;&#xA;	add2:=FALSE;&#xD;&#xA;	add3:=FALSE;&#xD;&#xA;END_IF;&#xD;&#xA;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

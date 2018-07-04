@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="FBDF851C7B68FCEA" Name="EventCounter" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="chivdan" Date="11/22/2016" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request" />
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="cnt" />
+      </Event>
+    </EventOutputs>
+    <OutputVars>
+      <VarDeclaration Name="cnt" Type="INT" InitialValue="0" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="556.9412" y="257.4117" />
+      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="458.7548" y="547.5488">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="128.6112,124.1197,106.2916,156.7168" />
+      </ECTransition>
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="380.3045" y="430.1765">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="85.66375,117.5927,107.9833,84.99557" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text=";" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text=";&#xD;&#xA;cnt:=cnt+1;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

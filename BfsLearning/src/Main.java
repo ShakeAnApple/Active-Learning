@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) {
-        String path = "C:\\Projects\\Uni\\Active Learning\\BFSLearning\\config.conf";
-        //Config conf = ConfigReader.read(args[1]);
-        Config conf = ConfigReader.read(path);
+        //String path = "C:\\Projects\\Uni\\Active Learning\\BFSLearning\\config.conf";
+        Config conf = ConfigReader.read(args[0]);
+        //Config conf = ConfigReader.read(path);
         ConfigParser parser = new ConfigParser(new VariableInfoFabric());
         AbstractContext context = parser.parse(conf);
 

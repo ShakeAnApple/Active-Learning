@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="AD383FD1E607DF67" Name="PnpCylinders" Comment="Composite Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="3" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/7/2012" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="LCForwardSpeed" />
+        <With Var="LCBackwardSpeed" />
+        <With Var="LCExtend" />
+        <With Var="LCRetract" />
+        <With Var="LCMovingtDistance" />
+        <With Var="HomeSensorRange" />
+        <With Var="EndSensorRange" />
+        <With Var="InitialPosition" />
+        <With Var="LoadType" />
+        <With Var="Loaded" />
+        <With Var="MidSensorRange" />
+        <With Var="RCForwardSpeed" />
+        <With Var="RCBackwardSpeed" />
+        <With Var="RCExtend" />
+        <With Var="RCRetract" />
+        <With Var="RCMovingtDistance" />
+        <With Var="VCSpeed" />
+        <With Var="VCExtend" />
+        <With Var="VCMovingtDistance" />
+      </Event>
+      <Event Name="CLK">
+        <With Var="Loaded" />
+        <With Var="LoadType" />
+        <With Var="LCExtend" />
+        <With Var="LCRetract" />
+        <With Var="LCMovingtDistance" />
+        <With Var="LCForwardSpeed" />
+        <With Var="LCBackwardSpeed" />
+        <With Var="RCExtend" />
+        <With Var="RCRetract" />
+        <With Var="RCMovingtDistance" />
+        <With Var="RCForwardSpeed" />
+        <With Var="RCBackwardSpeed" />
+        <With Var="VCExtend" />
+        <With Var="VCMovingtDistance" />
+        <With Var="VCSpeed" />
+      </Event>
+      <Event Name="FAULT" />
+      <Event Name="RESUME" />
+      <Event Name="CYL_IND">
+        <With Var="LCExtend" />
+        <With Var="LCRetract" />
+        <With Var="RCExtend" />
+        <With Var="RCRetract" />
+        <With Var="VCExtend" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetLCAtHome" />
+        <With Var="resetLCAtEnd" />
+        <With Var="resetRCAtHome" />
+        <With Var="resetRCAtEnd" />
+        <With Var="resetVCAtHome" />
+        <With Var="resetVCAtEnd" />
+        <With Var="resetC1AbsPos" />
+        <With Var="resetC2AbsPos" />
+        <With Var="resetVCAbsPos" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="LCAtHome" />
+        <With Var="LCAtEnd" />
+        <With Var="LCAtMid" />
+        <With Var="RCAtHome" />
+        <With Var="RCAtEnd" />
+        <With Var="RCAtMid" />
+        <With Var="VCAtHome" />
+        <With Var="VCAtEnd" />
+        <With Var="VCAtMid" />
+        <With Var="RCAbsolutePos" />
+        <With Var="LCAbsolutePos" />
+        <With Var="VCAbsolutePos" />
+      </Event>
+      <Event Name="CHG">
+        <With Var="LCAtHome" />
+        <With Var="LCAtEnd" />
+        <With Var="LCAtMid" />
+        <With Var="RCAtHome" />
+        <With Var="RCAtEnd" />
+        <With Var="RCAtMid" />
+        <With Var="VCAtHome" />
+        <With Var="VCAtEnd" />
+        <With Var="VCAtMid" />
+        <With Var="RCAbsolutePos" />
+        <With Var="LCAbsolutePos" />
+        <With Var="VCAbsolutePos" />
+        <With Var="RCRelativePos" />
+        <With Var="LCRelativePos" />
+        <With Var="VCRelativePos" />
+      </Event>
+      <Event Name="OFAULT" />
+      <Event Name="CNF">
+        <With Var="RCAbsolutePos" />
+        <With Var="LCAbsolutePos" />
+        <With Var="VCAbsolutePos" />
+      </Event>
+      <Event Name="CHG_RESET">
+        <With Var="LCAtHome" />
+        <With Var="LCAtEnd" />
+        <With Var="RCAtHome" />
+        <With Var="RCAtEnd" />
+        <With Var="VCAtHome" />
+        <With Var="VCAtEnd" />
+        <With Var="RCAbsolutePos" />
+        <With Var="LCAbsolutePos" />
+        <With Var="VCAbsolutePos" />
+        <With Var="RCRelativePos" />
+        <With Var="LCRelativePos" />
+        <With Var="VCRelativePos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="InitialPosition" Type="REAL" Comment="Initial position" />
+      <VarDeclaration Name="HomeSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of home sensor" />
+      <VarDeclaration Name="MidSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of home sensor" />
+      <VarDeclaration Name="EndSensorRange" Type="UINT" ArraySize="2" Comment="Detection range of end sensor" />
+      <VarDeclaration Name="Loaded" Type="BOOL" />
+      <VarDeclaration Name="LoadType" Type="UINT" />
+      <VarDeclaration Name="LCExtend" Type="BOOL" />
+      <VarDeclaration Name="LCRetract" Type="BOOL" />
+      <VarDeclaration Name="LCMovingtDistance" Type="UINT" Comment="Moving distance" />
+      <VarDeclaration Name="LCForwardSpeed" Type="UINT" Comment="Forward speed" />
+      <VarDeclaration Name="LCBackwardSpeed" Type="UINT" Comment="Backward speed" />
+      <VarDeclaration Name="RCExtend" Type="BOOL" />
+      <VarDeclaration Name="RCRetract" Type="BOOL" />
+      <VarDeclaration Name="RCMovingtDistance" Type="UINT" Comment="Moving distance" />
+      <VarDeclaration Name="RCForwardSpeed" Type="UINT" Comment="Forward speed" />
+      <VarDeclaration Name="RCBackwardSpeed" Type="UINT" Comment="Backward speed" />
+      <VarDeclaration Name="VCExtend" Type="BOOL" />
+      <VarDeclaration Name="VCMovingtDistance" Type="UINT" Comment="Moving distance" />
+      <VarDeclaration Name="VCSpeed" Type="UINT" Comment="Forward speed" />
+      <VarDeclaration Name="resetLCAtHome" Type="BOOL" />
+      <VarDeclaration Name="resetLCAtEnd" Type="BOOL" />
+      <VarDeclaration Name="resetRCAtHome" Type="BOOL" />
+      <VarDeclaration Name="resetRCAtEnd" Type="BOOL" />
+      <VarDeclaration Name="resetVCAtHome" Type="BOOL" />
+      <VarDeclaration Name="resetVCAtEnd" Type="BOOL" />
+      <VarDeclaration Name="resetC1AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetC2AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetVCAbsPos" Type="UINT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="LCAtHome" Type="BOOL" Comment="Detected at home position" />
+      <VarDeclaration Name="LCAtEnd" Type="BOOL" Comment="Detected at end position" />
+      <VarDeclaration Name="LCAtMid" Type="BOOL" />
+      <VarDeclaration Name="RCAtHome" Type="BOOL" Comment="Detected at home position" />
+      <VarDeclaration Name="RCAtEnd" Type="BOOL" Comment="Detected at end position" />
+      <VarDeclaration Name="RCAtMid" Type="BOOL" />
+      <VarDeclaration Name="VCAtHome" Type="BOOL" Comment="Detected at home position" />
+      <VarDeclaration Name="VCAtEnd" Type="BOOL" Comment="Detected at end position" />
+      <VarDeclaration Name="VCAtMid" Type="BOOL" />
+      <VarDeclaration Name="RCAbsolutePos" Type="UINT" />
+      <VarDeclaration Name="LCAbsolutePos" Type="UINT" />
+      <VarDeclaration Name="VCAbsolutePos" Type="UINT" />
+      <VarDeclaration Name="RCRelativePos" Type="UINT" />
+      <VarDeclaration Name="LCRelativePos" Type="UINT" />
+      <VarDeclaration Name="VCRelativePos" Type="UINT" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB ID="2" Name="LeftCylinder" Type="GenericCylinderModelType1" x="1980" y="280" Namespace="Main">
+      <Parameter Name="inputAbsPos" Value="0" />
+    </FB>
+    <FB ID="3" Name="RightCylinder" Type="GenericCylinderModelType1" x="3520" y="1680" Namespace="Main">
+      <Parameter Name="inputAbsPos" Value="0" />
+    </FB>
+    <FB ID="1" Name="VerticleCylinder" Type="GenericCylinderModelType2" x="5380" y="3180" Namespace="Main">
+      <Parameter Name="inputAbsPos" Value="0" />
+    </FB>
+    <Input Name="INIT">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CLK">
+      <Position>
+        <X>3</X>
+        <Y>18</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="FAULT">
+      <Position>
+        <X>3</X>
+        <Y>33</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="RESUME">
+      <Position>
+        <X>3</X>
+        <Y>48</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="CYL_IND">
+      <Position>
+        <X>3</X>
+        <Y>63</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="InitialPosition">
+      <Position>
+        <X>10</X>
+        <Y>227.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="HomeSensorRange">
+      <Position>
+        <X>10</X>
+        <Y>152.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="MidSensorRange">
+      <Position>
+        <X>15</X>
+        <Y>337.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="EndSensorRange">
+      <Position>
+        <X>10</X>
+        <Y>182.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="Loaded">
+      <Position>
+        <X>10</X>
+        <Y>197.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LoadType">
+      <Position>
+        <X>10</X>
+        <Y>212.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCExtend">
+      <Position>
+        <X>270</X>
+        <Y>302.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCRetract">
+      <Position>
+        <X>270</X>
+        <Y>317.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCMovingtDistance">
+      <Position>
+        <X>270</X>
+        <Y>242.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCForwardSpeed">
+      <Position>
+        <X>270</X>
+        <Y>197.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="LCBackwardSpeed">
+      <Position>
+        <X>270</X>
+        <Y>212.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCExtend">
+      <Position>
+        <X>650</X>
+        <Y>652.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCRetract">
+      <Position>
+        <X>650</X>
+        <Y>667.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCMovingtDistance">
+      <Position>
+        <X>650</X>
+        <Y>592.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCForwardSpeed">
+      <Position>
+        <X>650</X>
+        <Y>547.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RCBackwardSpeed">
+      <Position>
+        <X>650</X>
+        <Y>562.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCExtend">
+      <Position>
+        <X>1130</X>
+        <Y>1027.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCMovingtDistance">
+      <Position>
+        <X>1130</X>
+        <Y>967.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="VCSpeed">
+      <Position>
+        <X>1130</X>
+        <Y>922.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="RESET">
+      <Position>
+        <X>5</X>
+        <Y>77.96355</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="resetLCAtHome">
+      <Position>
+        <X>270</X>
+        <Y>377.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetLCAtEnd">
+      <Position>
+        <X>270</X>
+        <Y>392.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetRCAtHome">
+      <Position>
+        <X>650</X>
+        <Y>727.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetRCAtEnd">
+      <Position>
+        <X>650</X>
+        <Y>742.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetVCAtHome">
+      <Position>
+        <X>1095</X>
+        <Y>1087.96362</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetVCAtEnd">
+      <Position>
+        <X>1095</X>
+        <Y>1102.96362</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetC1AbsPos">
+      <Position>
+        <X>115</X>
+        <Y>412.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetC2AbsPos">
+      <Position>
+        <X>615</X>
+        <Y>767.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="resetVCAbsPos">
+      <Position>
+        <X>1095</X>
+        <Y>1117.9635</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>1665</X>
+        <Y>797.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CHG">
+      <Position>
+        <X>1710</X>
+        <Y>197.963531</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="OFAULT">
+      <Position>
+        <X>1655</X>
+        <Y>827.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>1695</X>
+        <Y>122.963539</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="LCAtHome">
+      <Position>
+        <X>735</X>
+        <Y>212.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="LCAtEnd">
+      <Position>
+        <X>735</X>
+        <Y>227.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="LCAtMid">
+      <Position>
+        <X>735</X>
+        <Y>242.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAtHome">
+      <Position>
+        <X>1170</X>
+        <Y>562.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAtEnd">
+      <Position>
+        <X>1170</X>
+        <Y>577.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAtMid">
+      <Position>
+        <X>1170</X>
+        <Y>592.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAtHome">
+      <Position>
+        <X>1605</X>
+        <Y>937.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAtEnd">
+      <Position>
+        <X>1605</X>
+        <Y>952.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAtMid">
+      <Position>
+        <X>1605</X>
+        <Y>967.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="RCAbsolutePos">
+      <Position>
+        <X>1170</X>
+        <Y>547.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="LCAbsolutePos">
+      <Position>
+        <X>735</X>
+        <Y>197.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCAbsolutePos">
+      <Position>
+        <X>1605</X>
+        <Y>922.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="CHG_RESET">
+      <Position>
+        <X>1635</X>
+        <Y>857.963562</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="RCRelativePos">
+      <Position>
+        <X>1160</X>
+        <Y>637.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="LCRelativePos">
+      <Position>
+        <X>735</X>
+        <Y>262.963531</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="VCRelativePos">
+      <Position>
+        <X>1600</X>
+        <Y>997.963562</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="LeftCylinder.INIT" dx1="88.83337" />
+      <Connection Source="CLK" Destination="LeftCylinder.CLK" dx1="86.41669" />
+      <Connection Source="FAULT" Destination="LeftCylinder.FAULT" dx1="40" />
+      <Connection Source="RESUME" Destination="LeftCylinder.RESUME" dx1="46.87506" />
+      <Connection Source="VerticleCylinder.INITO" Destination="INITO" dx1="40" />
+      <Connection Source="VerticleCylinder.CHG" Destination="CHG" dx1="74.6665" />
+      <Connection Source="LeftCylinder.OFAULT" Destination="RightCylinder.FAULT" dx1="160" />
+      <Connection Source="RightCylinder.OFAULT" Destination="VerticleCylinder.FAULT" dx1="160" />
+      <Connection Source="VerticleCylinder.OFAULT" Destination="OFAULT" dx1="40" />
+      <Connection Source="RESUME" Destination="RightCylinder.RESUME" dx1="666.8751" />
+      <Connection Source="RESUME" Destination="VerticleCylinder.RESUME" dx1="666.8751" />
+      <Connection Source="VerticleCylinder.CNF" Destination="CNF" dx1="114.6665" />
+      <Connection Source="RightCylinder.CNF" Destination="CNF" dx1="114.6665" />
+      <Connection Source="LeftCylinder.CNF" Destination="CNF" dx1="40" />
+      <Connection Source="LeftCylinder.INITO" Destination="RightCylinder.INIT" dx1="200" />
+      <Connection Source="RightCylinder.INITO" Destination="VerticleCylinder.INIT" dx1="200" />
+      <Connection Source="CYL_IND" Destination="LeftCylinder.CYL_IND" dx1="49.39587" />
+      <Connection Source="CYL_IND" Destination="RightCylinder.CYL_IND" dx1="669.3959" />
+      <Connection Source="CYL_IND" Destination="VerticleCylinder.CYL_IND" dx1="669.3959" />
+      <Connection Source="RESET" Destination="LeftCylinder.RESET" dx1="359.1667" />
+      <Connection Source="LeftCylinder.CHG_RESET" Destination="RightCylinder.RESET" dx1="120" />
+      <Connection Source="RightCylinder.CHG_RESET" Destination="VerticleCylinder.RESET" dx1="120" />
+      <Connection Source="VerticleCylinder.CHG_RESET" Destination="CHG_RESET" dx1="40" />
+      <Connection Source="LeftCylinder.CHG" Destination="RightCylinder.CLK" dx1="180" />
+      <Connection Source="RightCylinder.CHG" Destination="VerticleCylinder.CLK" dx1="180" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="LCForwardSpeed" Destination="LeftCylinder.ForwardSpeed" dx1="234.2917">
+        <AvoidsNodes>false</AvoidsNodes>
+      </Connection>
+      <Connection Source="LCBackwardSpeed" Destination="LeftCylinder.BackwardSpeed" dx1="40" />
+      <Connection Source="InitialPosition" Destination="LeftCylinder.InitialPosition" dx1="40" />
+      <Connection Source="LCMovingtDistance" Destination="LeftCylinder.MovingtDistance" dx1="48.25012" />
+      <Connection Source="HomeSensorRange" Destination="LeftCylinder.HomeSensorRange" dx1="43.95837" />
+      <Connection Source="MidSensorRange" Destination="LeftCylinder.MidSensorRange" dx1="48.77087" />
+      <Connection Source="EndSensorRange" Destination="LeftCylinder.EndSensorRange" dx1="41.85419" />
+      <Connection Source="LCExtend" Destination="LeftCylinder.Extend" dx1="40" />
+      <Connection Source="LCRetract" Destination="LeftCylinder.Retract" dx1="40" />
+      <Connection Source="Loaded" Destination="LeftCylinder.Loaded" dx1="177.2917" />
+      <Connection Source="LoadType" Destination="LeftCylinder.LoadType" dx1="148.9167" />
+      <Connection Source="RCForwardSpeed" Destination="RightCylinder.ForwardSpeed" dx1="40" />
+      <Connection Source="RCBackwardSpeed" Destination="RightCylinder.BackwardSpeed" dx1="46.354" />
+      <Connection Source="InitialPosition" Destination="RightCylinder.InitialPosition" dx1="434.1251" />
+      <Connection Source="RCMovingtDistance" Destination="RightCylinder.MovingtDistance" dx1="41.1665" />
+      <Connection Source="HomeSensorRange" Destination="RightCylinder.HomeSensorRange" dx1="323.9584" />
+      <Connection Source="MidSensorRange" Destination="RightCylinder.MidSensorRange" dx1="348.7709" />
+      <Connection Source="EndSensorRange" Destination="RightCylinder.EndSensorRange" dx1="361.8542" />
+      <Connection Source="RCExtend" Destination="RightCylinder.Extend" dx1="45.20825" />
+      <Connection Source="RCRetract" Destination="RightCylinder.Retract" dx1="40.52075" />
+      <Connection Source="Loaded" Destination="RightCylinder.Loaded" dx1="537.2917" />
+      <Connection Source="LoadType" Destination="RightCylinder.LoadType" dx1="508.9167" />
+      <Connection Source="VCSpeed" Destination="VerticleCylinder.ForwardSpeed" dx1="40" />
+      <Connection Source="VCSpeed" Destination="VerticleCylinder.BackwardSpeed" dx1="40" />
+      <Connection Source="InitialPosition" Destination="VerticleCylinder.InitialPosition" dx1="434.1251" />
+      <Connection Source="VCMovingtDistance" Destination="VerticleCylinder.MovingtDistance" dx1="43.521" />
+      <Connection Source="HomeSensorRange" Destination="VerticleCylinder.HomeSensorRange" dx1="323.9584" />
+      <Connection Source="MidSensorRange" Destination="VerticleCylinder.MidSensorRange" dx1="348.7709" />
+      <Connection Source="EndSensorRange" Destination="VerticleCylinder.EndSensorRange" dx1="361.8542" />
+      <Connection Source="VCExtend" Destination="VerticleCylinder.Extend" dx1="40" />
+      <Connection Source="Loaded" Destination="VerticleCylinder.Loaded" dx1="537.2917" />
+      <Connection Source="LoadType" Destination="VerticleCylinder.LoadType" dx1="508.9167" />
+      <Connection Source="LeftCylinder.AtHome" Destination="LCAtHome" dx1="40" />
+      <Connection Source="LeftCylinder.AtMid" Destination="LCAtMid" dx1="40" />
+      <Connection Source="RightCylinder.AtHome" Destination="RCAtHome" dx1="40" />
+      <Connection Source="RightCylinder.AtMid" Destination="RCAtMid" dx1="40" />
+      <Connection Source="LeftCylinder.AtEnd" Destination="LCAtEnd" dx1="40" />
+      <Connection Source="RightCylinder.AtEnd" Destination="RCAtEnd" dx1="40" />
+      <Connection Source="VerticleCylinder.AtHome" Destination="VCAtHome" dx1="40" />
+      <Connection Source="VerticleCylinder.AtEnd" Destination="VCAtEnd" dx1="40" />
+      <Connection Source="VerticleCylinder.AtMid" Destination="VCAtMid" dx1="40" />
+      <Connection Source="RightCylinder.AbsolutePos" Destination="RCAbsolutePos" dx1="40" />
+      <Connection Source="LeftCylinder.AbsolutePos" Destination="LCAbsolutePos" dx1="40" />
+      <Connection Source="VerticleCylinder.AbsolutePos" Destination="VCAbsolutePos" dx1="40" />
+      <Connection Source="resetLCAtHome" Destination="LeftCylinder.resetAtHome" dx1="40" />
+      <Connection Source="resetLCAtEnd" Destination="LeftCylinder.resetAtEnd" dx1="40" />
+      <Connection Source="resetRCAtHome" Destination="RightCylinder.resetAtHome" dx1="49.0625" />
+      <Connection Source="resetRCAtEnd" Destination="RightCylinder.resetAtEnd" dx1="46.95825" />
+      <Connection Source="resetVCAtHome" Destination="VerticleCylinder.resetAtHome" dx1="40" />
+      <Connection Source="resetVCAtEnd" Destination="VerticleCylinder.resetAtEnd" dx1="49.3125" />
+      <Connection Source="resetC1AbsPos" Destination="LeftCylinder.resetAbsPos" dx1="42.25" />
+      <Connection Source="resetC2AbsPos" Destination="RightCylinder.resetAbsPos" dx1="42.25" />
+      <Connection Source="resetVCAbsPos" Destination="VerticleCylinder.resetAbsPos" dx1="40" />
+      <Connection Source="VerticleCylinder.RelativePos" Destination="VCRelativePos" dx1="40" />
+      <Connection Source="RightCylinder.RelativePos" Destination="RCRelativePos" dx1="40" />
+      <Connection Source="LeftCylinder.RelativePos" Destination="LCRelativePos" dx1="40" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="WP_Sensor" Comment="Composite Function Block Type" Namespace="Main">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/7/2012" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="WP1_X" />
+        <With Var="WP1_Y" />
+        <With Var="WP2_X" />
+        <With Var="WP2_Y" />
+        <With Var="WP3_Y" />
+        <With Var="WP3_X" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="WP1_Y" />
+        <With Var="WP1_X" />
+        <With Var="WP2_X" />
+        <With Var="WP2_Y" />
+        <With Var="WP3_X" />
+        <With Var="WP3_Y" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="wp12" />
+        <With Var="wp14" />
+        <With Var="wp11" />
+        <With Var="wp13" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="wp12" />
+        <With Var="wp13" />
+        <With Var="wp14" />
+        <With Var="wp11" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="WP1_X" Type="UINT" />
+      <VarDeclaration Name="WP1_Y" Type="UINT" />
+      <VarDeclaration Name="WP2_X" Type="UINT" />
+      <VarDeclaration Name="WP2_Y" Type="UINT" />
+      <VarDeclaration Name="WP3_X" Type="UINT" />
+      <VarDeclaration Name="WP3_Y" Type="UINT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="wp12" Type="BOOL" />
+      <VarDeclaration Name="wp13" Type="BOOL" />
+      <VarDeclaration Name="wp14" Type="BOOL" />
+      <VarDeclaration Name="wp11" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB Name="WP1" Type="WP_Sensor_Double" x="720" y="100" Namespace="Main">
+      <Parameter Name="zone1" Value="[370,380]" />
+      <Parameter Name="zone2" Value="[210,220]" />
+    </FB>
+    <FB Name="WP2" Type="WP_Sensor_Double" x="1540" y="540" Namespace="Main">
+      <Parameter Name="zone1" Value="[445,455]" />
+      <Parameter Name="zone2" Value="[210,220]" />
+    </FB>
+    <FB Name="WP3" Type="WP_Sensor_Double" x="2633.333" y="88.88889" Namespace="Main">
+      <Parameter Name="zone1" Value="[520,530]" />
+      <Parameter Name="zone2" Value="[210,220]" />
+    </FB>
+    <FB Name="WP01" Type="WP_Sensor_Double" x="561.1111" y="1255.556" Namespace="Main">
+      <Parameter Name="zone2" Value="[210,225]" />
+      <Parameter Name="zone1" Value="[295,305]" />
+    </FB>
+    <FB Name="WP02" Type="WP_Sensor_Double" x="1327.778" y="1483.333" Namespace="Main">
+      <Parameter Name="zone2" Value="[210,225]" />
+      <Parameter Name="zone1" Value="[295,305]" />
+    </FB>
+    <FB Name="WP03" Type="WP_Sensor_Double" x="2094.444" y="1633.333" Namespace="Main">
+      <Parameter Name="zone2" Value="[210,225]" />
+      <Parameter Name="zone1" Value="[295,305]" />
+    </FB>
+    <FB Name="WP0" Type="WP_OR" x="2920" y="1240" Namespace="Main" />
+    <Input Name="INIT">
+      <Position>
+        <X>3</X>
+        <Y>3</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="REQ">
+      <Position>
+        <X>3</X>
+        <Y>18</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Input>
+    <Input Name="WP1_X">
+      <Position>
+        <X>3</X>
+        <Y>33</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP1_Y">
+      <Position>
+        <X>3</X>
+        <Y>48</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP2_X">
+      <Position>
+        <X>3</X>
+        <Y>63</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP2_Y">
+      <Position>
+        <X>3</X>
+        <Y>78</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP3_X">
+      <Position>
+        <X>3</X>
+        <Y>93</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Input Name="WP3_Y">
+      <Position>
+        <X>3</X>
+        <Y>108</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Input>
+    <Output Name="INITO">
+      <Position>
+        <X>900</X>
+        <Y>102.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="CNF">
+      <Position>
+        <X>905</X>
+        <Y>117.963547</Y>
+      </Position>
+      <IsType>Event</IsType>
+    </Output>
+    <Output Name="wp12">
+      <Position>
+        <X>870</X>
+        <Y>132.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="wp13">
+      <Position>
+        <X>870</X>
+        <Y>147.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="wp14">
+      <Position>
+        <X>870</X>
+        <Y>162.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <Output Name="wp11">
+      <Position>
+        <X>870</X>
+        <Y>177.963547</Y>
+      </Position>
+      <IsType>Data</IsType>
+    </Output>
+    <EventConnections>
+      <Connection Source="INIT" Destination="WP1.INIT" dx1="427.7778" />
+      <Connection Source="REQ" Destination="WP1.REQ" dx1="422.2222" />
+      <Connection Source="REQ" Destination="WP2.REQ">
+        <Points>
+          <Points>
+            <X>68.26041</X>
+            <Y>25.0364571</Y>
+          </Points>
+          <Points>
+            <X>107.5</X>
+            <Y>25.0364571</Y>
+          </Points>
+          <Points>
+            <X>107.5</X>
+            <Y>167.5</Y>
+          </Points>
+          <Points>
+            <X>302.5</X>
+            <Y>167.5</Y>
+          </Points>
+          <Points>
+            <X>302.5</X>
+            <Y>159.5</Y>
+          </Points>
+          <Points>
+            <X>380</X>
+            <Y>159.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="REQ" Destination="WP3.REQ" dx1="1165.146" />
+      <Connection Source="WP1.INITO" Destination="WP2.INIT" dx1="83.54175" />
+      <Connection Source="WP2.INITO" Destination="WP3.INIT" dx1="443.5417" />
+      <Connection Source="WP1.CNF" Destination="CNF">
+        <Points>
+          <Points>
+            <X>291.614563</X>
+            <Y>49.5</Y>
+          </Points>
+          <Points>
+            <X>507.5</X>
+            <Y>49.5</Y>
+          </Points>
+          <Points>
+            <X>507.5</X>
+            <Y>162.5</Y>
+          </Points>
+          <Points>
+            <X>777.5</X>
+            <Y>162.5</Y>
+          </Points>
+          <Points>
+            <X>777.5</X>
+            <Y>125</Y>
+          </Points>
+          <Points>
+            <X>905</X>
+            <Y>125</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="WP2.CNF" Destination="CNF">
+        <Points>
+          <Points>
+            <X>496.614563</X>
+            <Y>159.5</Y>
+          </Points>
+          <Points>
+            <X>514.114563</X>
+            <Y>159.5</Y>
+          </Points>
+          <Points>
+            <X>514.114563</X>
+            <Y>162.5</Y>
+          </Points>
+          <Points>
+            <X>777.5</X>
+            <Y>162.5</Y>
+          </Points>
+          <Points>
+            <X>777.5</X>
+            <Y>125</Y>
+          </Points>
+          <Points>
+            <X>905</X>
+            <Y>125</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="WP3.CNF" Destination="CNF" dx1="60" />
+      <Connection Source="REQ" Destination="WP01.REQ" dx1="129.0347" />
+      <Connection Source="WP01.INITO" Destination="WP02.INIT" dx1="133.3334" />
+      <Connection Source="WP02.INITO" Destination="WP03.INIT" dx1="288.8888" />
+      <Connection Source="REQ" Destination="WP02.REQ" dx1="502.3682" />
+      <Connection Source="REQ" Destination="WP03.REQ" dx1="885.7013" />
+      <Connection Source="WP03.INITO" Destination="WP0.INIT" dx1="50" />
+      <Connection Source="WP03.CNF" Destination="WP0.REQ" dx1="70" />
+      <Connection Source="WP02.CNF" Destination="WP0.REQ" dx1="75.76379" />
+      <Connection Source="WP01.CNF" Destination="WP0.REQ" dx1="70" />
+      <Connection Source="WP0.CNF" Destination="CNF" dx1="70" />
+      <Connection Source="WP0.INITO" Destination="INITO" dx1="50" />
+      <Connection Source="WP3.INITO" Destination="WP01.INIT" dx1="27.77783" dx2="27.77777" dy="-72.22222" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="WP1.QO" Destination="wp12">
+        <Points>
+          <Points>
+            <X>291.614563</X>
+            <Y>99.5</Y>
+          </Points>
+          <Points>
+            <X>507.5</X>
+            <Y>99.5</Y>
+          </Points>
+          <Points>
+            <X>507.5</X>
+            <Y>162.5</Y>
+          </Points>
+          <Points>
+            <X>777.5</X>
+            <Y>162.5</Y>
+          </Points>
+          <Points>
+            <X>777.5</X>
+            <Y>140</Y>
+          </Points>
+          <Points>
+            <X>870</X>
+            <Y>140</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="WP2.QO" Destination="wp13" dx1="1123.542" />
+      <Connection Source="WP3.QO" Destination="wp14" dx1="40" />
+      <Connection Source="WP1_X" Destination="WP1.In1" dx1="101.1146" />
+      <Connection Source="WP1_Y" Destination="WP1.In2" dx1="81.11459" />
+      <Connection Source="WP2_X" Destination="WP2.In1" dx1="42.22922" />
+      <Connection Source="WP2_Y" Destination="WP2.In2" dx1="42.22922" />
+      <Connection Source="WP3_X" Destination="WP3.In1" dx1="1062.781" />
+      <Connection Source="WP3_Y" Destination="WP3.In2" dx1="1037.781" />
+      <Connection Source="WP1_X" Destination="WP01.In1" dx1="40" dx2="90" dy="537.6322" />
+      <Connection Source="WP1_Y" Destination="WP01.In2" dx1="40" dx2="130" dy="507.6322" />
+      <Connection Source="WP2_X" Destination="WP02.In1" dx1="405.0036" />
+      <Connection Source="WP2_Y" Destination="WP02.In2" dx1="385.0036" />
+      <Connection Source="WP3_X" Destination="WP03.In1" dx1="788.3367" />
+      <Connection Source="WP3_Y" Destination="WP03.In2" dx1="768.3367" />
+      <Connection Source="WP03.QO" Destination="WP0.i3" dx1="90" />
+      <Connection Source="WP02.QO" Destination="WP0.i2">
+        <Points>
+          <Points>
+            <X>443.559052</X>
+            <Y>445.333252</Y>
+          </Points>
+          <Points>
+            <X>467.5</X>
+            <Y>445.333252</Y>
+          </Points>
+          <Points>
+            <X>467.5</X>
+            <Y>392.5</Y>
+          </Points>
+          <Points>
+            <X>647.5</X>
+            <Y>392.5</Y>
+          </Points>
+          <Points>
+            <X>647.5</X>
+            <Y>399.5</Y>
+          </Points>
+          <Points>
+            <X>725</X>
+            <Y>399.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="WP01.QO" Destination="WP0.i1">
+        <Points>
+          <Points>
+            <X>251.892334</X>
+            <Y>388.389</Y>
+          </Points>
+          <Points>
+            <X>274.392334</X>
+            <Y>388.389</Y>
+          </Points>
+          <Points>
+            <X>274.392334</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>352.5</Y>
+          </Points>
+          <Points>
+            <X>452.5</X>
+            <Y>384.5</Y>
+          </Points>
+          <Points>
+            <X>725</X>
+            <Y>384.5</Y>
+          </Points>
+        </Points>
+      </Connection>
+      <Connection Source="WP0.o" Destination="wp11" dx1="90" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

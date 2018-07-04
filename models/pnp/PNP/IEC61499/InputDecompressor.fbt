@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="B84DC56DACD6A80F" Name="InputDecompressor" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="Rediska" Date="6/21/2018" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="QI" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="QI" />
+        <With Var="delimiter" />
+        <With Var="input" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="QO" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="QO" />
+        <With Var="cyl1_fwd" />
+        <With Var="cyl1_back" />
+        <With Var="cyl2_fwd" />
+        <With Var="cyl2_back" />
+        <With Var="vacuum_on" />
+        <With Var="vacuum_off" />
+        <With Var="vcyl_down" />
+      </Event>
+      <Event Name="RESET">
+        <With Var="resetVACUUM_ON" />
+        <With Var="resetC1home" />
+        <With Var="resetC1end" />
+        <With Var="resetC2home" />
+        <With Var="resetC2end" />
+        <With Var="resetVchome" />
+        <With Var="resetVcend" />
+        <With Var="resetC1AbsPos" />
+        <With Var="resetC2AbsPos" />
+        <With Var="resetVCAbsPos" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="QI" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="delimiter" Type="STRING" />
+      <VarDeclaration Name="input" Type="STRING[200]" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+      <VarDeclaration Name="cyl1_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl1_back" Type="BOOL" />
+      <VarDeclaration Name="cyl2_fwd" Type="BOOL" />
+      <VarDeclaration Name="cyl2_back" Type="BOOL" />
+      <VarDeclaration Name="vacuum_on" Type="BOOL" />
+      <VarDeclaration Name="vacuum_off" Type="BOOL" />
+      <VarDeclaration Name="vcyl_down" Type="BOOL" />
+      <VarDeclaration Name="resetVACUUM_ON" Type="BOOL" />
+      <VarDeclaration Name="resetC1home" Type="BOOL" />
+      <VarDeclaration Name="resetC1end" Type="BOOL" />
+      <VarDeclaration Name="resetC2home" Type="BOOL" />
+      <VarDeclaration Name="resetC2end" Type="BOOL" />
+      <VarDeclaration Name="resetVchome" Type="BOOL" />
+      <VarDeclaration Name="resetVcend" Type="BOOL" />
+      <VarDeclaration Name="resetC1AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetC2AbsPos" Type="UINT" />
+      <VarDeclaration Name="resetVCAbsPos" Type="UINT" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Name="reset" Type="BOOL" />
+      <VarDeclaration Name="subs" Type="STRING" ArraySize="23" />
+    </InternalVars>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="304.9412" y="285.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="PARSE_IS_RESET" x="1828" y="764">
+        <ECAction Algorithm="PARSE_RESET" />
+      </ECState>
+      <ECState Name="PARSE_RESET_SYMB" x="2468" y="300">
+        <ECAction Algorithm="PARSE_RESET_SYMB" Output="RESET" />
+      </ECState>
+      <ECState Name="PARSE_REQ_SYMB" x="712.0001" y="1088">
+        <ECAction Algorithm="PARSE_REQ_SYMB" Output="CNF" />
+      </ECState>
+      <ECState Name="HOME" x="1062.742" y="520.0001" />
+      <ECTransition Source="START" Destination="INIT" Condition="1" x="724.4211" y="131.4831">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="172.9342,32.64599,204.5536,26.38236" />
+      </ECTransition>
+      <ECTransition Source="HOME" Destination="PARSE_IS_RESET" Condition="REQ" x="1472.549" y="556.1827">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="346.5228,127.0818,389.9919,141.4222" />
+      </ECTransition>
+      <ECTransition Source="PARSE_IS_RESET" Destination="PARSE_REQ_SYMB" Condition="NOT(reset)" x="1315.908" y="1002.193">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="355.992,246.3572,292.9485,264.6602" />
+      </ECTransition>
+      <ECTransition Source="PARSE_REQ_SYMB" Destination="HOME" Condition="1" x="841.7646" y="864.8235">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="194.9172,240.6366,218.8506,201.9124" />
+      </ECTransition>
+      <ECTransition Source="PARSE_RESET_SYMB" Destination="HOME" Condition="1" x="1662.985" y="336.4479">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="455.7805,73.76331,375.6738,86.43723" />
+      </ECTransition>
+      <ECTransition Source="PARSE_IS_RESET" Destination="PARSE_RESET_SYMB" Condition="reset" x="2132.208" y="457">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="516.3313,122.9848,557.6687,93.01519" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="INIT" Condition="INIT" x="923.5294" y="323.2626" />
+      <ECTransition Source="INIT" Destination="HOME" Condition="1" x="1054.185" y="292.4341">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="260.9651,58.54356,270.2665,81.31448" />
+      </ECTransition>
+      <ECTransition Source="HOME" Destination="INIT" Condition="INIT" x="790.2172" y="335.1293">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="192.5635,95.71931,183.5212,72.60215" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="QO := TRUE;&#xD;&#xA;INIT:=FALSE;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text=";" />
+    </Algorithm>
+    <Algorithm Name="PARSE_RESET_SYMB">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..11] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;	&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;resetVACUUM_ON := STRING_TO_BOOL(substr[2]);&#xD;&#xA;resetC1home := STRING_TO_BOOL(substr[3]);&#xD;&#xA;resetC1end := STRING_TO_BOOL(substr[4]);&#xD;&#xA;&#xD;&#xA;resetC2home := STRING_TO_BOOL(substr[5]);&#xD;&#xA;resetC2end := STRING_TO_BOOL(substr[6]);&#xD;&#xA;resetVchome := STRING_TO_BOOL(substr[7]);&#xD;&#xA;resetVcend := STRING_TO_BOOL(substr[8]);&#xD;&#xA;&#xD;&#xA;resetC1AbsPos := STRING_TO_UINT(substr[9]);&#xD;&#xA;resetC2AbsPos := STRING_TO_UINT(substr[10]);&#xD;&#xA;resetVCAbsPos := STRING_TO_UINT(substr[11]);" />
+    </Algorithm>
+    <Algorithm Name="PARSE_REQ_SYMB">
+      <ST Text="VAR&#xD;&#xA;	length: INT;&#xD;&#xA;	i : INT;&#xD;&#xA;	prev: INT;&#xD;&#xA;	substr : ARRAY[1..8] OF STRING;&#xD;&#xA;	num : INT;&#xD;&#xA;	cur: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;length := DINT_TO_INT(LEN(input));&#xD;&#xA;prev := 1;&#xD;&#xA;cur := 1;&#xD;&#xA;FOR i := 1 TO length DO&#xD;&#xA;	IF (MID(input,1,i) = delimiter) THEN&#xD;&#xA;		substr[cur] := MID(input, i - prev, prev);//input.DATA[prev, i-1];&#xD;&#xA;		cur := cur + 1;&#xD;&#xA;		prev := i + 1;&#xD;&#xA;	END_IF;&#xD;&#xA;END_FOR;&#xD;&#xA;cyl1_fwd := STRING_TO_BOOL(substr[2]);&#xD;&#xA;cyl1_back := STRING_TO_BOOL(substr[3]);&#xD;&#xA;cyl2_fwd := STRING_TO_BOOL(substr[4]);&#xD;&#xA;cyl2_back := STRING_TO_BOOL(substr[5]);&#xD;&#xA;vacuum_on := STRING_TO_BOOL(substr[6]);&#xD;&#xA;vacuum_off := STRING_TO_BOOL(substr[7]);&#xD;&#xA;vcyl_down := STRING_TO_BOOL(substr[8]);" />
+    </Algorithm>
+    <Algorithm Name="PARSE_RESET">
+      <ST Text="VAR&#xD;&#xA;	i: INT;&#xD;&#xA;END_VAR;&#xD;&#xA;i := 1;&#xD;&#xA;(*WHILE MID(input, 1, i) &lt;&gt; delimiter DO&#xD;&#xA;	i := i + 1;&#xD;&#xA;END_WHILE;*)&#xD;&#xA;INIT:=FALSE;&#xD;&#xA;reset := STRING_TO_BOOL(MID(input, i, 1));" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

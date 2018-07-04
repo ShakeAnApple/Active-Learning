@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="5F5F2D69594B7EF8" Name="AND_EVENTS_bkp" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="chivdan" Date="10/19/2017" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="MODEL" Comment="Normal Execution Request">
+        <With Var="permit" />
+        <With Var="do_add" />
+      </Event>
+      <Event Name="ADDER">
+        <With Var="permit" />
+        <With Var="do_add" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="z1" />
+        <With Var="z2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="permit" Type="BOOL" />
+      <VarDeclaration Name="do_add" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="z1" Type="BOOL" />
+      <VarDeclaration Name="z2" Type="BOOL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="380.9412" y="181.4117" />
+      <ECState Name="idle" Comment="Initialization" x="1119.529" y="201.1765">
+        <ECAction Algorithm="INIT" Output="CNF" />
+      </ECState>
+      <ECState Name="E1" x="568" y="720">
+        <ECAction Algorithm="alg_e1" Output="CNF" />
+      </ECState>
+      <ECState Name="E2" x="1620" y="716">
+        <ECAction Algorithm="alg_e2" Output="CNF" />
+      </ECState>
+      <ECState Name="both" x="1032" y="1256">
+        <ECAction Algorithm="alg" Output="CNF" />
+        <ECAction Algorithm="alg_done" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="idle" Condition="1" x="793.4111" y="120.2241">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="179.7246,25.89575,220.3781,27.5274" />
+      </ECTransition>
+      <ECTransition Source="idle" Destination="E1" Condition="MODEL" x="749.8746" y="435.2721">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="201.2911,89.43607,163.3034,124.8502" />
+      </ECTransition>
+      <ECTransition Source="idle" Destination="E2" Condition="ADDER" x="1431.195" y="404.681">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="343.7413,80.1186,376.9926,114.3235" />
+      </ECTransition>
+      <ECTransition Source="E1" Destination="both" Condition="ADDER" x="751.4819" y="1008.959">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="170.1035,236.0015,201.2414,271.9711" />
+      </ECTransition>
+      <ECTransition Source="E2" Destination="both" Condition="MODEL" x="1384.923" y="1042.623">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="368.1751,246.7618,328.6452,283.0647" />
+      </ECTransition>
+      <ECTransition Source="both" Destination="idle" Condition="1" x="1187.681" y="689.5568">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="301.2982,208.739,307.8706,129.5341" />
+      </ECTransition>
+      <ECTransition Source="E1" Destination="E1" Condition="MODEL" x="456.4679" y="941.7217">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="139.5419,249.5587,74.4782,249.5587" />
+      </ECTransition>
+      <ECTransition Source="E2" Destination="E2" Condition="ADDER" x="1711.409" y="933.3762">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="466.1729,247.1102,401.1092,247.1102" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="z1:=FALSE;&#xD;&#xA;z2:=FALSE;&#xD;&#xA;MODEL:=FALSE;&#xD;&#xA;ADDER:=FALSE;" />
+    </Algorithm>
+    <Algorithm Name="alg_e1">
+      <ST Text="&#xD;&#xA;	z1:=permit;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;	z2:=do_add;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;MODEL:=FALSE;" />
+    </Algorithm>
+    <Algorithm Name="alg_done">
+      <ST Text="z1:=FALSE;&#xD;&#xA;z2:=FALSE;&#xD;&#xA;MODEL:=FALSE;&#xD;&#xA;ADDER:=FALSE;" />
+    </Algorithm>
+    <Algorithm Name="alg_e2">
+      <ST Text="&#xD;&#xA;	z1:=permit;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;	z2:=do_add;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;ADDER:=FALSE;" />
+    </Algorithm>
+    <Algorithm Name="alg">
+      <ST Text=";&#xD;&#xA;&#xD;&#xA;	z1:=permit;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;	z2:=do_add;&#xD;&#xA;&#xD;&#xA;MODEL:=FALSE;&#xD;&#xA;ADDER:=FALSE;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

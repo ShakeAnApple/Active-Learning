@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="C9191BF282BBE201" Name="pickup" Comment="Basic Function Block Type" Namespace="Main">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="chivdan" Date="10/19/2017" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="vacuum_on" />
+        <With Var="pp" />
+        <With Var="pp0" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="vacuum_on" />
+        <With Var="pp" />
+        <With Var="pp0" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="permit" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="permit" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="vacuum_on" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="pp" Type="BOOL" />
+      <VarDeclaration Name="pp0" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="permit" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="444.9412" y="181.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="MAYBE_PICKED" Comment="Normal execution" x="485.647" y="1184.941">
+        <ECAction Algorithm="dump" />
+      </ECState>
+      <ECState Name="PICKED" x="1600" y="1188">
+        <ECAction Algorithm="REQ" Output="CNF" />
+        <ECAction Algorithm="dump" />
+      </ECState>
+      <ECState Name="reset" x="1684" y="316">
+        <ECAction Algorithm="INIT" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="698.4592" y="73.0867">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="164.9888,15.83384,186.39,14.03463" />
+      </ECTransition>
+      <ECTransition Source="reset" Destination="MAYBE_PICKED" Condition="REQ &amp; vacuum_on AND pp" x="761.2829" y="675.3632">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="211.0173,131.8955,124.0281,195.4906" />
+      </ECTransition>
+      <ECTransition Source="MAYBE_PICKED" Destination="PICKED" Condition="REQ &amp; NOT pp" x="1096.86" y="1100.649">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="244.0603,271.572,304.3697,271.7375" />
+      </ECTransition>
+      <ECTransition Source="PICKED" Destination="reset" Condition="REQ &amp; NOT vacuum_on" x="1751.951" y="817.2906">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="442.3013,241.6756,447.5087,177.8515" />
+      </ECTransition>
+      <ECTransition Source="INIT" Destination="reset" Condition="1" x="1282.133" y="263.0877">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="295.4848,61.96191,342.7199,72.82079" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="permit := TRUE;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="permit := FALSE;" />
+    </Algorithm>
+    <Algorithm Name="dump">
+      <ST Text=";&#xD;&#xA;REQ:=FALSE;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

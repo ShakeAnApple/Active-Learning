@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="WP_AND" Comment="Basic Function Block Type" Namespace="Main">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/7/2012" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="Q1" />
+        <With Var="Q2" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="Q1" />
+        <With Var="Q2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="Q0" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="Q0" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="Q1" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="Q2" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="Q0" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="555.5555" y="427.7778" />
+      <ECState Name="INIT" Comment="Initialization" x="922.2222" y="138.8889">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="216.6667" y="755.5555">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.7479" y="202.9059" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="798.6841" y="346.011" />
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="448.7082" y="648.6908" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="373.7035" y="513.4364" />
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="IF Q1 = TRUE AND Q2 = TRUE THEN&#xD;&#xA;    Q0 := TRUE;&#xD;&#xA;ELSE&#xD;&#xA;    Q0 := FALSE;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="IF Q1 = TRUE AND Q2 = TRUE THEN&#xD;&#xA;    Q0 := TRUE;&#xD;&#xA;ELSE&#xD;&#xA;    Q0 := FALSE;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

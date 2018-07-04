@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="WP_OR" Comment="Basic Function Block Type" Namespace="Main">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH" Version="0.0" Author="XPMUser" Date="2/7/2012" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="i1" />
+        <With Var="i3" />
+        <With Var="i2" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="i1" />
+        <With Var="i2" />
+        <With Var="i3" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm">
+        <With Var="o" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="o" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="i1" Type="BOOL" Comment="Input event qualifier" />
+      <VarDeclaration Name="i2" Type="BOOL" />
+      <VarDeclaration Name="i3" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="o" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="INIT" Comment="Initialization" x="923.5294" y="141.1765">
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="217.647" y="752.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="INIT" Condition="INIT" x="731.1476" y="204.8375" />
+      <ECTransition Source="INIT" Destination="START" Condition="1" x="797.5924" y="348.3232" />
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="447.8488" y="648.3352" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="372.8767" y="512.7991" />
+    </ECC>
+    <Algorithm Name="INIT" Comment="Initialization algorithm">
+      <ST Text="IF i1 = TRUE OR i2 = TRUE OR i3 = TRUE THEN&#xD;&#xA;    o := TRUE;&#xD;&#xA;ELSE&#xD;&#xA;    o := FALSE;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST Text="IF i1 = TRUE OR i2 = TRUE OR i3 = TRUE THEN&#xD;&#xA;    o := TRUE;&#xD;&#xA;ELSE&#xD;&#xA;    o := FALSE;&#xD;&#xA;END_IF;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

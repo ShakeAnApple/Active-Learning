@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceProperties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DefaultProfile>
+    <Device Name="DEV0">
+      <Property Name="IPAddress" Value="54.242.7.202" />
+      <ComplexProperty Name="Ports">
+        <Property Name="Deploy" Value="61499" />
+        <Property Name="HMI" Value="61498" />
+        <Property Name="Watch" Value="61497" />
+      </ComplexProperty>
+    </Device>
+  </DefaultProfile>
+  <Profile Name="(Local Test)">
+    <Device Name="DEV0">
+      <Property Name="IPAddress" Value="127.0.0.1" />
+      <ComplexProperty Name="Ports">
+        <Property Name="Deploy" Value="61499" />
+        <Property Name="HMI" Value="61498" />
+        <Property Name="Watch" Value="61497" />
+        <Property Name="Archive" Value="61496" />
+      </ComplexProperty>
+      <ComplexProperty Name="Configuration">
+        <GroupProperty Name="FB" Enabled="true">
+          <GroupProperty Name="CSVWRITER" Enabled="true">
+            <Property Name="MaxRecordSize" Value="1024000" />
+            <Property Name="MaxQueueSize" Value="1024000" />
+            <Property Name="StreamBufferSize" Value="163840" />
+            <Property Name="FlushInterval" Value="60" />
+          </GroupProperty>
+        </GroupProperty>
+      </ComplexProperty>
+    </Device>
+  </Profile>
+</DeviceProperties>
