@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DeployCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Deploys>
+    <Deploy System="System" DeviceName="DEV0">
+      <IPAddress>127.0.0.1</IPAddress>
+      <Port>7506</Port>
+      <DeployMethod>normal</DeployMethod>
+      <UsedDll>IEC61499.exe|Runtime.Base.dll</UsedDll>
+      <FileName>C:\Users\contest\Documents\GitHub\active-learning\models\Elevator\IEC61499\System\System.sys</FileName>
+      <User />
+      <Password />
+      <SshPort>0</SshPort>
+      <TunneledDeployPort>0</TunneledDeployPort>
+      <RQSTCollection>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="1" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.StudioInfo" Value="V1;6221839967A2BD1205197C475CE0811E5B0E7C585ABAA14A0A6D2B1E02EAF63B513E574B5EBEF0194029566476FB88195F34774F56A9A4195F7D5D4F5EB4ED3F6F6655435098A21A483C77530EB5B5037B32775E41B4A1577F386A475193F63B513E5C4752B2A14A54347A4F5DA8A83756256D495CB5B905573137495CB6F6274A32734F50AF83165538246F5FBEBB164C326B1163A9A21D5D3E6D6D46B2A94A43185C1E0BEEF8417A702D6F00E2E0437B6A58070BEDF94115695D1B0BEAFF32011F2E1376A6F6;FE514D80632E6D46DF46678E8E44E533AD30546C" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="2" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.SystemName" Value="System" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="3" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.DeviceName" Value="DEV0" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="4" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.Name" Value="Elevator" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="5" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.Guid" Value="{EE48556B-4E39-4C7A-8646-4D1812E9B79E}" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="6" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.BuildTime" Value="2018-08-03 16:46:00Z" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="7" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.DeployTime" Value="__DEPLOY_TIME__" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="8" Action="ATTRWRITE"&gt;&lt;Attribute Name="Project.StudioVersion" Value="IEC 61499 IDE, Fido r17156 Tue Dec 22 21:39:18 2015" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="9" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#ChangeDetect.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="10" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#DoorMove.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="11" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#DoorSensor.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="12" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#DummyControl.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="13" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#FloorCarElevator.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="14" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#InputCompressor.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="15" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#InputDecompressor.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="16" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#integEC.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="17" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#LiftMove.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="18" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#OutputCompressor.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="19" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#OutputDecompressor.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="20" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#Signal_OR.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="21" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Basics/Main#AND_-2118623424.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="22" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:HMIAccessors/Main#Lift_HMI.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="23" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#Control.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="24" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#Doors.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="25" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#Door.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="26" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#Door_HMI.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="27" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#InputSender.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="28" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#IOHandler.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="29" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#Lift.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="30" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#Model.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="31" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#OutputSender.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="32" Action="CREATE"&gt;&lt;FBType Name="IEC61499.exe:Composites/Main#ReqPanelLift.bin" /&gt;&lt;/Request&gt;</RQST>
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="33" Action="CREATE"&gt;&lt;FB Name="RES0" Type="Runtime.Management#EMB_RES_ENH" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="75" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="34" Action="CREATE"&gt;&lt;FB Name="ElevatorSystem" Type="Main#IOHandler" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="78" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="35" Action="CREATE"&gt;&lt;FB Name="FB1" Type="IEC61499.Standard#E_RESTART" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="79" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="36" Action="CREATE"&gt;&lt;FB Name="Controller" Type="Main#Control" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="80" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="37" Action="CREATE"&gt;&lt;Connection Source="Controller.INITO" Destination="ElevatorSystem.INIT" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="82" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="38" Action="CREATE"&gt;&lt;Connection Source="Controller.CNF" Destination="ElevatorSystem.REQ" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="85" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="39" Action="CREATE"&gt;&lt;Connection Source="FB1.COLD" Destination="Controller.INIT" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="88" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="40" Action="CREATE"&gt;&lt;Connection Source="FB1.WARM" Destination="Controller.INIT" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="91" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="41" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.CNF" Destination="Controller.REQ" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="94" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="42" Action="CREATE"&gt;&lt;Connection Source="Controller.Open0" Destination="ElevatorSystem.door0" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="99" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="43" Action="CREATE"&gt;&lt;Connection Source="Controller.Open1" Destination="ElevatorSystem.door1" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="102" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="44" Action="CREATE"&gt;&lt;Connection Source="Controller.Open2" Destination="ElevatorSystem.door2" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="105" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="45" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.door2Closed" Destination="Controller.DoorClosed2" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="108" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="46" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.door1Closed" Destination="Controller.DoorClosed1" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="111" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="47" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.door0Closed" Destination="Controller.DoorClosed0" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="114" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="48" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.elevatorAtFloor2" Destination="Controller.AtFloor2" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="117" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="49" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.elevatorAtFloor1" Destination="Controller.AtFloor1" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="120" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="50" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.elevatorAtFloor0" Destination="Controller.AtFloor0" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="123" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="51" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.requestFloor2" Destination="Controller.ButtonFor2" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="126" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="52" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.requestFloor1" Destination="Controller.ButtonFor1" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="129" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="53" Action="CREATE"&gt;&lt;Connection Source="ElevatorSystem.requestFloor0" Destination="Controller.ButtonFor0" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="132" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="54" Action="CREATE"&gt;&lt;Connection Source="Controller.MoveUp" Destination="ElevatorSystem.motorUp" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="135" />
+        </Request>
+        <Request>
+          <DST>RES0</DST>
+          <RQST>&lt;Request ID="55" Action="CREATE"&gt;&lt;Connection Source="Controller.MoveDown" Destination="ElevatorSystem.motorDown" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo LineNr="138" />
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="56" Action="WRITE"&gt;&lt;Connection Source="0" Destination="RES0.PRIO" /&gt;&lt;/Request&gt;</RQST>
+          <LineInfo />
+        </Request>
+        <Request>
+          <DST />
+          <RQST>&lt;Request ID="57" Action="START" /&gt;</RQST>
+        </Request>
+      </RQSTCollection>
+    </Deploy>
+  </Deploys>
+</DeployCollection>

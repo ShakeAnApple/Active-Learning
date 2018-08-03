@@ -1,4 +1,4 @@
-package impl;
+package simulation;
 
 import values.VariableValue;
 import values.IntervalValueHolder;
@@ -9,6 +9,10 @@ public class VariableHistoryItem {
 
     public VariableHistoryItem(VariableValue<IntervalValueHolder> variableValue){
         _variableValue = variableValue;
+    }
+
+    public VariableValue<IntervalValueHolder> getVariableValue() {
+        return _variableValue;
     }
 
     public IntervalValueHolder getValue(){

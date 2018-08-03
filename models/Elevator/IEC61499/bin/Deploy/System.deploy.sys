@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE System SYSTEM "../LibraryElement.dtd">
+<System Name="System">
+  <Device ID="2371D82C743A513C" Name="DEV0" Type="NXT_RMTDEV" x="726.5104" y="602.5841" Namespace="nxtControl.Standard">
+    <Resource ID="28A29A086E15ACB3" Name="RES0" Type="EMB_RES_ENH" x="1020" y="1160" Namespace="Runtime.Management">
+      <Parameter Name="PRIO" Value="0" />
+      <FBNetwork>
+        <FB ID="1060B082E8B309BE" Name="ElevatorSystem" Type="IOHandler" x="2700" y="1200" Namespace="Main" />
+        <FB ID="979E77EBBF7A903E" Name="FB1" Type="E_RESTART" x="520" y="820" Namespace="IEC61499.Standard" />
+        <FB ID="83209F76F0A1EFA1" Name="Controller" Type="Control" x="1520" y="720" Namespace="Main" />
+        <EventConnections>
+          <Connection Source="Controller.INITO" Destination="ElevatorSystem.INIT" dx1="278.6563" />
+          <Connection Source="Controller.CNF" Destination="ElevatorSystem.REQ" dx1="263.6563" />
+          <Connection Source="FB1.COLD" Destination="Controller.INIT" dx1="260" />
+          <Connection Source="FB1.WARM" Destination="Controller.INIT" dx1="260" />
+          <Connection Source="ElevatorSystem.CNF" Destination="Controller.REQ" dx1="88.3125" dx2="80" dy="-198" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="Controller.Open0" Destination="ElevatorSystem.door0" dx1="253.6563" />
+          <Connection Source="Controller.Open1" Destination="ElevatorSystem.door1" dx1="243.6563" />
+          <Connection Source="Controller.Open2" Destination="ElevatorSystem.door2" dx1="233.6563" />
+          <Connection Source="ElevatorSystem.door2Closed" Destination="Controller.DoorClosed2" dx1="40" dx2="30" dy="92" />
+          <Connection Source="ElevatorSystem.door1Closed" Destination="Controller.DoorClosed1" dx1="68.3125" dx2="60" dy="182" />
+          <Connection Source="ElevatorSystem.door0Closed" Destination="Controller.DoorClosed0" dx1="108.3125" dx2="100" dy="282" />
+          <Connection Source="ElevatorSystem.elevatorAtFloor2" Destination="Controller.AtFloor2" dx1="148.3125" dx2="140" dy="382" />
+          <Connection Source="ElevatorSystem.elevatorAtFloor1" Destination="Controller.AtFloor1" dx1="188.3125" dx2="180" dy="482" />
+          <Connection Source="ElevatorSystem.elevatorAtFloor0" Destination="Controller.AtFloor0" dx1="228.3125" dx2="220" dy="582" />
+          <Connection Source="ElevatorSystem.requestFloor2" Destination="Controller.ButtonFor2" dx1="268.3125" dx2="260" dy="682" />
+          <Connection Source="ElevatorSystem.requestFloor1" Destination="Controller.ButtonFor1" dx1="308.3125" dx2="300" dy="782" />
+          <Connection Source="ElevatorSystem.requestFloor0" Destination="Controller.ButtonFor0" dx1="348.3125" dx2="340" dy="882" />
+          <Connection Source="Controller.MoveUp" Destination="ElevatorSystem.motorUp" dx1="283.6563" />
+          <Connection Source="Controller.MoveDown" Destination="ElevatorSystem.motorDown" dx1="273.6563" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+    <FBNetwork />
+  </Device>
+</System>

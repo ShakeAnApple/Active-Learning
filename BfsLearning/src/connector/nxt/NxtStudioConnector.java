@@ -69,6 +69,7 @@ public class NxtStudioConnector implements IConnector {
     @Override
     public ResponseQueryItem sendQuery(RequestQueryItem queryItem) {
         try {
+            resetSystem(queryItem.getState());
             return processQuery(queryItem);
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,7 +81,6 @@ public class NxtStudioConnector implements IConnector {
 
         String responseString = "";
 //        for (SingleRequest s : queryItem.getSequence()){
-            // TODO catch counter mistakes
             SingleRequest lastReq = queryItem.getSequence()[queryItem.getSequence().length - 1];
             //for(int i = 0; i < lastReq.getRepeatCount(); i++) {
 //                String[] in = new String[s.getSymbol().getVariablesValues().size()];
@@ -203,8 +203,8 @@ public class NxtStudioConnector implements IConnector {
 
     @Override
     public State getDefault(RequestQueryItem req) {
-        return new State(new StateValue(parseResponse("0;1;0;1;0;1;0;0;0;0;")),true);
-        //return new State(new StateValue(parseResponse("0;0;0;0;0;1;1;1;1;30;")),true);
+       // return new State(new StateValue(parseResponse("0;1;0;1;0;1;0;0;0;0;")),true);
+        return new State(new StateValue(parseResponse("0;0;0;0;0;1;1;1;1;30;")),true);
     }
 
     public void close(){

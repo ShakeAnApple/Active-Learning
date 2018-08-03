@@ -1,6 +1,8 @@
 import automaton.Automaton;
 import automaton.Transition;
 import config.*;
+import simulation.ISimulationService;
+import simulation.SimulationService;
 import utils.NusmvConverter;
 import utils.Utils;
 import values.Symbol;
@@ -17,7 +19,6 @@ public class Main {
     public static void main(String[] args) {
         //String path = "C:\\Projects\\Uni\\Active Learning\\BFSLearning\\config.conf";
         Config conf = ConfigReader.read(args[0]);
-        //Config conf = ConfigReader.read(path);
         ConfigParser parser = new ConfigParser(new VariableInfoFabric());
         AbstractContext context = parser.parse(conf);
 
@@ -33,60 +34,6 @@ public class Main {
 
     private static void processNxtModel(NxtContext context){
 
-        //////////// old declaration /////////////////////////
-//        List<BooleanValueHolder> possibleBoolValues = List.of(new BooleanValueHolder(true), new BooleanValueHolder(false));
-//
-//        AbstractVariableInfo<BooleanValueHolder> inputDoor0Open = new AbstractVariableInfo("door0", 2, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> inputDoor1Open = new AbstractVariableInfo("door1", 3, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> inputDoor2Open = new AbstractVariableInfo("door2", 4, possibleBoolValues, BooleanValueHolder::new);
-//
-//        AbstractVariableInfo<BooleanValueHolder> inputDoMotorUp = new AbstractVariableInfo("motorUp", 0, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> inputDoMotorDown = new AbstractVariableInfo("motorDown", 1, possibleBoolValues, BooleanValueHolder::new);
-//        List<AbstractVariableInfo> inputVars = List.of(inputDoMotorDown, inputDoMotorUp,
-//                inputDoor0Open, inputDoor1Open, inputDoor2Open);
-//
-//        Interval[] posIntervals = new Interval[]{
-//                new Interval(30.0, 30.5),
-//                new Interval(30.5, 224.5),
-//                new Interval(224.5, 225.5),
-//                new Interval(225.5, 418.5),
-//                new Interval(418.5, 419.5)
-//        };
-//
-//        List<IntervalValueHolder> possiblePosValues = new ArrayList<>();
-//
-//        for (Interval interval : posIntervals) {
-//            possiblePosValues.add(
-//                    new IntervalValueHolder(posIntervals, interval)
-//            );
-//        }
-//
-//        AbstractVariableInfo<IntervalValueHolder> outputPos = new AbstractVariableInfo("pos", 9, possiblePosValues,
-//                () -> new IntervalValueHolder(posIntervals, posIntervals[0]));
-//
-////        AbstractVariableInfo<BooleanValueHolder> outputButtonFloor0 = new AbstractVariableInfo("buttonFloor0", 0, possibleBoolValues, BooleanValueHolder::new);
-////        AbstractVariableInfo<BooleanValueHolder> outputButtonFloor1 = new AbstractVariableInfo("buttonFloor1", 1, possibleBoolValues, BooleanValueHolder::new);
-////        AbstractVariableInfo<BooleanValueHolder> outputButtonFloor2 = new AbstractVariableInfo("buttonFloor2", 2, possibleBoolValues, BooleanValueHolder::new);
-//
-//        AbstractVariableInfo<BooleanValueHolder> outputRequestFloor0 = new AbstractVariableInfo("requestFloor0", 0, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> outputRequestFloor1 = new AbstractVariableInfo("requestFloor1", 1, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> outputRequestFloor2 = new AbstractVariableInfo("requestFloor2", 2, possibleBoolValues, BooleanValueHolder::new);
-//
-//        AbstractVariableInfo<BooleanValueHolder> outputElevatorAtFloor0 = new AbstractVariableInfo("elevatorAtFloor0", 3, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> outputElevatorAtFloor1 = new AbstractVariableInfo("elevatorAtFloor1", 4, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> outputElevatorAtFloor2 = new AbstractVariableInfo("elevatorAtFloor2", 5, possibleBoolValues, BooleanValueHolder::new);
-//
-//        AbstractVariableInfo<BooleanValueHolder> outputDoor0Closed = new AbstractVariableInfo("door0Closed", 6, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> outputDoor1Closed = new AbstractVariableInfo("door1Closed", 7, possibleBoolValues, BooleanValueHolder::new);
-//        AbstractVariableInfo<BooleanValueHolder> outputDoor2Closed = new AbstractVariableInfo("door2Closed", 8, possibleBoolValues, BooleanValueHolder::new);
-//
-//        List<AbstractVariableInfo> outputVars = List.of(
-//                outputDoor0Closed, outputDoor1Closed, outputDoor2Closed,
-//                outputElevatorAtFloor0, outputElevatorAtFloor1, outputElevatorAtFloor2,
-//                outputRequestFloor0, outputRequestFloor1, outputRequestFloor2,
-//                outputPos);
-        //////////////////////////////////////////////////////////////////////
-
         AlphabetBuilder alphabetBuilder = new AlphabetBuilder();
         List<Symbol> inputAlphabet = alphabetBuilder.build(context.getInputVariablesInfos());
         List<Symbol> outputAlphabet = alphabetBuilder.build(context.getOutputVariablesInfos());
@@ -95,17 +42,14 @@ public class Main {
 
 
         Automaton hypothesis = new Automaton(context.getInputVariablesInfos(), context.getOutputVariablesInfos());
-        // magic numbers oO
         IConnector connector = new NxtStudioConnector(context.getInPort(), context.getOutPort(), context);
         //IConnector connector = new NxtStudioConnector(64999, 64998);
 //        IConnector connector = new NxtStudioConnector(1010, 1011);
 
-        //hypothesis.setInputVariables(inputVars);
-        //hypothesis.setOutputVariables(outputVars);
-
         boolean needToLearn = true;
         if (needToLearn) {
-            LearningService ls = new LearningService(inputAlphabet, outputAlphabet, hypothesis, connector, context);
+            ISimulationService simulationService = new SimulationService(connector);
+            LearningService ls = new LearningService(inputAlphabet, outputAlphabet, hypothesis, simulationService);
             long start = System.currentTimeMillis();
             while (!ls.isReady()) {
                 ls.stepForward();
@@ -115,7 +59,7 @@ public class Main {
 //            List<Transition> list = Utils.deserializeTransitions("C:\\tmp\\trans2");
 
             System.out.print("Total alg: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
-            NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen_newref.smv");
+            NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen_newref_refactor.smv");
         } else {
             hypothesis.loadTransitions("C:\\tmp\\trans2");
 
