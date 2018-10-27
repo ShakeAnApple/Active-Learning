@@ -36,10 +36,10 @@ public class State implements Serializable{
                 .sorted(Comparator.comparing(v -> v.getVarInfo().getOrder()))
                 .collect(Collectors.toList());
         for(VariableValue v: orderedValues){
-            if (v.getValue() instanceof IntervalValueHolder){
-                sb.append(String.format("%1$1s: %2$s; ", v.getVarInfo().getName(), ((IntervalValueHolder)(v.getValue())).getCurrentIntervalNum()));
+            if (v.getValueHolder() instanceof IntervalValueHolder){
+                sb.append(String.format("%1$1s: %2$s; ", v.getVarInfo().getName(), ((IntervalValueHolder)(v.getValueHolder())).getCurrentIntervalNum()));
             } else{
-                sb.append(String.format("%1$1s: %2$s; ", v.getVarInfo().getName(), v.getValue()));
+                sb.append(String.format("%1$1s: %2$s; ", v.getVarInfo().getName(), v.getValueHolder()));
             }
         }
         sb.append("isStart: " + _isStart);

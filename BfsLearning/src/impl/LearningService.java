@@ -130,7 +130,9 @@ public class LearningService {
     public boolean isReady(){
         if (_possibleStates.size() == _processedStates.size()
                 || _nextStates.keySet().size() == 0){
-
+            Utils.serializeTransitions(_hypothesis.getAllTransitions(), "C:\\tmp\\trans3");
+//            AutomatonOptimizer optimizer = new AutomatonOptimizer();
+//            Automaton optimized = optimizer.reduceTransitions(_hypothesis);
 
             return true;
         }

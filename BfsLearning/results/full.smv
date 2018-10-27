@@ -1349,7 +1349,7 @@ TRANS
     -> NoDirChange & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
 
   -- if we on the floor, it's not requested, and its door is closed, and another floor requested - move there
-  -- 1 floor prioritize 2 to 0
+  -- 1 floor prioritize 2 _to 0
   & (plant.elevatorAtFloor1 = 1 & plant.door1Closed = 1 & !buttonPressed1 & buttonPressed2
     -> DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
   & (plant.elevatorAtFloor1 = 1 & plant.door1Closed = 1 & !buttonPressed1 & buttonPressed0 & !buttonPressed2
@@ -1364,7 +1364,7 @@ TRANS
       | plant.elevatorAtFloor1 = 1 & plant.door1Closed = 0 & !buttonPressed1
       | plant.elevatorAtFloor2 = 1 & plant.door2Closed = 0 & !buttonPressed2
     -> !DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
-  -- nothing to do => do nothing
+  -- nothing _to do => do nothing
   & ((plant.elevatorAtFloor0 = 1 | plant.elevatorAtFloor1 = 1 | plant.elevatorAtFloor2 = 1) & !buttonPressed0 & !buttonPressed1 & !buttonPressed2
     -> !DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
   -- check if we move in the same direction
@@ -1390,7 +1390,7 @@ TRANS
 -- We will reach floor1, if we cannot stay on any floor infinitely often. True
 --LTLSPEC G (buttonPressed1 & G (plant.elevatorAtFloor0 = 1 -> F plant.elevatorAtFloor0 = 0) & G (plant.elevatorAtFloor2 = 1 -> F plant.elevatorAtFloor2 = 0) -> F plant.elevatorAtFloor1 = 1)
 
--- The same for floor 0 - oops, false, because we can stuck between floors 1 and 2, because 1st floor prefers 2nd to 0th
+-- The same for floor 0 - oops, false, because we can stuck between floors 1 and 2, because 1st floor prefers 2nd _to 0th
 --LTLSPEC G (buttonPressed0 & G (plant.elevatorAtFloor2 = 1 -> F plant.elevatorAtFloor2 = 0) & G (plant.elevatorAtFloor1 = 1 -> F plant.elevatorAtFloor1 = 0) -> F plant.elevatorAtFloor0 = 1)
 
 -- Never moves with open doors

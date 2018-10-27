@@ -16,7 +16,7 @@ public class VariableHistoryItem {
     }
 
     public IntervalValueHolder getValue(){
-        return _variableValue.getValue();
+        return _variableValue.getValueHolder();
     }
 
     public void setPearsonCoefficient(double pearsonCoefficient) {

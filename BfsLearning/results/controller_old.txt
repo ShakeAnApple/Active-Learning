@@ -24,7 +24,7 @@ TRANS
     -> NoDirChange & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
 
   -- if we on floor, it's not requested, and its door is closed, and another floor requested - move there
-  -- 1 floor prioritize 2 to 0
+  -- 1 floor prioritize 2 _to 0
   & (plant.CONT_CarAtFloor1 & plant.CONT_DoorClosed1 & !plant.CONT_ButtonPressed1 &  plant.CONT_ButtonPressed2
     -> DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
   & (plant.CONT_CarAtFloor1 & plant.CONT_DoorClosed1 & !plant.CONT_ButtonPressed1 & plant.CONT_ButtonPressed0 & !plant.CONT_ButtonPressed2
@@ -39,7 +39,7 @@ TRANS
       | plant.CONT_CarAtFloor1 & !plant.CONT_DoorClosed1 & !plant.CONT_ButtonPressed1
       | plant.CONT_CarAtFloor2 & !plant.CONT_DoorClosed2 & !plant.CONT_ButtonPressed2
     -> !DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
-  -- nothing to do => do nothing
+  -- nothing _to do => do nothing
   & ((plant.CONT_CarAtFloor0 | plant.CONT_CarAtFloor1 | plant.CONT_CarAtFloor2) & !plant.CONT_ButtonPressed0 & !plant.CONT_ButtonPressed1 & !plant.CONT_ButtonPressed2
     -> !DoMotorUp & !DoMotorDown & !DoOpenDoor0 & !DoOpenDoor1 & !DoOpenDoor2)
   -- check if we move in the same direction

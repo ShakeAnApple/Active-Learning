@@ -1,3 +1,5 @@
+package utils;
+
 import values.AbstractValueHolder;
 import values.Symbol;
 import values.AbstractVariableInfo;
@@ -16,7 +18,6 @@ public class AlphabetBuilder {
         List<AbstractVariableInfo> sortedVariableInfos = variableInfos
                 .stream()
                 .sorted(Comparator.comparing(AbstractVariableInfo::getOrder))
-//                .map(v -> v.clone())
                 .collect(Collectors.toList());
 
         int capacity = 1;

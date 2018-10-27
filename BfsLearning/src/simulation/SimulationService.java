@@ -141,7 +141,7 @@ public class SimulationService implements ISimulationService {
                 .getSymbol()
                 .getVariablesValues()
                 .stream()
-                .filter(v -> v.getValue() instanceof IntervalValueHolder)
+                .filter(v -> v.getValueHolder() instanceof IntervalValueHolder)
                 .map(v -> v.getVarInfo().getName())
                 .collect(Collectors.toList());
 
@@ -150,11 +150,11 @@ public class SimulationService implements ISimulationService {
                     .getStateValue()
                     .getSymbol()
                     .getVariableValueByName(varName)
-                    .getValue();
+                    .getValueHolder();
             IntervalValueHolder curVal = (IntervalValueHolder) resultSystemState
                     .getStateValue()
                     .getSymbol()
-                    .getVariableValueByName(varName).getValue();
+                    .getVariableValueByName(varName).getValueHolder();
 
             if (prevVal.equals(curVal) && !prevVal.getConcreteValue().equals(curVal.getConcreteValue())){
                 return true;
@@ -173,7 +173,7 @@ public class SimulationService implements ISimulationService {
                 .getSymbol()
                 .getVariablesValues()
                 .stream()
-                .filter(v -> v.getValue() instanceof IntervalValueHolder)
+                .filter(v -> v.getValueHolder() instanceof IntervalValueHolder)
                 .map(v -> v.getVarInfo().getName())
                 .collect(Collectors.toList());
 

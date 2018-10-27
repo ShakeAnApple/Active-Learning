@@ -21,13 +21,9 @@ public class Automaton {
     private List<AbstractVariableInfo> _inputVariableInfos;
     private List<AbstractVariableInfo> _outputVariableInfos;
 
-    public Automaton() {
+    public Automaton(List<AbstractVariableInfo> inputVars, List<AbstractVariableInfo> outputVars){
         _states = new HashSet<>();
         _transitions = new HashMap();
-    }
-
-    public Automaton(List<AbstractVariableInfo> inputVars, List<AbstractVariableInfo> outputVars){
-        this();
         _inputVariableInfos = inputVars;
         _outputVariableInfos = outputVars;
     }
@@ -36,16 +32,8 @@ public class Automaton {
         return _inputVariableInfos;
     }
 
-    public void setInputVariables(List<AbstractVariableInfo> inputVars) {
-        _inputVariableInfos = inputVars;
-    }
-
     public List<AbstractVariableInfo> getOutputVariables() {
         return _outputVariableInfos;
-    }
-
-    public void setOutputVariables(List<AbstractVariableInfo> outputVars) {
-        _outputVariableInfos = outputVars;
     }
 
     public State getStartState() {

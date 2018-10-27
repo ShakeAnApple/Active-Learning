@@ -9,10 +9,7 @@ import values.IntervalValueHolder;
 import values.VariableValue;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NusmvConverter {
@@ -76,8 +73,14 @@ public class NusmvConverter {
                 String curStateName = statesNames.get(st);
                 for (Transition tr: transitionsFromSt) {
                     writer.append(String.format("(state = %1$s)",curStateName));
-                    for (VariableValue val : tr.getSymbol().getVariablesValues()){
-                        writer.append(String.format(" & (%1$s = %2$s)",val.getVarInfo().getName(), val.getValue()));
+
+                    //TODO tempSolution replace!!
+                    if (tr.getStringFormula() != null){
+                        writer.append(convertBoolTransToNusmvRow(tr.getStringFormula()));
+                    } else {
+                        for (VariableValue val : tr.getSymbol().getVariablesValues()) {
+                            writer.append(String.format(" & (%1$s = %2$s)", val.getVarInfo().getName(), val.getValueHolder()));
+                        }
                     }
                     writer.append(String.format(": %1$s; \n",statesNames.get(tr.getTo())));
                 }
@@ -99,7 +102,7 @@ public class NusmvConverter {
                     List<State> curValStates = new ArrayList<>();
                     for (State st : automaton.getStates()) {
                         if (isIntervalValue) {
-                            IntervalValueHolder i1 = (IntervalValueHolder) st.getStateValue().getSymbol().getVariableValueByName(var.getName()).getValue();
+                            IntervalValueHolder i1 = (IntervalValueHolder) st.getStateValue().getSymbol().getVariableValueByName(var.getName()).getValueHolder();
 
 //                            //fix serialization =(
 //                            for(Object o: var.getPossibleValues()){
@@ -116,7 +119,7 @@ public class NusmvConverter {
                                 curValStates.add(st);
                             }
                         } else {
-                            if (st.getStateValue().getSymbol().getVariableValueByName(var.getName()).getValue().equals(var.getPossibleValues().get(i))) {
+                            if (st.getStateValue().getSymbol().getVariableValueByName(var.getName()).getValueHolder().equals(var.getPossibleValues().get(i))) {
                                 curValStates.add(st);
                             }
                         }
@@ -175,5 +178,37 @@ public class NusmvConverter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String convertBoolTransToNusmvRow(String stringFormula) {
+        String result = "";
+        stringFormula = stringFormula.replace(" ", "");
+        List<Character> controlSeq = new ArrayList<Character>(Arrays.asList(new Character[]{'(',')','&','|'}));
+        boolean negateNext = false;
+        boolean buildingVarName = false;
+        for (int i = 0; i < stringFormula.length(); i++){
+            Character c = stringFormula.charAt(i);
+            if (buildingVarName && (controlSeq.contains(c) || c.equals("~") )){
+                buildingVarName = false;
+                if (negateNext){
+                    result += " = 0 ";
+                } else{
+                    result += " = 1 ";
+                }
+            }
+            if (controlSeq.contains(c)){
+                result += c + " ";
+            } else if (c.equals('~')){
+                if (controlSeq.contains(stringFormula.charAt(i + 1))){
+                    result += "!";
+                } else{
+                    negateNext = true;
+                }
+            } else {
+                buildingVarName = true;
+                result += c;
+            }
+        }
+        return result;
     }
 }

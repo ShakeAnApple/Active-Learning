@@ -17,14 +17,14 @@ public class MatlabSimulationVariableData<VType extends AbstractValueHolder> {
         _values = new ArrayList<VType>();
 
         // first element added twice as in matlab default transition CONSUMES MODELLING TIME
-        _values.add(values.get(0).getValue());
+        _values.add(values.get(0).getValueHolder());
 
         if (!isEmptyWordSimulation) {
             for (VariableValue<VType> val : values) {
                 if (!varName.equals(val.getVarInfo().getName())) {
                     throw new IllegalArgumentException("all values should be of the same variable");
                 }
-                _values.add(val.getValue());
+                _values.add(val.getValueHolder());
             }
         }
 

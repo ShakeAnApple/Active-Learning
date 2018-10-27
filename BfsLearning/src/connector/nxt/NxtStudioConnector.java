@@ -89,7 +89,7 @@ public class NxtStudioConnector implements IConnector {
 //                        s.getSymbol().getVariablesValues()
 //                                .stream()
 //                                .sorted(Comparator.comparing(VariableValue::getOrder))
-//                                .map(v -> v.getValue().toString())
+//                                .map(v -> v.getValueHolder().toString())
 //                                .collect(Collectors.toList())
 //                                .toArray(new String[s.getSymbol().getVariablesValues().size()])
                 );
@@ -191,7 +191,7 @@ public class NxtStudioConnector implements IConnector {
         List<String> varValsString = varVals
                 .stream()
                 .sorted(Comparator.comparing(v -> v.getVarInfo().getOrder()))
-                .map(v -> v.getValue().toString())
+                .map(v -> v.getValueHolder().toString())
                 .collect(Collectors.toList());
 
         varValsString.add(0, String.valueOf(new BooleanValueHolder(isReset)));

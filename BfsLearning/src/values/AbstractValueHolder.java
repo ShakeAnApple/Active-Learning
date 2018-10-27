@@ -1,6 +1,8 @@
 package values;
 
-public abstract class AbstractValueHolder<VType>{
+import java.io.Serializable;
+
+public abstract class AbstractValueHolder<VType> implements Serializable {
 
     public abstract VType getValue();
 

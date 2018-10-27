@@ -11,12 +11,25 @@ public class Transition implements Serializable{
     private State _to;
     private Symbol _symbol;
     private int _repeatCount;
+    //TODO temps solution
+    private String _stringFormula;
 
     public Transition(State from, State to, Symbol symbol, int repeatCount) {
         _from = from;
         _to = to;
         _symbol = symbol;
         _repeatCount = repeatCount;
+    }
+
+    public Transition(State from, State to, String formula) {
+        _from = from;
+        _to = to;
+        _stringFormula = formula;
+        _repeatCount = 1;
+    }
+
+    public String getStringFormula(){
+        return _stringFormula;
     }
 
     public State getFrom(){

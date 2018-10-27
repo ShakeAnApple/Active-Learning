@@ -2,11 +2,12 @@ package values;
 
 import config.VariableInfoDefinition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public abstract class AbstractVariableInfo<VHolderType extends AbstractValueHolder> {
+public abstract class AbstractVariableInfo<VHolderType extends AbstractValueHolder>  implements Serializable {
     private String _name;
     protected List<VHolderType> _possibleValues;
     private int _order;

@@ -1,8 +1,10 @@
 import automaton.Automaton;
+import automaton.AutomatonOptimizer;
 import automaton.Transition;
 import config.*;
 import simulation.ISimulationService;
 import simulation.SimulationService;
+import utils.AlphabetBuilder;
 import utils.NusmvConverter;
 import utils.Utils;
 import values.Symbol;
@@ -38,7 +40,7 @@ public class Main {
         List<Symbol> inputAlphabet = alphabetBuilder.build(context.getInputVariablesInfos());
         List<Symbol> outputAlphabet = alphabetBuilder.build(context.getOutputVariablesInfos());
 
-//        ModelInfo modelInfo = new ModelInfo("C:\\Projects\\FCP\\active_learning\\cylinder_simulink", "Cylinder_simple");
+//        ModelInfo modelInfo = new ModelInfo("C:\\Projects\\FCP\\active_learning\\cylinder_simulin k", "Cylinder_simple");
 
 
         Automaton hypothesis = new Automaton(context.getInputVariablesInfos(), context.getOutputVariablesInfos());
@@ -46,7 +48,7 @@ public class Main {
         //IConnector connector = new NxtStudioConnector(64999, 64998);
 //        IConnector connector = new NxtStudioConnector(1010, 1011);
 
-        boolean needToLearn = true;
+        boolean needToLearn = false;
         if (needToLearn) {
             ISimulationService simulationService = new SimulationService(connector);
             LearningService ls = new LearningService(inputAlphabet, outputAlphabet, hypothesis, simulationService);
@@ -56,15 +58,17 @@ public class Main {
             }
 //            List<Transition> tr = hypothesis.getAllTransitions();
 //            Utils.serializeTransitions(tr, "C:\\tmp\\trans2");
-//            List<Transition> list = Utils.deserializeTransitions("C:\\tmp\\trans2");
+
 
             System.out.print("Total alg: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
             NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen_newref_refactor.smv");
         } else {
-            hypothesis.loadTransitions("C:\\tmp\\trans2");
+            hypothesis.loadTransitions("C:\\tmp\\trans3");
+            AutomatonOptimizer ao = new AutomatonOptimizer();
+            Automaton a = ao.reduceTransitions(hypothesis);
 
             try {
-                NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen.smv");
+                NusmvConverter.saveInNusmvFormat(a, "C:\\tmp\\m_gen.smv");
             } catch (Exception e) {
                 System.out.print(e.getMessage());
             }

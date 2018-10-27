@@ -28,7 +28,7 @@ public class VariableValue<VHolderType extends AbstractValueHolder> implements S
         _valueHolder = (VHolderType) _varInfo.tryParseValue(val);
     }
 
-    public VHolderType getValue(){
+    public VHolderType getValueHolder(){
         return _valueHolder;
     }
 
@@ -41,7 +41,7 @@ public class VariableValue<VHolderType extends AbstractValueHolder> implements S
     public boolean equals(Object obj) {
         VariableValue other = (VariableValue)obj;
 
-        if (_varInfo.getName() != other.getVarInfo().getName()){
+        if (!_varInfo.getName().equals(other.getVarInfo().getName())){
             return false;
         }
 
