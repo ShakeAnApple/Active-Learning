@@ -1,7 +1,9 @@
-package automaton;
+package automaton.optimization;
 
+import automaton.Automaton;
+import automaton.State;
+import automaton.Transition;
 import utils.AlphabetBuilder;
-import utils.SatRunner;
 import utils.Tuple;
 import values.AbstractVariableInfo;
 import values.Symbol;
@@ -119,9 +121,9 @@ public class AutomatonOptimizer {
 
             Files.write(path, cb.toString().getBytes());
 
-            SatRunner satRunner = new SatRunner(3,15);
+            BooleanFormulaResolver satBooleanFormulaResolver = new SatBooleanFormulaResolver(3,15);
             long start = System.currentTimeMillis();
-            String formula = satRunner.computeResult(path.toAbsolutePath().toString());
+            String formula = satBooleanFormulaResolver.resolve(path.toAbsolutePath().toString());
             System.out.println("State " + ctr + " optimization " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
             System.out.println("State " + ctr + " processed");
             ctr ++;

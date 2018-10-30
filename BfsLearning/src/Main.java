@@ -1,12 +1,10 @@
 import automaton.Automaton;
-import automaton.AutomatonOptimizer;
-import automaton.Transition;
+import automaton.optimization.AutomatonOptimizer;
 import config.*;
 import simulation.ISimulationService;
 import simulation.SimulationService;
 import utils.AlphabetBuilder;
 import utils.NusmvConverter;
-import utils.Utils;
 import values.Symbol;
 import connector.IConnector;
 //import connector.matlab.MatlabConnector;
