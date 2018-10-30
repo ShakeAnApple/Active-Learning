@@ -25,7 +25,7 @@
 //        return res;
 //    }
 //
-//    static void run(String configFile) throws Exception {
+//    static void computeResult(String configFile) throws Exception {
 //        Strategy strategy;
 //        Config.load(configFile);
 //        final Config config = Config.instance();

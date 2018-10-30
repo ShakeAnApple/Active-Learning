@@ -76,7 +76,7 @@ public class NusmvConverter {
 
                     //TODO tempSolution replace!!
                     if (tr.getStringFormula() != null){
-                        writer.append(convertBoolTransToNusmvRow(tr.getStringFormula()));
+                        writer.append(" & " + convertBoolTransToNusmvRow(tr.getStringFormula()));
                     } else {
                         for (VariableValue val : tr.getSymbol().getVariablesValues()) {
                             writer.append(String.format(" & (%1$s = %2$s)", val.getVarInfo().getName(), val.getValueHolder()));
@@ -207,6 +207,13 @@ public class NusmvConverter {
             } else {
                 buildingVarName = true;
                 result += c;
+            }
+        }
+        if (buildingVarName){
+            if (negateNext){
+                result += " = 0 ";
+            } else{
+                result += " = 1 ";
             }
         }
         return result;

@@ -1,6 +1,7 @@
 package automaton;
 
 import utils.AlphabetBuilder;
+import utils.SatRunner;
 import utils.Tuple;
 import values.AbstractVariableInfo;
 import values.Symbol;
@@ -11,8 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class AutomatonOptimizer {
@@ -49,10 +49,12 @@ public class AutomatonOptimizer {
 
         List<TransitionGroup> transitionGroups = groupTransitionsByEndStates(sourceAutomaton.getAllTransitions());
 
+        long start = System.currentTimeMillis();
         for (TransitionGroup transitionGroup: transitionGroups){
             Transition newTransition =  reduceTransitionsImpl(sourceAutomaton.getInputVariables(), transitionGroup);
             targetAutomaton.addTransition(newTransition);
         }
+        System.out.println("Total optimization: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
 
         return targetAutomaton;
     }
@@ -88,6 +90,7 @@ public class AutomatonOptimizer {
         1 1 0 -> 0
         1 1 1 -> 1
     */
+    private int ctr = 0;
     private Transition reduceTransitionsImpl(List<AbstractVariableInfo> inputVars, TransitionGroup transitionGroup) {
         try {
             Path p = Paths.get(Paths.get("").toAbsolutePath().toString(),"/tmp/input");
@@ -96,7 +99,7 @@ public class AutomatonOptimizer {
             }
             Path path = Files.createFile(p);
 
-            ConfigBuilder cb = new ConfigBuilder(inputVars.stream()
+            TruthTableBuilder cb = new TruthTableBuilder(inputVars.stream()
                     .sorted(Comparator.comparing(AbstractVariableInfo::getOrder))
                     .map(v -> v.getName())
                     .collect(Collectors.toList())
@@ -116,7 +119,12 @@ public class AutomatonOptimizer {
 
             Files.write(path, cb.toString().getBytes());
 
-            String formula = runSat(path.toAbsolutePath().toString());
+            SatRunner satRunner = new SatRunner(3,15);
+            long start = System.currentTimeMillis();
+            String formula = satRunner.computeResult(path.toAbsolutePath().toString());
+            System.out.println("State " + ctr + " optimization " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
+            System.out.println("State " + ctr + " processed");
+            ctr ++;
             Files.delete(path);
             return new Transition(transitionGroup.getFrom(), transitionGroup.getTo(), formula);
         } catch (IOException e) {
@@ -126,49 +134,6 @@ public class AutomatonOptimizer {
         return null;
     }
 
-    private String getInputAsString(InputStream is) throws IOException, InterruptedException {
-//        try(Scanner s = new Scanner(is))
-//        {
-//            return s.useDelimiter("\\A").hasNext() ? s.next() : "";
-//        }
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(is));
-        StringBuilder builder = new StringBuilder();
-        String line = null;
-        Thread.sleep(3000);
-        while ((line = reader.readLine()) != null) {
-            builder.append(line);
-            builder.append(System.getProperty("line.separator"));
-        }
-        //reader.close();
-        return builder.toString();
-    }
-
-    private int ctr = 0;
-    private String runSat(String truthTablePath) throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("tt2bf", "-i", truthTablePath, "--sat-solver", "C:\\soft\\cryptominisat\\cryptominisat5-win-amd64.exe");
-        Process process = processBuilder.start();
-        String stdOut = "";
-        try {
-
-            stdOut = getInputAsString(process.getInputStream());
-            String stdErr = getInputAsString(process.getErrorStream());
-            System.out.println(stdErr);
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            if (process.isAlive()) {
-                process.destroy();
-            }
-        }
-        Matcher m = Pattern.compile("Boolean formula: (.*)").matcher(stdOut);
-        m.find();
-        String formula = m.group(1);
-        System.out.println("State " + ctr + " processed" );
-        ctr ++;
-        return formula;
-    }
 
     private List<Symbol> generateSubtractionSymbolsSet(List<Symbol> symbols, List<AbstractVariableInfo> inputVars) {
         AlphabetBuilder ab = new AlphabetBuilder();
@@ -183,9 +148,9 @@ public class AutomatonOptimizer {
         return result;
     }
 
-    private class ConfigBuilder{
+    private class TruthTableBuilder {
         private StringBuilder _sb;
-        ConfigBuilder(List<String> variableNames) {
+        TruthTableBuilder(List<String> variableNames) {
             _sb = new StringBuilder();
             _sb.append(
                     Arrays.toString(variableNames.toArray())
@@ -210,4 +175,6 @@ public class AutomatonOptimizer {
             return _sb.toString();
         }
     }
+
+
 }

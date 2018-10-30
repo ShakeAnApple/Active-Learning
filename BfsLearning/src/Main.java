@@ -48,6 +48,9 @@ public class Main {
         //IConnector connector = new NxtStudioConnector(64999, 64998);
 //        IConnector connector = new NxtStudioConnector(1010, 1011);
 
+//        hypothesis.loadTransitions("C:\\tmp\\trans-reduced");
+//        NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m-gen-fixed.smv");
+
         boolean needToLearn = false;
         if (needToLearn) {
             ISimulationService simulationService = new SimulationService(connector);
@@ -68,7 +71,7 @@ public class Main {
             Automaton a = ao.reduceTransitions(hypothesis);
 
             try {
-                NusmvConverter.saveInNusmvFormat(a, "C:\\tmp\\m_gen.smv");
+                NusmvConverter.saveInNusmvFormat(a, "C:\\tmp\\m_gen-optimized-3.smv");
             } catch (Exception e) {
                 System.out.print(e.getMessage());
             }
