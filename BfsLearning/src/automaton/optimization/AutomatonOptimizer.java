@@ -5,6 +5,7 @@ import automaton.State;
 import automaton.Transition;
 import utils.AlphabetBuilder;
 import utils.Tuple;
+import utils.logging.Log;
 import values.AbstractVariableInfo;
 import values.Symbol;
 import values.VariableValue;
@@ -56,7 +57,7 @@ public class AutomatonOptimizer {
             Transition newTransition =  reduceTransitionsImpl(sourceAutomaton.getInputVariables(), transitionGroup);
             targetAutomaton.addTransition(newTransition);
         }
-        System.out.println("Total optimization: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
+        Log.msg("Total optimization: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
 
         return targetAutomaton;
     }
@@ -124,8 +125,8 @@ public class AutomatonOptimizer {
             BooleanFormulaResolver satBooleanFormulaResolver = new SatBooleanFormulaResolver(3,15);
             long start = System.currentTimeMillis();
             String formula = satBooleanFormulaResolver.resolve(path.toAbsolutePath().toString());
-            System.out.println("State " + ctr + " optimization " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
-            System.out.println("State " + ctr + " processed");
+            Log.msg("State " + ctr + " optimization " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
+            Log.msg("State " + ctr + " processed");
             ctr ++;
             Files.delete(path);
             return new Transition(transitionGroup.getFrom(), transitionGroup.getTo(), formula);

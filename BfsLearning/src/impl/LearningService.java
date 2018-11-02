@@ -91,7 +91,7 @@ public class LearningService {
     public void stepForward(){
         _roundCount++;
 
-        System.out.println("Round " + _roundCount + ":");
+        Log.msg("Round " + _roundCount + ":");
         long startAll = System.currentTimeMillis();
 
         // motorUp;motorDown;Door0;Door1;Door2
@@ -114,7 +114,7 @@ public class LearningService {
 
         long elapsedQueries = System.currentTimeMillis() - startQueries;
         System.out.print(elapsedQueries);
-        System.out.println();
+        Log.msg();
 
 //        for(ResponseQueryItem r: responseQueryItems){
 //            if (_hypothesis.getStartState() != null && r.getEndState().getStateValue().equals(_hypothesis.getStartState().getStateValue())){
@@ -124,7 +124,7 @@ public class LearningService {
 //
         addToTransitions(responseQueryItems, true);
 
-        System.out.println("Total: " + (System.currentTimeMillis() - startAll));
+        Log.msg("Total: " + (System.currentTimeMillis() - startAll));
     }
 
     public boolean isReady(){

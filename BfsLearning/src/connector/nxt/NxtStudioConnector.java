@@ -174,7 +174,7 @@ public class NxtStudioConnector implements IConnector {
 //            while (_serverOut.canRead()){
                 String responseString = _serverOut.readLine();
                 _serverOut.writeLine(responseString);
-//                System.out.println("write resp back");
+//                Log.msg("write resp back");
 //            }
 
             while (_serverIn.canRead()) {

@@ -49,7 +49,7 @@ public class Utils {
             out.writeObject(list);
             out.close();
             fileOut.close();
-            System.out.println("\nSerialization Successful... Checkout your specified output file..\n");
+            Log.msg("\nSerialization Successful... Checkout your specified output file..\n");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class Utils {
             return arr;
         }
         catch (Exception e) {
-            System.out.println(e);
+            Log.msg(e);
             return null;
         }
     }

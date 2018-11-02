@@ -5,6 +5,8 @@ import simulation.ISimulationService;
 import simulation.SimulationService;
 import utils.AlphabetBuilder;
 import utils.NusmvConverter;
+import utils.logging.ConsoleLogger;
+import utils.logging.Log;
 import values.Symbol;
 import connector.IConnector;
 //import connector.matlab.MatlabConnector;
@@ -21,6 +23,7 @@ public class Main {
         Config conf = ConfigReader.read(args[0]);
         ConfigParser parser = new ConfigParser(new VariableInfoFabric());
         AbstractContext context = parser.parse(conf);
+        Log.init(new ConsoleLogger());
 
         boolean isMatlabModel = context instanceof MatlabContext;
 

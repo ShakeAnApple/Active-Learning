@@ -53,8 +53,8 @@
 //                            startTime = System.nanoTime();
 //                        }
 //                        out.format("%.3f", (System.nanoTime() - startTime) / 1e9);
-////                        System.out.println("out: " + outputs);
-////                        System.out.println("in: " + inputs);
+////                        Log.msg("out: " + outputs);
+////                        Log.msg("in: " + inputs);
 //                        for (String input : inputs) {
 //                            out.print(" " + input);
 //                        }
