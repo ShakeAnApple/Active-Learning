@@ -44,14 +44,17 @@ public class SatBooleanFormulaResolver implements BooleanFormulaResolver {
 
     @Override
     public String resolve(String truthTablePath) {
-        ParallelTaskRunner<SatResult> taskRunner = new ParallelTaskRunner<>(30, TimeUnit.SECONDS);
+        ParallelTaskRunner<SatResult> taskRunner = new ParallelTaskRunner<>(7, TimeUnit.SECONDS);
         List<Callable<SatResult>> satTasks = createSatTasks(truthTablePath);
         for (Callable<SatResult> satTask : satTasks){
             taskRunner.addTask(satTask);
         }
         List<SatResult> results = taskRunner.getResults(true);
-        SatResult res = Collections.min(results);
-        return res.getFormula();
+        if (!results.isEmpty()){
+            SatResult res = Collections.min(results);
+            return res.getFormula();
+        }
+        return null;
     }
 
     private List<Callable<SatResult>> createSatTasks(String truthTablePath){

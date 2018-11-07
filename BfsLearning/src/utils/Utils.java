@@ -1,6 +1,7 @@
 package utils;
 
 import automaton.Transition;
+import utils.logging.Log;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class Utils {
             return arr;
         }
         catch (Exception e) {
-            Log.msg(e);
+            Log.msg(e.getMessage());
             return null;
         }
     }

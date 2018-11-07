@@ -14,12 +14,6 @@ public abstract class AbstractVariableInfo<VHolderType extends AbstractValueHold
 
     protected AbstractVariableInfo(){}
 
-    public AbstractVariableInfo(String name, int order, List<VHolderType> possibleValues, Supplier<VHolderType> supplier) {
-        _name = name;
-        _possibleValues = possibleValues;
-        _order = order;
-    }
-
     public AbstractVariableInfo(String name, int order, List<VHolderType> possibleValues) {
         _name = name;
         _possibleValues = possibleValues;

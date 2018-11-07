@@ -9,6 +9,7 @@ import simulation.ISimulationService;
 import simulation.StateHistoryItem;
 import simulation.VariableHistoryItem;
 import utils.Utils;
+import utils.logging.Log;
 import values.AbstractValueHolder;
 import values.IntervalValueHolder;
 import values.Symbol;
@@ -114,7 +115,7 @@ public class LearningService {
 
         long elapsedQueries = System.currentTimeMillis() - startQueries;
         System.out.print(elapsedQueries);
-        Log.msg();
+        Log.msg("");
 
 //        for(ResponseQueryItem r: responseQueryItems){
 //            if (_hypothesis.getStartState() != null && r.getEndState().getStateValue().equals(_hypothesis.getStartState().getStateValue())){

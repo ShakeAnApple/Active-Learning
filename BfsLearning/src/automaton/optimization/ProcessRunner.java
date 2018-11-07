@@ -10,16 +10,12 @@ public class ProcessRunner {
         private String _stdErr;
         private String _stdOut;
 
-        public StringProcessOutput(InputStream stdOut, InputStream stdErr) throws IOException{
+        public StringProcessOutput(InputStream stdOut, InputStream stdErr) throws IOException {
             _stdOut = getInputAsString(stdOut);
             _stdErr = getInputAsString(stdErr);
         }
 
-        private String getInputAsString(InputStream is) throws IOException{
-//        try(Scanner s = new Scanner(is))
-//        {
-//            return s.useDelimiter("\\A").hasNext() ? s.next() : "";
-//        }
+        private String getInputAsString(InputStream is) throws IOException {
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(is));
             StringBuilder builder = new StringBuilder();
@@ -40,7 +36,7 @@ public class ProcessRunner {
         }
     }
 
-    public StringProcessOutput run(String... command){
+    public StringProcessOutput run(String... command) {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         Process process = null;
         StringProcessOutput output = null;

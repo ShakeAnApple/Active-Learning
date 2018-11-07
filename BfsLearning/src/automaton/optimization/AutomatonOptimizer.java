@@ -125,6 +125,10 @@ public class AutomatonOptimizer {
             BooleanFormulaResolver satBooleanFormulaResolver = new SatBooleanFormulaResolver(3,15);
             long start = System.currentTimeMillis();
             String formula = satBooleanFormulaResolver.resolve(path.toAbsolutePath().toString());
+            if (formula == null){
+                BooleanFormulaResolver expressoResolver = new ExpressoBooleanFormulaResolver();
+                formula = expressoResolver.resolve(path.toAbsolutePath().toString());
+            }
             Log.msg("State " + ctr + " optimization " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
             Log.msg("State " + ctr + " processed");
             ctr ++;
