@@ -1,5 +1,7 @@
 package automaton.optimization;
 
+import org.apache.commons.exec.CommandLine;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SatBooleanFormulaResolver implements BooleanFormulaResolver {
-    private static final String SATSOLVER_PATH = "C:\\soft\\cryptominisat\\cryptominisat5-win-amd64.exe";
+//    private static final String SATSOLVER_PATH = "C:\\soft\\cryptominisat\\cryptominisat5-win-amd64.exe";
+    private static final String SATSOLVER_PATH = "cryptominisat5";
     private final String TT2BF_PATH = "tt2bf";
 
     private class SatResult implements Comparable<SatResult>{
@@ -44,12 +47,13 @@ public class SatBooleanFormulaResolver implements BooleanFormulaResolver {
 
     @Override
     public String resolve(String truthTablePath) {
-        ParallelTaskRunner<SatResult> taskRunner = new ParallelTaskRunner<>(7, TimeUnit.SECONDS);
+        ParallelTaskRunner<SatResult> taskRunner = new ParallelTaskRunner<>();
         List<Callable<SatResult>> satTasks = createSatTasks(truthTablePath);
         for (Callable<SatResult> satTask : satTasks){
             taskRunner.addTask(satTask);
         }
         List<SatResult> results = taskRunner.getResults(true);
+        taskRunner.close();
         if (!results.isEmpty()){
             SatResult res = Collections.min(results);
             return res.getFormula();
@@ -67,45 +71,20 @@ public class SatBooleanFormulaResolver implements BooleanFormulaResolver {
     }
 
     private SatResult runSatWithParameter(String truthTablePath, String p){
-        ProcessRunner runner = new ProcessRunner();
-        ProcessRunner.StringProcessOutput output = runner.run(TT2BF_PATH, "-i", truthTablePath, "-Pmin", p,
-                "-Pmax", p, "--sat-solver", SATSOLVER_PATH);
+        ProcessRunner runner = new ProcessRunner(7000);
 
-        Matcher m = Pattern.compile("Boolean formula: (.*)").matcher(output.getStdOut());
+        CommandLine cl = new CommandLine(TT2BF_PATH)
+                .addArgument("-i").addArgument(truthTablePath)
+                .addArgument("-Pmin").addArgument(p)
+                .addArgument("-Pmax").addArgument(p)
+                .addArgument("--sat-solver").addArgument(SATSOLVER_PATH);
+        String output = runner.run(cl);
+
+        Matcher m = Pattern.compile("Boolean formula: (.*)").matcher(output);
         if (m.find()){
             String formula = m.group(1);
             return new SatResult(formula, Integer.valueOf(p));
         }
         return null;
     }
-
-//    private <T> T taskRunner(Callable<T> action){
-//        ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-//        List<Future<SatResult>> results = new ArrayList<>();
-//        for (int i = _pmax; i >= _pmin; i--) {
-//            final String p = String.valueOf(i);
-//            results.add(pool.submit(() -> {
-//                SatResult res = runSatWithParameter(truthTablePath, p);
-//                if (res != null){
-//                    return res;
-//                }
-//                pool.shutdown();
-//                return null;
-//            }));
-//        }
-//        SatResult res = null;
-//        for (Future<SatResult> future: results)
-//            try {
-//                SatResult tmpRes = future.get();
-//                if (res == null) {
-//                    res = tmpRes;
-//                } else if (tmpRes != null && tmpRes.getP() < res.getP()) {
-//                    res = tmpRes;
-//                }
-//            } catch (InterruptedException | ExecutionException ignored) {
-//            }
-//
-//        return res.getFormula();
-
-//    }
 }

@@ -6,6 +6,7 @@ import simulation.SimulationService;
 import utils.AlphabetBuilder;
 import utils.NusmvConverter;
 import utils.logging.ConsoleLogger;
+import utils.logging.FileLogger;
 import utils.logging.Log;
 import values.Symbol;
 import connector.IConnector;
@@ -13,6 +14,7 @@ import connector.IConnector;
 import connector.nxt.NxtStudioConnector;
 import impl.LearningService;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +25,11 @@ public class Main {
         Config conf = ConfigReader.read(args[0]);
         ConfigParser parser = new ConfigParser(new VariableInfoFabric());
         AbstractContext context = parser.parse(conf);
-        Log.init(new ConsoleLogger());
+        try {
+            Log.init(new FileLogger("/home/tmp/log"));
+        } catch (FileNotFoundException e) {
+            Log.init(new ConsoleLogger());
+        }
 
         boolean isMatlabModel = context instanceof MatlabContext;
 
@@ -65,14 +71,17 @@ public class Main {
 
 
             System.out.print("Total alg: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
-            NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen_newref_refactor.smv");
+            NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen-tmp-1.smv");
         } else {
             hypothesis.loadTransitions("C:\\tmp\\trans3");
-            AutomatonOptimizer ao = new AutomatonOptimizer();
-            Automaton a = ao.reduceTransitions(hypothesis);
+            //hypothesis.loadTransitions("/home/eskimos/tmp/trans4");
+            //AutomatonOptimizer ao = new AutomatonOptimizer();
+            //Automaton a = ao.reduceTransitions(hypothesis);
 
             try {
-                NusmvConverter.saveInNusmvFormat(a, "C:\\tmp\\m_gen-optimized-3.smv");
+                //NusmvConverter.saveInNusmvFormat(a, "/home/eskimos/tmp/m_gen-optimized-4.smv");
+//                NusmvConverter.saveInNusmvFormat(hypothesis, "/home/eskimos/tmp/m_gen-not-optimized-noltl.smv");
+                NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen-not-optimized-noltl.smv");
             } catch (Exception e) {
                 System.out.print(e.getMessage());
             }

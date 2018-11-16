@@ -88,7 +88,8 @@ public class SimulationService implements ISimulationService {
 
         List<StateHistoryItem> history = new ArrayList<>();
 
-        List<VariableHistoryItem> variableHistoryItems = extractVariableHistoryItems(response.getStartState());
+        State startState = response.getStartState();
+        List<VariableHistoryItem> variableHistoryItems = extractVariableHistoryItems(startState);
         StateHistoryItem prevStateHistoryItem = new StateHistoryItem(variableHistoryItems, 1);
 
         history.add(prevStateHistoryItem);
@@ -123,7 +124,8 @@ public class SimulationService implements ISimulationService {
             curStateHistoryItem = new StateHistoryItem(newVariableHistoryItems, ctr + 2);
         }while (!prevStateHistoryItem.areStateContinuousVarsDifferent(curStateHistoryItem));
 
-        return response;
+        return new ResponseQueryItem(startState, response.getEndState(), response.getSequence());
+        //return response;
     }
 
     @Override
@@ -156,7 +158,7 @@ public class SimulationService implements ISimulationService {
                     .getSymbol()
                     .getVariableValueByName(varName).getValueHolder();
 
-            if (prevVal.equals(curVal) && !prevVal.getConcreteValue().equals(curVal.getConcreteValue())){
+            if (prevVal.getCurrentInterval().equals(curVal.getCurrentInterval()) && !prevVal.getConcreteValue().equals(curVal.getConcreteValue())){
                 return true;
             }
         }

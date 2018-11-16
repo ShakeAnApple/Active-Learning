@@ -6,6 +6,7 @@ import utils.logging.Log;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -71,5 +72,11 @@ public class Utils {
             Log.msg(e.getMessage());
             return null;
         }
+    }
+
+    public static long measureTime(Runnable action){
+        long start = System.currentTimeMillis();
+        action.run();
+        return System.currentTimeMillis() - start;
     }
 }

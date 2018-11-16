@@ -1,5 +1,7 @@
 package utils.logging;
 
+import java.io.IOException;
+
 public class Log {
     private static Logger _logger = new NullLogger();
 
@@ -9,7 +11,11 @@ public class Log {
         _logger = logger;
     }
 
-    public static void msg(String str){
-        _logger.writeln(str);
+    public static void msg(String str) {
+        try {
+            _logger.writeln(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

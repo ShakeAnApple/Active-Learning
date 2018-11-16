@@ -3,8 +3,10 @@ package automaton.optimization;
 import automaton.Automaton;
 import automaton.State;
 import automaton.Transition;
+import automaton.transitionFormula.TransitionFormula;
 import utils.AlphabetBuilder;
 import utils.Tuple;
+import utils.Utils;
 import utils.logging.Log;
 import values.AbstractVariableInfo;
 import values.Symbol;
@@ -16,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class AutomatonOptimizer {
@@ -53,6 +56,13 @@ public class AutomatonOptimizer {
         List<TransitionGroup> transitionGroups = groupTransitionsByEndStates(sourceAutomaton.getAllTransitions());
 
         long start = System.currentTimeMillis();
+
+//        List<TransitionGroup> debugGroups = transitionGroups.stream()
+//                .filter(g -> g.getFrom().toString().equals("[requestFloor2: 0, requestFloor1: 0, door2Closed: 1, door1Closed: 1, pos: 30.0, requestFloor0: 0, elevatorAtFloor0: 0, elevatorAtFloor2: 1, elevatorAtFloor1: 0, door0Closed: 1]"))
+//                .filter(g -> g.getTo().toString().equals("[requestFloor2: 0, requestFloor1: 0, door2Closed: 1, door1Closed: 1, pos: 31.0, requestFloor0: 0, elevatorAtFloor0: 0, elevatorAtFloor2: 0, elevatorAtFloor1: 0, door0Closed: 1]"))
+//                .collect(Collectors.toList());
+//        Transition tr = reduceTransitionsImpl(sourceAutomaton.getInputVariables(), debugGroups.get(0));
+
         for (TransitionGroup transitionGroup: transitionGroups){
             Transition newTransition =  reduceTransitionsImpl(sourceAutomaton.getInputVariables(), transitionGroup);
             targetAutomaton.addTransition(newTransition);
@@ -104,7 +114,7 @@ public class AutomatonOptimizer {
 
             TruthTableBuilder cb = new TruthTableBuilder(inputVars.stream()
                     .sorted(Comparator.comparing(AbstractVariableInfo::getOrder))
-                    .map(v -> v.getName())
+                    .map(AbstractVariableInfo::getName)
                     .collect(Collectors.toList())
             );
             for (Transition tr: transitionGroup.getTransitions()){
@@ -114,7 +124,7 @@ public class AutomatonOptimizer {
             List<Symbol> subtractionSymbolsSet = generateSubtractionSymbolsSet(
                     transitionGroup.getTransitions()
                     .stream()
-                    .map(t -> t.getSymbol()).collect(Collectors.toList())
+                    .map(Transition::getSymbol).collect(Collectors.toList())
                     , inputVars);
             for (Symbol s: subtractionSymbolsSet){
                 cb.appendRow(s, false);
@@ -122,18 +132,17 @@ public class AutomatonOptimizer {
 
             Files.write(path, cb.toString().getBytes());
 
-            BooleanFormulaResolver satBooleanFormulaResolver = new SatBooleanFormulaResolver(3,15);
-            long start = System.currentTimeMillis();
-            String formula = satBooleanFormulaResolver.resolve(path.toAbsolutePath().toString());
-            if (formula == null){
-                BooleanFormulaResolver expressoResolver = new ExpressoBooleanFormulaResolver();
-                formula = expressoResolver.resolve(path.toAbsolutePath().toString());
-            }
-            Log.msg("State " + ctr + " optimization " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
-            Log.msg("State " + ctr + " processed");
+            AtomicReference<String> formula = new AtomicReference<>();
+            BooleanFormulaResolver expressoResolver = new ExpressoBooleanFormulaResolver();
+            long esperssoTime = Utils.measureTime(() ->{
+                formula.set(expressoResolver.resolve(path.toAbsolutePath().toString()));
+            });
+
+            Log.msg("State " + ctr + ": Espresso optimization: " + esperssoTime);
+
             ctr ++;
             Files.delete(path);
-            return new Transition(transitionGroup.getFrom(), transitionGroup.getTo(), formula);
+            return new Transition(transitionGroup.getFrom(), transitionGroup.getTo(), TransitionFormula.parse(formula.get()));
         } catch (IOException e) {
             e.printStackTrace();
         }

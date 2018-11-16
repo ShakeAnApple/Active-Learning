@@ -13,8 +13,7 @@ public class ParallelTaskRunner <TResult> {
     private TimeUnit _timeUnit;
 
     public ParallelTaskRunner() {
-        _pool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-        _pool.setKeepAliveTime(30, TimeUnit.SECONDS);
+        _pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(4);
         _futures = new ArrayList<>();
     }
 
@@ -36,16 +35,6 @@ public class ParallelTaskRunner <TResult> {
         }
     }
 
-    public void addTask(Callable<TResult> task, long timeout, TimeUnit timeUnit){
-        if (_canceller == null){
-            _canceller = Executors.newSingleThreadScheduledExecutor();
-        }
-
-        final Future<TResult> future = _pool.submit(task);
-        _canceller.schedule(() ->
-                future.cancel(true), timeout, timeUnit);
-    }
-
     public List<TResult> getResults(boolean ignoreExceptions){
         List<TResult> results = new ArrayList<>();
         for (Future<TResult> future: _futures)
@@ -60,5 +49,9 @@ public class ParallelTaskRunner <TResult> {
                 }
             }
         return results;
+    }
+
+    public void close(){
+        _pool.shutdownNow();
     }
 }

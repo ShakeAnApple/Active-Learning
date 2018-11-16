@@ -1,6 +1,7 @@
 package automaton;
 
 
+import automaton.transitionFormula.TransitionFormula;
 import values.Symbol;
 
 import java.io.Serializable;
@@ -11,8 +12,9 @@ public class Transition implements Serializable{
     private State _to;
     private Symbol _symbol;
     private int _repeatCount;
-    //TODO temps solution
+    //TODO temp solution
     private String _stringFormula;
+    private TransitionFormula _transitionFormula;
 
     public Transition(State from, State to, Symbol symbol, int repeatCount) {
         _from = from;
@@ -26,6 +28,17 @@ public class Transition implements Serializable{
         _to = to;
         _stringFormula = formula;
         _repeatCount = 1;
+    }
+
+    public Transition(State from, State to, TransitionFormula formula) {
+        _from = from;
+        _to = to;
+        _transitionFormula = formula;
+        _repeatCount = 1;
+    }
+
+    public TransitionFormula getTransitionFormula() {
+        return _transitionFormula;
     }
 
     public String getStringFormula(){
@@ -65,5 +78,9 @@ public class Transition implements Serializable{
     @Override
     public int hashCode() {
         return this.toString().hashCode();
+    }
+
+    public String toNusmvString() {
+        return _transitionFormula.toString();
     }
 }
