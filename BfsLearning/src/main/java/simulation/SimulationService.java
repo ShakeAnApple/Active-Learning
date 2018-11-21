@@ -97,12 +97,13 @@ public class SimulationService implements ISimulationService {
         int ctr;
         for(ctr = 0; ctr < 10; ctr ++ ){
             response.getSequence()[response.getSequence().length - 1].incrementRepeatCount();
-            response = _connector.sendQuery(new RequestQueryItem(response.getId(), response.getEndState(), response.getSequence()));
+            ResponseQueryItem newResponse = _connector.sendQuery(new RequestQueryItem(response.getId(), response.getEndState(), response.getSequence()));
+            response = new ResponseQueryItem(startState, newResponse.getEndState(), newResponse.getSequence());
 
             List<VariableHistoryItem> newVariableHistoryItems = extractVariableHistoryItems(response.getEndState());
             curStateHistoryItem = new StateHistoryItem(newVariableHistoryItems, ctr + 2);
 
-            if (prevStateHistoryItem.areStateContinuousVarsDifferent(curStateHistoryItem)){
+            if (prevStateHistoryItem.anyContinuousVarChangedInterval(curStateHistoryItem)){
                 return response;
             } else{
                 prevStateHistoryItem = curStateHistoryItem;
@@ -122,7 +123,7 @@ public class SimulationService implements ISimulationService {
 
             List<VariableHistoryItem> newVariableHistoryItems = extractVariableHistoryItems(response.getEndState());
             curStateHistoryItem = new StateHistoryItem(newVariableHistoryItems, ctr + 2);
-        }while (!prevStateHistoryItem.areStateContinuousVarsDifferent(curStateHistoryItem));
+        }while (!prevStateHistoryItem.anyContinuousVarChangedInterval(curStateHistoryItem));
 
         return new ResponseQueryItem(startState, response.getEndState(), response.getSequence());
         //return response;

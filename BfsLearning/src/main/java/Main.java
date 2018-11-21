@@ -58,7 +58,7 @@ public class Main {
 //        hypothesis.loadTransitions("C:\\tmp\\trans-reduced");
 //        NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m-gen-fixed.smv");
 
-        boolean needToLearn = false;
+        boolean needToLearn = true;
         if (needToLearn) {
             ISimulationService simulationService = new SimulationService(connector);
             LearningService ls = new LearningService(inputAlphabet, outputAlphabet, hypothesis, simulationService);
@@ -71,7 +71,7 @@ public class Main {
 
 
             System.out.print("Total alg: " + (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)));
-            NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen-tmp-1.smv");
+            NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m_gen-pnp-2.smv");
         } else {
             hypothesis.loadTransitions("C:\\tmp\\trans3");
             //hypothesis.loadTransitions("/home/eskimos/tmp/trans4");

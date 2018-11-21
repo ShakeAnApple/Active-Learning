@@ -21,7 +21,7 @@ public class StateHistoryItem {
         return _iterationsCount;
     }
 
-    public boolean areStateContinuousVarsDifferent(StateHistoryItem otherState){
+    public boolean anyContinuousVarChangedInterval(StateHistoryItem otherState){
         List<VariableHistoryItem> otherVars = otherState.getVariableHistoryItems();
 
         for (int i = 0; i < otherVars.size(); i++){

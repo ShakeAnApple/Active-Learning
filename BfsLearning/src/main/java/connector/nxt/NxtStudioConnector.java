@@ -203,8 +203,8 @@ public class NxtStudioConnector implements IConnector {
 
     @Override
     public State getDefault(RequestQueryItem req) {
-       // return new State(new StateValue(parseResponse("0;1;0;1;0;1;0;0;0;0;")),true);
-        return new State(new StateValue(parseResponse("0;0;0;0;0;1;1;1;1;30;")),true);
+        return new State(new StateValue(parseResponse("0;1;0;1;0;1;0;0;0;0;")),true);
+       // return new State(new StateValue(parseResponse("0;0;0;0;0;1;1;1;1;30;")),true);
     }
 
     public void close(){
