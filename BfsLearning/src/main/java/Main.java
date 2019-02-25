@@ -58,7 +58,7 @@ public class Main {
 //        hypothesis.loadTransitions("C:\\tmp\\trans-reduced");
 //        NusmvConverter.saveInNusmvFormat(hypothesis, "C:\\tmp\\m-gen-fixed.smv");
 
-        boolean needToLearn = true;
+        boolean needToLearn = false;
         if (needToLearn) {
             ISimulationService simulationService = new SimulationService(connector);
             LearningService ls = new LearningService(inputAlphabet, outputAlphabet, hypothesis, simulationService);
